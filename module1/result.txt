@@ -1,0 +1,12 @@
+Test for 10000 collection volume (nanoTime):
+|Class       |add     |get     |remove  |contains  |populate    |iterator.add  |iterator.remove |
+|ArrayList   |25 596  |3 567   |11 160  |207 995   |910 985     |2 069 966     |676             |
+|LinkedList  |47 222  |16 553  |16 669  |138 612   |10 548 193  |6 981         |607             |
+|HashSet     |59 494  |441     |32 243  |10 595    |1 580 693   |590           |817             |
+|TreeSet     |1 801   |2 019   |10 586  |1 369     |1 718 304   |265           |167             |
+Test for 100000 collection volume (nanoTime):
+|Class       |add     |get     |remove  |contains  |populate    |iterator.add  |iterator.remove |
+|ArrayList   |54 468  |1 728   |61 846  |268 305   |63 841 716  |22 240 726    |197             |
+|LinkedList  |342 034 |309 744 |289 837 |622 247   |169 266 337 |1 805         |154             |
+|HashSet     |2 237   |111     |9 915   |27 623    |90 794 376  |175           |650             |
+|TreeSet     |2 122   |180     |5 402   |1 767     |18 676 593  |171           |154             |

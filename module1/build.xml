@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<project name = "module1" basedir=".">
+    <property name="source.dir" value="src/main/java/com/goit/ee/module1"/>
+    <property name="class.dir" value="target/classes"/>
+    <property name="jar.dir" value="target"/>
+    <property name="main-class" value="com.goit.ee.module1.Solution"/>
+    <target name="clean" description="Deleting old files">
+        <delete dir="${class.dir}" />
+        <delete dir="${jar.dir}" />
+    </target>
+    <target name="compile" depends="clean" description="build class files">
+        <mkdir dir="${class.dir}" />
+        <javac srcdir="${source.dir}" destdir="${class.dir}">
+        </javac>
+    </target>
+    <target name="jar" depends="compile" description="creating jar">
+        <mkdir dir="${jar.dir}" />
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${class.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+    </target>
+</project>
