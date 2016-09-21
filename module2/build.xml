@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<project name = "module2" basedir=".">
+    <property name="source.dir" value="src/main/java/com/goit/ee/module2"/>
+    <property name="class.dir" value="target/classes"/>
+    <property name="jar.dir" value="target"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="test.src.dir" value="src/test/java/com/goit/ee/module2"/>
+    <property name="test.build.dir" value="target/test-classes"/>
+    <path id="classpath.test">
+        <pathelement location="src/test/resources/lib/junit-4.12.jar"/>
+        <pathelement location="src/test/resources/lib/hamcrest-core-1.3.jar"/>
+        <pathelement location="${test.build.dir}"/>
+        <pathelement location="${class.dir}"/>
+
+    </path>
+
+    <target name="clean" description="Deleting old files">
+        <delete dir="${class.dir}" />
+        <delete dir="${jar.dir}" />
+    </target>
+    <target name="compile" depends="clean" description="build class files">
+        <mkdir dir="${class.dir}" />
+        <javac srcdir="${source.dir}" destdir="${class.dir}">
+        </javac>
+    </target>
+    <target name="test-compile" depends="compile">
+        <mkdir dir="${test.build.dir}" />
+        <javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false">
+                <classpath refid="classpath.test"/>
+        </javac>
+    </target>
+    <target name = "test" depends = "test-compile">
+        <junit>
+            <classpath refid = "classpath.test" />
+            <formatter type = "brief" usefile = "false" />
+            <test name = "com.goit.ee.module2.ExecutorImplTest" />
+        </junit>
+    </target>
+</project>
