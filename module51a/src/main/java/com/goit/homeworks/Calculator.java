@@ -12,6 +12,11 @@ import java.util.regex.Pattern;
 public class Calculator {
     private OperationFactory factory;
     private List<String> arguments = new ArrayList<>();
+
+    public OperationFactory getFactory() {
+        return factory;
+    }
+
     private Type type;
 
     public Calculator(OperationFactory factory, Type type) {
