@@ -16,7 +16,7 @@ import java.util.Objects;
 public class CalculatorSpringTest {
     public static void main(String[] args) throws IOException, WrongArgumentNumberException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml aop-context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml", "aop-context.xml");
         Calculator calculator = (Calculator) context.getBean("calculator");
         List operations = (List) context.getBean("newoperations");
         for (Object operation :

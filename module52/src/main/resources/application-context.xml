@@ -2,5 +2,45 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="factory" class="com.goit.homeworks.IntegerOperationFactory"/>
+
+    <bean id="type" class="com.goit.homeworks.Type">
+        <constructor-arg index="0" value="Integer"/>
+        <constructor-arg index="1" value="(\d+)"/>
+    </bean>
+    <bean id ="calculator" class="com.goit.homeworks.Calculator" >
+        <constructor-arg index="0" ref="factory"/>
+        <constructor-arg index="1" ref="type"/>
+    </bean>
+    <bean id="div" class="com.goit.homeworks.EvalDiv"/>
+    <bean id="mult" class="com.goit.homeworks.EvalMultiplate"/>
+    <bean id="sqrt" class="com.goit.homeworks.EvalSqrt"/>
+    <bean id="operMult" class="com.goit.homeworks.Operation">
+        <constructor-arg index="0" value="*"/>
+        <constructor-arg index="1" ref="type"/>
+        <constructor-arg index="2" value="1"/>
+        <constructor-arg index="3" ref="mult"/>
+    </bean>
+    <bean id="operDiv" class="com.goit.homeworks.Operation">
+        <constructor-arg index="0" value="/"/>
+        <constructor-arg index="1" ref="type"/>
+        <constructor-arg index="2" value="1"/>
+        <constructor-arg index="3" ref="div"/>
+    </bean>
+    <bean id="operSqrt" class="com.goit.homeworks.Operation">
+        <constructor-arg index="0" value="sqrt"/>
+        <constructor-arg index="1" ref="type"/>
+        <constructor-arg index="2" value="1"/>
+        <constructor-arg index="3" ref="sqrt"/>
+    </bean>
+    <bean id="newoperations" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="operMult" />
+                <ref bean="operDiv" />
+                <ref bean="operSqrt" />
+            </list>
+        </constructor-arg>
+    </bean>
 
 </beans>
