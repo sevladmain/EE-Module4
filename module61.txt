@@ -1,0 +1,110 @@
+ƒомашнее задание 6.1
+View Grade Information. Opens a dialogue
+Ќа основе имеющейс€ модели ресторана (см. диаграмму) создать базу данных и наполнить ее данными
+ѕредоставить набор SQL запростов которые создадут базу и наполн€т ее данными.
+¬се таблицы базы должны соотвествовать 3-ей нормальной форме
+
+ќписание модели ресторана:
+—отрудник: сотрудник ресторана (официант, повар, менеджер и т.п.) придумайте несколько возможных должностей сотрудников
+«аказ: заказ, сделанный посетителем (посетител€ми), содержит:
+  - уникального номера заказа
+  - официанта прин€вшего заказ
+  - список блюд, заказанных посетителем (посетител€ми)
+  - номер столика
+  - дата, когда был прин€т заказ  
+Ѕлюдо: ќписание блюда, которое может быть приготовлено
+ћеню: —писок блюд, которые можно заказать
+»нгредиент: ингредиент дл€ готовки блюд
+—клад: содержит информацию о том, какие ингредиенты и в каком количестве содержатс€ на складе
+ѕриготовленные Ѕлюда: истори€ приготовленных блюд состоит из:
+  -”никального номера приготовленного блюда
+  -блюда
+  -повара, который приготовил блюдо
+  -заказа, в рамках которого блюдо было приготовлено
+  -даты, когда блюдо было приготовлено
+
+-----------------------------------------
+CREATE TABLE "EMPLOYEE"
+(
+  "ID" integer NOT NULL,
+  "FIRST_NAME" character(100) NOT NULL,
+  "LAST_NAME" character(100) NOT NULL,
+  "DATE_BIRTH" date NOT NULL,
+  "ID_POSITION" integer NOT NULL,
+  "SALARY" integer,
+  CONSTRAINT "PK$EMPLOYEE" PRIMARY KEY ("ID"),
+  CONSTRAINT "FK$POSTITON" FOREIGN KEY ("ID")
+      REFERENCES "POSITIONS" ("ID") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+CREATE TABLE "POSITIONS"
+(
+  "ID" integer NOT NULL,
+  "POSITION" character(50),
+  CONSTRAINT "PK$POSITION" PRIMARY KEY ("ID")
+)
+CREATE TABLE "CATEGORY"
+(
+  "ID" integer NOT NULL,
+  "NAME" character(50) NOT NULL,
+  CONSTRAINT "PK$CATEGORY" PRIMARY KEY ("ID")
+)
+CREATE TABLE "DISHES"
+(
+  "ID" integer NOT NULL,
+  "ID_CATEGORY" integer NOT NULL,
+  "ID_INGREDIENT_LIST" integer NOT NULL,
+  "PRICE" integer,
+  "WEIGHT" integer,
+  CONSTRAINT "PK$DISHES" PRIMARY KEY ("ID")
+)
+CREATE TABLE "INGREDIENTLIST"
+(
+  "ID_INGREDIENT" integer NOT NULL,
+  "ID_DISH" integer NOT NULL
+)
+CREATE TABLE "MENU"
+(
+  "ID" integer NOT NULL,
+  "NAME" character(50) NOT NULL,
+  CONSTRAINT "PK$MENU" PRIMARY KEY ("ID")
+)
+CREATE TABLE "MENULIST"
+(
+  "ID_MENU" integer NOT NULL,
+  "ID_DISH" integer NOT NULL
+)
+CREATE TABLE "ORDERS"
+(
+  "ID" integer NOT NULL,
+  "ID_EMP" integer NOT NULL,
+  "ID_ORDER_DISHES" integer NOT NULL,
+  "TABLE_NUM" integer NOT NULL,
+  "DATE" date NOT NULL,
+  CONSTRAINT "PK$ORDERS" PRIMARY KEY ("ID")
+)
+CREATE TABLE "ORDER_DISHES"
+(
+  "ID" integer NOT NULL,
+  "ID_DISH" integer NOT NULL
+)
+CREATE TABLE "PREPARED_DISH"
+(
+  "ID" integer NOT NULL,
+  "ID_EMP" integer NOT NULL,
+  "ID_ORDER" integer NOT NULL,
+  "DATE" date NOT NULL,
+  CONSTRAINT "PK$PREPARED_DISH" PRIMARY KEY ("ID"),
+  CONSTRAINT "FK$EMPLOYEE" FOREIGN KEY ("ID_EMP")
+      REFERENCES "EMPLOYEE" ("ID") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "FK$ORDERS" FOREIGN KEY ("ID_ORDER")
+      REFERENCES "ORDERS" ("ID") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+CREATE TABLE "WAREHOUSE"
+(
+  "ID_INGREDIENT" integer NOT NULL,
+  "AMOUNT" integer
+)
