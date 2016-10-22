@@ -1,4 +1,4 @@
-package com.goit.homeworks.core;
+package com.goit.homeworks.restaurant.core;
 
 import java.util.List;
 

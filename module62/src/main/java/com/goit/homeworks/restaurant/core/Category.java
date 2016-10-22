@@ -1,18 +1,18 @@
-package com.goit.homeworks.core;
+package com.goit.homeworks.restaurant.core;
 
 /**
  * Created by SeVlad on 22.10.2016.
  */
-public class Ingredient {
+public class Category {
     private int id;
     private String name;
 
-    public Ingredient(int id, String name) {
+    public Category(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Ingredient(String name) {
+    public Category(String name) {
         this.name = name;
     }
 
