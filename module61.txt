@@ -1,63 +1,63 @@
-Домашнее задание 6.1
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 6.1
 View Grade Information. Opens a dialogue
-На основе имеющейся модели ресторана (см. диаграмму) создать базу данных и наполнить ее данными
-Предоставить набор SQL запростов которые создадут базу и наполнят ее данными.
-Все таблицы базы должны соотвествовать 3-ей нормальной форме
+пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ) пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ SQL пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 3-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
-Описание модели ресторана:
-Сотрудник: сотрудник ресторана (официант, повар, менеджер и т.п.) придумайте несколько возможных должностей сотрудников
-Заказ: заказ, сделанный посетителем (посетителями), содержит:
-  - уникального номера заказа
-  - официанта принявшего заказ
-  - список блюд, заказанных посетителем (посетителями)
-  - номер столика
-  - дата, когда был принят заказ  
-Блюдо: Описание блюда, которое может быть приготовлено
-Меню: Список блюд, которые можно заказать
-Ингредиент: ингредиент для готовки блюд
-Склад: содержит информацию о том, какие ингредиенты и в каком количестве содержатся на складе
-Приготовленные Блюда: история приготовленных блюд состоит из:
-  -Уникального номера приготовленного блюда
-  -блюда
-  -повара, который приготовил блюдо
-  -заказа, в рамках которого блюдо было приготовлено
-  -даты, когда блюдо было приготовлено
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅ.пїЅ.) пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ), пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
+  - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+  - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+  - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+  - пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+  - пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ  
+пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+пїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ:
+  -пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+  -пїЅпїЅпїЅпїЅпїЅ
+  -пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+  -пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+  -пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 -----------------------------------------
 CREATE TABLE "EMPLOYEE"
 (
-  "ID" integer NOT NULL,
+  "id" integer NOT NULL,
   "FIRST_NAME" character(100) NOT NULL,
   "LAST_NAME" character(100) NOT NULL,
   "DATE_BIRTH" date NOT NULL,
   "ID_POSITION" integer NOT NULL,
   "SALARY" integer,
-  CONSTRAINT "PK$EMPLOYEE" PRIMARY KEY ("ID"),
-  CONSTRAINT "FK$POSTITON" FOREIGN KEY ("ID")
-      REFERENCES "POSITIONS" ("ID") MATCH SIMPLE
+  CONSTRAINT "PK$EMPLOYEE" PRIMARY KEY ("id"),
+  CONSTRAINT "FK$POSTITON" FOREIGN KEY ("id")
+      REFERENCES "POSITIONS" ("id") MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 
 CREATE TABLE "POSITIONS"
 (
-  "ID" integer NOT NULL,
+  "id" integer NOT NULL,
   "POSITION" character(50),
-  CONSTRAINT "PK$POSITION" PRIMARY KEY ("ID")
+  CONSTRAINT "PK$POSITION" PRIMARY KEY ("id")
 )
 CREATE TABLE "CATEGORY"
 (
-  "ID" integer NOT NULL,
+  "id" integer NOT NULL,
   "NAME" character(50) NOT NULL,
-  CONSTRAINT "PK$CATEGORY" PRIMARY KEY ("ID")
+  CONSTRAINT "PK$CATEGORY" PRIMARY KEY ("id")
 )
 CREATE TABLE "DISHES"
 (
-  "ID" integer NOT NULL,
+  "id" integer NOT NULL,
   "ID_CATEGORY" integer NOT NULL,
   "ID_INGREDIENT_LIST" integer NOT NULL,
   "PRICE" integer,
   "WEIGHT" integer,
-  CONSTRAINT "PK$DISHES" PRIMARY KEY ("ID")
+  CONSTRAINT "PK$DISHES" PRIMARY KEY ("id")
 )
 CREATE TABLE "INGREDIENTLIST"
 (
@@ -66,9 +66,9 @@ CREATE TABLE "INGREDIENTLIST"
 )
 CREATE TABLE "MENU"
 (
-  "ID" integer NOT NULL,
+  "id" integer NOT NULL,
   "NAME" character(50) NOT NULL,
-  CONSTRAINT "PK$MENU" PRIMARY KEY ("ID")
+  CONSTRAINT "PK$MENU" PRIMARY KEY ("id")
 )
 CREATE TABLE "MENULIST"
 (
@@ -77,34 +77,37 @@ CREATE TABLE "MENULIST"
 )
 CREATE TABLE "ORDERS"
 (
-  "ID" integer NOT NULL,
+  "id" integer NOT NULL,
   "ID_EMP" integer NOT NULL,
   "ID_ORDER_DISHES" integer NOT NULL,
   "TABLE_NUM" integer NOT NULL,
   "DATE" date NOT NULL,
-  CONSTRAINT "PK$ORDERS" PRIMARY KEY ("ID")
+  CONSTRAINT "PK$ORDERS" PRIMARY KEY ("id")
 )
 CREATE TABLE "ORDER_DISHES"
 (
-  "ID" integer NOT NULL,
+  "id" integer NOT NULL,
   "ID_DISH" integer NOT NULL
-)
-CREATE TABLE "PREPARED_DISH"
-(
-  "ID" integer NOT NULL,
-  "ID_EMP" integer NOT NULL,
-  "ID_ORDER" integer NOT NULL,
-  "DATE" date NOT NULL,
-  CONSTRAINT "PK$PREPARED_DISH" PRIMARY KEY ("ID"),
-  CONSTRAINT "FK$EMPLOYEE" FOREIGN KEY ("ID_EMP")
-      REFERENCES "EMPLOYEE" ("ID") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "FK$ORDERS" FOREIGN KEY ("ID_ORDER")
-      REFERENCES "ORDERS" ("ID") MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 CREATE TABLE "WAREHOUSE"
 (
   "ID_INGREDIENT" integer NOT NULL,
   "AMOUNT" integer
+)
+CREATE TABLE "INGREDIENTS"
+(
+  "ID" integer NOT NULL,
+  "NAME" character(50) NOT NULL,
+  CONSTRAINT "INGREDIENTS_pkey" PRIMARY KEY ("ID")
+)
+CREATE TABLE "DISHES"
+(
+  "ID" integer NOT NULL,
+  "ID_CATEGORY" integer NOT NULL,
+  "ID_INGREDIENT_LIST" integer NOT NULL,
+  "PRICE" integer,
+  "WEIGHT" integer,
+  "ISPREPARED" boolean NOT NULL DEFAULT false,
+  "ID_EMPLOYEE_PREPARED" integer,
+  CONSTRAINT "PK$DISHES" PRIMARY KEY ("ID")
 )
