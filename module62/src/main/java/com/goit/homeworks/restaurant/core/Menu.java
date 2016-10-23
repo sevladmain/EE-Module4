@@ -40,4 +40,12 @@ public class Menu {
     public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
     }
+
+    public void addDish(Dish dish){
+        dishes.add(dish);
+    }
+
+    public boolean removeDish(Dish dish){
+        return dishes.remove(dish);
+    }
 }
