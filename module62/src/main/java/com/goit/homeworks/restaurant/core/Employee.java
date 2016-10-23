@@ -10,23 +10,30 @@ public class Employee {
     private String firstName;
     private String lastName;
     private Date dateBirth;
-    private int idPosition;
+    private Position position;
     private int salary;
 
-    public Employee(String firstName, String lastName, Date dateBirth, int idPosition, int salary) {
+    public Employee() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Employee(String firstName, String lastName, Date dateBirth, Position position, int salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateBirth = dateBirth;
-        this.idPosition = idPosition;
+        this.position = position;
         this.salary = salary;
     }
 
-    public Employee(int id, String firstName, String lastName, Date dateBirth, int idPosition, int salary) {
+    public Employee(int id, String firstName, String lastName, Date dateBirth, Position position, int salary) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateBirth = dateBirth;
-        this.idPosition = idPosition;
+        this.position = position;
         this.salary = salary;
     }
 
@@ -58,12 +65,12 @@ public class Employee {
         this.dateBirth = dateBirth;
     }
 
-    public int getIdPosition() {
-        return idPosition;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setIdPosition(int idPosition) {
-        this.idPosition = idPosition;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public int getSalary() {
@@ -81,7 +88,7 @@ public class Employee {
 
         Employee employee = (Employee) o;
 
-        if (idPosition != employee.idPosition) return false;
+        if (!position.equals(employee.position)) return false;
         if (salary != employee.salary) return false;
         if (!firstName.equals(employee.firstName)) return false;
         if (!lastName.equals(employee.lastName)) return false;
@@ -94,7 +101,7 @@ public class Employee {
         int result = firstName.hashCode();
         result = 31 * result + lastName.hashCode();
         result = 31 * result + dateBirth.hashCode();
-        result = 31 * result + idPosition;
+        result = 31 * result + position.hashCode();
         result = 31 * result + salary;
         return result;
     }

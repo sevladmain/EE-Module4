@@ -14,6 +14,13 @@ public class Order {
     private Date date;
     private boolean isOpen;
 
+    public Order() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Order(Employee employee, List<Dish> dishes, int tableNum, Date date, boolean isOpen) {
         this.employee = employee;
         this.dishes = dishes;

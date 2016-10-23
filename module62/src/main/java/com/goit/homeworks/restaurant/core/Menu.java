@@ -10,6 +10,13 @@ public class Menu {
     private String name;
     private List<Dish> dishes;
 
+    public Menu() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Menu(int id, String name, List<Dish> dishes) {
         this.id = id;
         this.name = name;

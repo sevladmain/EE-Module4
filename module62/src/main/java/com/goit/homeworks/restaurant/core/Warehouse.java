@@ -7,6 +7,9 @@ public class Warehouse {
     private Ingredient ingredient;
     private int amount;
 
+    public Warehouse() {
+    }
+
     public Warehouse(Ingredient ingredient, int amount) {
         this.ingredient = ingredient;
         this.amount = amount;

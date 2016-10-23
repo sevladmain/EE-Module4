@@ -7,6 +7,9 @@ public class Position {
     private int id;
     private String position;
 
+    public Position() {
+    }
+
     public Position(int id, String position) {
         this.id = id;
         this.position = position;
@@ -18,6 +21,10 @@ public class Position {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPosition() {

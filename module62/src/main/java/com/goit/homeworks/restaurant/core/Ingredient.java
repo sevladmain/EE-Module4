@@ -12,6 +12,13 @@ public class Ingredient {
         this.name = name;
     }
 
+    public Ingredient() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Ingredient(String name) {
         this.name = name;
     }

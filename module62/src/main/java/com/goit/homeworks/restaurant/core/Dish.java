@@ -14,6 +14,13 @@ public class Dish {
     private boolean isPrepared;
     private Employee whoPrepared;
 
+    public Dish() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Dish(int idCategory, List<Ingredient> ingredientList, int price, int weight) {
         this.idCategory = idCategory;
         this.ingredientList = ingredientList;
