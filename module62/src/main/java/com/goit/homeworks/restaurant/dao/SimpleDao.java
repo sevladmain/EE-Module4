@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface SimpleDao <T> {
     T create(T item);
-    T remove(T item);
-    T update(T item);
+    boolean remove(T item);
+    int update(T item);
     List<T> getAll();
 }

@@ -63,9 +63,9 @@ public class JdbcEmployeeDao implements EmployeeDao {
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM CATEGORY WHERE ID=?")) {
             statement.setInt(1, ID);
             ResultSet set = statement.executeQuery();
-            if(set.next()){
-               position.setId(set.getInt("ID"));
-               position.setPosition(set.getString("POSITION"));
+            if (set.next()) {
+                position.setId(set.getInt("ID"));
+                position.setPosition(set.getString("POSITION"));
             } else {
                 LOGGER.error("Unknown Position ID " + ID);
                 throw new RuntimeException("Unknown Position ID " + ID);
@@ -79,41 +79,75 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
     @Override
     public Employee create(Employee item) {
-
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEE (FIRST_NAME, LAST_NAME, DATE_BIRTH, ID_POSITION, SALARY)  VALUES (?,?,?,?,?)")) {
-            statement.setString(1, item.getFirstName());
-            statement.setString(2, item.getLastName());
-            statement.setDate(3, (Date) item.getDateBirth());
-            statement.setInt(4, item.getPosition().getId());
-            statement.setInt(5, item.getSalary());
-            statement.executeUpdate();
-            ResultSet set = statement.getGeneratedKeys();
-            if(set.next()){
-                item.setId(set.getInt("ID"));
-            } else {
-                LOGGER.error("Unknown Error in create Employee");
-                throw new RuntimeException("Unknown Error in create Employee" );
+        if (!(item.getId() > 0 && item.equals(findEmployeeById(item.getId())))) {
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEE (FIRST_NAME, LAST_NAME, DATE_BIRTH, ID_POSITION, SALARY)  VALUES (?,?,?,?,?)")) {
+                statement.setString(1, item.getFirstName());
+                statement.setString(2, item.getLastName());
+                statement.setDate(3, (Date) item.getDateBirth());
+                statement.setInt(4, item.getPosition().getId());
+                statement.setInt(5, item.getSalary());
+                statement.executeUpdate();
+                ResultSet set = statement.getGeneratedKeys();
+                if (set.next()) {
+                    item.setId(set.getInt("ID"));
+                } else {
+                    LOGGER.error("Unknown Error in create Employee");
+                    throw new RuntimeException("Unknown Error in create Employee");
+                }
+            } catch (SQLException e) {
+                LOGGER.error("Exception while connecting to DB in method create Employee: " + e);
+                throw new RuntimeException(e);
             }
-        } catch (SQLException e) {
-            LOGGER.error("Exception while connecting to DB in method create Employee: " + e);
-            throw new RuntimeException(e);
         }
         return item;
     }
 
     @Override
-    public Employee remove(Employee item) {
-        return null;
+    public boolean remove(Employee item) {
+        if (item.getId() > 0 && item.equals(findEmployeeById(item.getId()))) {
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement statement = connection.prepareStatement("DELETE FROM EMPLOYEE WHERE ID=?")) {
+                statement.setInt(1, item.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                LOGGER.error("Exception while connecting to DB in method remove Employee: " + e);
+                throw new RuntimeException(e);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public Employee update(Employee item) {
-        return null;
+    public int update(Employee item) {
+        int result = 0;
+        if (item.getId() > 0) {
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement statement = connection.prepareStatement("UPDATE EMPLOYEE SET FIRST_NAME=?, LAST_NAME=?, DATE_BIRTH=?, ID_POSITION=?, SALARY=? WHERE ID=?")) {
+                statement.setString(1, item.getFirstName());
+                statement.setString(2, item.getLastName());
+                statement.setDate(3, (Date) item.getDateBirth());
+                statement.setInt(4, item.getPosition().getId());
+                statement.setInt(5, item.getSalary());
+                statement.setInt(6, item.getId());
+                result = statement.executeUpdate();
+            } catch (SQLException e) {
+                LOGGER.error("Exception while connecting to DB in method update Employee: " + e);
+                throw new RuntimeException(e);
+            }
+        }
+        return result;
     }
 
     @Override
     public List<Employee> findEmployeeByName(String name) {
         return null;
     }
+
+    public Employee findEmployeeById(int id) {
+        return new Employee();
+    }
+
 }
