@@ -11,7 +11,7 @@
         <property name="maxPoolSize" value="${jdbc.max.connections}"/>
         <property name="acquireIncrement" value="${jdbc.acquire.increment}"/>
     </bean>
-    <bean class="com.goit.homeworks.restaurant.dao.jdbc.JdbcRestaurantDao" id="restaurantDao">
+    <bean class="com.goit.homeworks.restaurant.dao.jdbc.JdbcEmployeeDao" id="employeeDao">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 

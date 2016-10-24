@@ -6,10 +6,12 @@ package com.goit.homeworks.restaurant.core;
 public class Ingredient {
     private int id;
     private String name;
+    private int amount;
 
-    public Ingredient(int id, String name) {
+    public Ingredient(int id, String name, int amount) {
         this.id = id;
         this.name = name;
+        this.amount = amount;
     }
 
     public Ingredient() {
@@ -19,6 +21,13 @@ public class Ingredient {
         this.id = id;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
     public Ingredient(String name) {
         this.name = name;
     }
