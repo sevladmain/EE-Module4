@@ -81,7 +81,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     public Employee create(Employee item) {
         if (!(item.getId() > 0 && item.equals(findEmployeeById(item.getId())))) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEE (FIRST_NAME, LAST_NAME, DATE_BIRTH, ID_POSITION, SALARY)  VALUES (?,?,?,?,?)")) {
+                 PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEE (FIRST_NAME, LAST_NAME, DATE_BIRTH, ID_POSITION, SALARY)  VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, item.getFirstName());
                 statement.setString(2, item.getLastName());
                 statement.setDate(3, (Date) item.getDateBirth());
