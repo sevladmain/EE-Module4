@@ -1,6 +1,6 @@
 package com.goit.homeworks.restaurant.core;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by SeVlad on 22.10.2016.

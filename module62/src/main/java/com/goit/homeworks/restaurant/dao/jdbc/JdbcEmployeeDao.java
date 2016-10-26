@@ -23,6 +23,13 @@ public class JdbcEmployeeDao implements EmployeeDao {
         return dataSource;
     }
 
+    public JdbcEmployeeDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public JdbcEmployeeDao() {
+    }
+
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -49,8 +56,8 @@ public class JdbcEmployeeDao implements EmployeeDao {
     private Employee extractEmployee(ResultSet set) throws SQLException {
         Employee employee = new Employee();
         employee.setId(set.getInt("ID"));
-        employee.setFirstName(set.getString("FIRST_NAME"));
-        employee.setLastName(set.getString("LAST_NAME"));
+        employee.setFirstName(set.getString("FIRST_NAME").trim());
+        employee.setLastName(set.getString("LAST_NAME").trim());
         employee.setDateBirth(set.getDate("DATE_BIRTH"));
         employee.setPosition(getPositionByID(set.getInt("ID_POSITION")));
         employee.setSalary(set.getInt("SALARY"));
@@ -60,7 +67,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     public Position getPositionByID(int ID) {
         Position position = new Position();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM CATEGORY WHERE ID=?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM POSITIONS WHERE ID=?")) {
             statement.setInt(1, ID);
             ResultSet set = statement.executeQuery();
             if (set.next()) {
@@ -84,7 +91,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
                  PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEE (FIRST_NAME, LAST_NAME, DATE_BIRTH, ID_POSITION, SALARY)  VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, item.getFirstName());
                 statement.setString(2, item.getLastName());
-                statement.setDate(3, (Date) item.getDateBirth());
+                statement.setDate(3, item.getDateBirth());
                 statement.setInt(4, item.getPosition().getId());
                 statement.setInt(5, item.getSalary());
                 statement.executeUpdate();
