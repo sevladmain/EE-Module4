@@ -59,53 +59,53 @@ public class JdbcEmployeeDao implements EmployeeDao {
         employee.setFirstName(set.getString("FIRST_NAME").trim());
         employee.setLastName(set.getString("LAST_NAME").trim());
         employee.setDateBirth(set.getDate("DATE_BIRTH"));
-        employee.setPosition(getPositionByID(set.getInt("ID_POSITION")));
+        employee.setPosition(new Position(set.getInt("ID_POSITION")));
         employee.setSalary(set.getInt("SALARY"));
         return employee;
     }
 
-    public Position getPositionByID(int ID) {
-        Position position = new Position();
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM POSITIONS WHERE ID=?")) {
-            statement.setInt(1, ID);
-            ResultSet set = statement.executeQuery();
-            if (set.next()) {
-                position.setId(set.getInt("ID"));
-                position.setPosition(set.getString("POSITION"));
-            } else {
-                LOGGER.error("Unknown Position ID " + ID);
-                throw new RuntimeException("Unknown Position ID " + ID);
-            }
-        } catch (SQLException e) {
-            LOGGER.error("Exception while connecting to DB in method getPositionByID: " + e);
-            throw new RuntimeException(e);
-        }
-        return position;
-    }
-
-    @Override
-    public Employee create(Employee item) {
-        if (!(item.getId() > 0 && item.equals(findEmployeeById(item.getId())))) {
+    /*
+        public Position getPositionByID(int ID) {
+            Position position = new Position();
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEE (FIRST_NAME, LAST_NAME, DATE_BIRTH, ID_POSITION, SALARY)  VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
-                statement.setString(1, item.getFirstName());
-                statement.setString(2, item.getLastName());
-                statement.setDate(3, item.getDateBirth());
-                statement.setInt(4, item.getPosition().getId());
-                statement.setInt(5, item.getSalary());
-                statement.executeUpdate();
-                ResultSet set = statement.getGeneratedKeys();
+                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM POSITIONS WHERE ID=?")) {
+                statement.setInt(1, ID);
+                ResultSet set = statement.executeQuery();
                 if (set.next()) {
-                    item.setId(set.getInt("ID"));
+                    position.setId(set.getInt("ID"));
+                    position.setPosition(set.getString("POSITION"));
                 } else {
-                    LOGGER.error("Unknown Error in create Employee");
-                    throw new RuntimeException("Unknown Error in create Employee");
+                    LOGGER.error("Unknown Position ID " + ID);
+                    throw new RuntimeException("Unknown Position ID " + ID);
                 }
             } catch (SQLException e) {
-                LOGGER.error("Exception while connecting to DB in method create Employee: " + e);
+                LOGGER.error("Exception while connecting to DB in method getPositionByID: " + e);
                 throw new RuntimeException(e);
             }
+            return position;
+        }
+
+    */
+    @Override
+    public Employee create(Employee item) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEE (FIRST_NAME, LAST_NAME, DATE_BIRTH, ID_POSITION, SALARY)  VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, item.getFirstName());
+            statement.setString(2, item.getLastName());
+            statement.setDate(3, item.getDateBirth());
+            statement.setInt(4, item.getPosition().getId());
+            statement.setInt(5, item.getSalary());
+            statement.executeUpdate();
+            ResultSet set = statement.getGeneratedKeys();
+            if (set.next()) {
+                item.setId(set.getInt("ID"));
+            } else {
+                LOGGER.error("Unknown Error in create Employee");
+                throw new RuntimeException("Unknown Error in create Employee");
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Exception while connecting to DB in method create Employee: " + e);
+            throw new RuntimeException(e);
         }
         return item;
     }
@@ -150,11 +150,41 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
     @Override
     public List<Employee> findEmployeeByName(String name) {
-        return null;
+        List<Employee> employees = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE FIRST_NAME LIKE ? OR LAST_NAME LIKE ?")) {
+            statement.setString(1, "%" + name + "%");
+            statement.setString(2, "%" + name + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Employee employee = extractEmployee(resultSet);
+                employees.add(employee);
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Exception while connecting to DB in method getAllEmployees: " + e);
+            throw new RuntimeException(e);
+        }
+        return employees;
     }
 
+    @Override
     public Employee findEmployeeById(int id) {
-        return new Employee();
+        Employee employee = new Employee();
+        if (id > 0) {
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE ID=?")) {
+                statement.setInt(1, id);
+                ResultSet resultSet = statement.executeQuery();
+                if(resultSet.next()) {
+                    employee = extractEmployee(resultSet);
+                }
+            } catch (SQLException e) {
+                LOGGER.error("Exception while connecting to DB in method remove Employee: " + e);
+                throw new RuntimeException(e);
+            }
+
+        }
+        return employee;
     }
 
 }

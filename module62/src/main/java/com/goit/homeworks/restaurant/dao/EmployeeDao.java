@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface EmployeeDao extends SimpleDao<Employee> {
     List<Employee> findEmployeeByName(String name);
-
+    Employee findEmployeeById(int id);
 }

@@ -14,6 +14,7 @@ public class Employee {
     private int salary;
 
     public Employee() {
+        this(0,"","", Date.valueOf("1900-01-01"), new Position(), 0);
     }
 
     public void setId(int id) {
@@ -87,13 +88,20 @@ public class Employee {
         if (o == null || getClass() != o.getClass()) return false;
 
         Employee employee = (Employee) o;
-
+        if (id != employee.id) return false;
         if (!position.equals(employee.position)) return false;
         if (salary != employee.salary) return false;
         if (!firstName.equals(employee.firstName)) return false;
         if (!lastName.equals(employee.lastName)) return false;
         return dateBirth.equals(employee.dateBirth);
 
+    }
+
+    public boolean isSimilar(Employee employee){
+        if (salary != employee.salary) return false;
+        if (!firstName.equals(employee.firstName)) return false;
+        if (!lastName.equals(employee.lastName)) return false;
+        return dateBirth.equals(employee.dateBirth);
     }
 
     @Override
@@ -103,6 +111,19 @@ public class Employee {
         result = 31 * result + dateBirth.hashCode();
         result = 31 * result + position.hashCode();
         result = 31 * result + salary;
+        result = 31 * result + id;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dateBirth=" + dateBirth +
+                ", position=" + position +
+                ", salary=" + salary +
+                '}';
     }
 }
