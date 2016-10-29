@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.goit.homeworks.restaurant.dao.PositionDao;
 import org.apache.log4j.*;
 ;
 
@@ -18,12 +19,22 @@ import org.apache.log4j.*;
 public class JdbcEmployeeDao implements EmployeeDao {
     private DataSource dataSource;
     private static final Logger LOGGER = Logger.getLogger(JdbcEmployeeDao.class);
+    private PositionDao positionDao;
+
+    public PositionDao getPositionDao() {
+        return positionDao;
+    }
+
+    public void setPositionDao(PositionDao positionDao) {
+        this.positionDao = positionDao;
+    }
 
     public DataSource getDataSource() {
         return dataSource;
     }
 
-    public JdbcEmployeeDao(DataSource dataSource) {
+    public JdbcEmployeeDao(DataSource dataSource, PositionDao positionDao) {
+        this.positionDao = positionDao;
         this.dataSource = dataSource;
     }
 
@@ -59,7 +70,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         employee.setFirstName(set.getString("FIRST_NAME").trim());
         employee.setLastName(set.getString("LAST_NAME").trim());
         employee.setDateBirth(set.getDate("DATE_BIRTH"));
-        employee.setPosition(new Position(set.getInt("ID_POSITION")));
+        employee.setPosition(positionDao.findPositionById(set.getInt("ID_POSITION")));
         employee.setSalary(set.getInt("SALARY"));
         return employee;
     }

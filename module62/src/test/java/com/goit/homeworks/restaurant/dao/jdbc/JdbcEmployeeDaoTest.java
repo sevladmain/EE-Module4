@@ -35,7 +35,8 @@ public class JdbcEmployeeDaoTest {
                 .addScript("scheme.sql")
                 .build();
         jdbcTemplate = new JdbcTemplate(db);
-        dao = new JdbcEmployeeDao(db);
+        JdbcPositionDao positionDao = new JdbcPositionDao(db);
+        dao = new JdbcEmployeeDao(db, positionDao);
     }
 
     @Test
@@ -51,7 +52,7 @@ public class JdbcEmployeeDaoTest {
         assertThat(testedEmployee.getLastName(), equalTo(employee.getLastName()));
         assertThat(testedEmployee.getSalary(), equalTo(employee.getSalary()));
         assertThat(testedEmployee.getPosition().getId(), equalTo(employee.getPosition().getId()));
-        assertThat(testedEmployee.getPosition().getPosition(), equalTo(null));
+        assertThat(testedEmployee.getPosition().getPosition(), equalTo(position.getPosition()));
         assertThat(testedEmployee.getDateBirth(), equalTo(employee.getDateBirth()));
     }
     @Test
@@ -108,7 +109,7 @@ public class JdbcEmployeeDaoTest {
     @Test
     public void testFindEmployeeByID(){
         Employee employee = dao.findEmployeeById(1);
-        Employee trueEmployee = new Employee(1, "Mary", "Ivanova", Date.valueOf("1998-08-12"), new Position(2), 1000);
+        Employee trueEmployee = new Employee(1, "Mary", "Ivanova", Date.valueOf("1998-08-12"), new Position(2, "NEWBIE"), 1000);
         assertThat(employee, equalTo(trueEmployee));
     }
 
@@ -140,7 +141,7 @@ public class JdbcEmployeeDaoTest {
 
     @Test
     public void testFindTrueEmployeeByName(){
-        Employee trueEmployee = new Employee(1, "Mary", "Ivanova", Date.valueOf("1998-08-12"), new Position(2), 1000);
+        Employee trueEmployee = new Employee(1, "Mary", "Ivanova", Date.valueOf("1998-08-12"), new Position(2, "NEWBIE"), 1000);
         List<Employee> employee = dao.findEmployeeByName("Ivan");
         assertThat(employee, hasSize(1));
         assertThat(employee.get(0), equalTo(trueEmployee));

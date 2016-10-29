@@ -1,7 +1,7 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
-import com.goit.homeworks.restaurant.core.Dish;
-import com.goit.homeworks.restaurant.dao.DishDao;
+import com.goit.homeworks.restaurant.core.Category;
+import com.goit.homeworks.restaurant.dao.CategoryDao;
 import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
@@ -10,12 +10,15 @@ import java.util.List;
 /**
  * Created by SeVlad on 29.10.2016.
  */
-public class JdbcDishDao implements DishDao {
+public class JdbcCategoryDao implements CategoryDao {
     private DataSource dataSource;
-    private static final Logger LOGGER = Logger.getLogger(JdbcEmployeeDao.class);
+    private static final Logger LOGGER = Logger.getLogger(JdbcPositionDao.class);
 
-    public JdbcDishDao(DataSource dataSource) {
+    public JdbcCategoryDao(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public JdbcCategoryDao() {
     }
 
     public DataSource getDataSource() {
@@ -27,32 +30,27 @@ public class JdbcDishDao implements DishDao {
     }
 
     @Override
-    public Dish create(Dish item) {
+    public Category create(Category item) {
         return null;
     }
 
     @Override
-    public int remove(Dish item) {
-        return 0;
+    public int remove(Category item) {
+        return -1;
     }
 
     @Override
-    public int update(Dish item) {
-        return 0;
+    public int update(Category item) {
+        return -1;
     }
 
     @Override
-    public List<Dish> getAll() {
+    public List<Category> getAll() {
         return null;
     }
 
     @Override
-    public List<Dish> findDishByName(String name) {
-        return null;
-    }
-
-    @Override
-    public List<Dish> getAllPreparedDishes() {
+    public Category findCategoryById(int id) {
         return null;
     }
 }
