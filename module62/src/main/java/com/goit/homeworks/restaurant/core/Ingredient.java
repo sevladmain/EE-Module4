@@ -8,6 +8,7 @@ public class Ingredient {
     private String name;
     private int amount;
 
+
     public Ingredient(int id, String name, int amount) {
         this.id = id;
         this.name = name;
