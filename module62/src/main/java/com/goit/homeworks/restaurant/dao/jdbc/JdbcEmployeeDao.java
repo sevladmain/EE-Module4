@@ -111,20 +111,19 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
-    public boolean remove(Employee item) {
-        if (item.getId() > 0 && item.equals(findEmployeeById(item.getId()))) {
+    public int remove(Employee item) {
+        int result = 0;
+        if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement statement = connection.prepareStatement("DELETE FROM EMPLOYEE WHERE ID=?")) {
                 statement.setInt(1, item.getId());
-                statement.executeUpdate();
+                result = statement.executeUpdate();
             } catch (SQLException e) {
                 LOGGER.error("Exception while connecting to DB in method remove Employee: " + e);
                 throw new RuntimeException(e);
             }
-            return true;
-        } else {
-            return false;
         }
+        return result;
     }
 
     @Override

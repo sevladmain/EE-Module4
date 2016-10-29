@@ -66,8 +66,8 @@ public class JdbcEmployeeDaoTest {
         assertThat((Integer) rows.get(0).get("ID_POSITION"), equalTo(testEmployee.getPosition().getId()));
         assertThat((Integer) rows.get(0).get("SALARY"), equalTo(testEmployee.getSalary()));
 
-        testEmployee.setId(2);
         assertThat(resultEmployee, equalTo(testEmployee));
+        assertThat(resultEmployee.getId(), equalTo(2));
     }
 
 
@@ -80,15 +80,15 @@ public class JdbcEmployeeDaoTest {
 
     @Test
     public void removeFakeEmployee(){
-        Employee fakeEmployee = new Employee(1, "Seriy","Suchok", Date.valueOf("1996-12-05"), new Position(1, "MainBoss"), 10000);
-        assertThat(dao.remove(fakeEmployee), is(false));
+        Employee fakeEmployee = new Employee(5, "Seriy","Suchok", Date.valueOf("1996-12-05"), new Position(1, "MainBoss"), 10000);
+        assertThat(dao.remove(fakeEmployee), equalTo(0));
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL_SELECT_STATEMENT);
         assertThat(rows, hasSize(1));
     }
     @Test
     public void removeTrueEmployee(){
         Employee employee = new Employee(1, "Mary", "Ivanova", Date.valueOf("1998-08-12"), new Position(2), 1000);
-        assertThat(dao.remove(employee), is(true));
+        assertThat(dao.remove(employee), equalTo(1));
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL_SELECT_STATEMENT);
         assertThat(rows, hasSize(0));
     }
