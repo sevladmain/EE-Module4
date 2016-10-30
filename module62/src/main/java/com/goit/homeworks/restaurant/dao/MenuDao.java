@@ -9,5 +9,6 @@ import java.util.List;
  */
 public interface MenuDao extends SimpleDao<Menu> {
     List<Menu> findMenuByName(String name);
+    Menu findMenuById(int id);
 
 }
