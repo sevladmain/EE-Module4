@@ -75,28 +75,6 @@ public class JdbcEmployeeDao implements EmployeeDao {
         return employee;
     }
 
-    /*
-        public Position getPositionByID(int ID) {
-            Position position = new Position();
-            try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM POSITIONS WHERE ID=?")) {
-                statement.setInt(1, ID);
-                ResultSet set = statement.executeQuery();
-                if (set.next()) {
-                    position.setId(set.getInt("ID"));
-                    position.setPosition(set.getString("POSITION"));
-                } else {
-                    LOGGER.error("Unknown Position ID " + ID);
-                    throw new RuntimeException("Unknown Position ID " + ID);
-                }
-            } catch (SQLException e) {
-                LOGGER.error("Exception while connecting to DB in method getPositionByID: " + e);
-                throw new RuntimeException(e);
-            }
-            return position;
-        }
-
-    */
     @Override
     public Employee create(Employee item) {
         try (Connection connection = dataSource.getConnection();
