@@ -3,7 +3,9 @@ package com.goit.homeworks.restaurant.dao.jdbc;
 import com.goit.homeworks.restaurant.core.Employee;
 import com.goit.homeworks.restaurant.core.Position;
 import com.goit.homeworks.restaurant.dao.EmployeeDao;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -15,7 +17,6 @@ import java.util.Map;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 
 /**
  * Created by SeVlad on 25.10.2016.

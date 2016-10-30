@@ -1,7 +1,6 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.core.Category;
-import com.goit.homeworks.restaurant.core.Position;
 import com.goit.homeworks.restaurant.dao.CategoryDao;
 import org.apache.log4j.Logger;
 

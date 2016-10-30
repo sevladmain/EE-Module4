@@ -1,15 +1,15 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
-import com.goit.homeworks.restaurant.core.*;
+import com.goit.homeworks.restaurant.core.Employee;
 import com.goit.homeworks.restaurant.dao.EmployeeDao;
+import com.goit.homeworks.restaurant.dao.PositionDao;
+import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.goit.homeworks.restaurant.dao.PositionDao;
-import org.apache.log4j.*;
 ;
 
 

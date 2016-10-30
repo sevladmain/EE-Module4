@@ -1,8 +1,6 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
-import com.goit.homeworks.restaurant.core.Employee;
 import com.goit.homeworks.restaurant.core.Ingredient;
-import com.goit.homeworks.restaurant.core.Position;
 import com.goit.homeworks.restaurant.dao.IngredientDao;
 import org.apache.log4j.Logger;
 

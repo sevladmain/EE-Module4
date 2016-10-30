@@ -1,7 +1,6 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.core.*;
-import com.goit.homeworks.restaurant.dao.DishDao;
 import com.goit.homeworks.restaurant.dao.MenuDao;
 import org.junit.After;
 import org.junit.Before;
@@ -18,7 +17,6 @@ import java.util.Map;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
 
 /**
  * Created by SeVlad on 30.10.2016.
@@ -44,7 +42,7 @@ public class JdbcMenuDaoTest {
         JdbcCategoryDao categoryDao = new JdbcCategoryDao(db);
         JdbcIngredientDao ingredientDao = new JdbcIngredientDao(db);
         JdbcDishDao dishDao = new JdbcDishDao(db, categoryDao, ingredientDao, employeeDao);
-        dao = new JdbcMenuDao(dishDao);
+        dao = new JdbcMenuDao(db, dishDao);
 
         Dish existDish;
         existDish = new Dish();
@@ -97,8 +95,8 @@ public class JdbcMenuDaoTest {
     public void removeTrueMenu(){
         assertThat(dao.remove(existingMenu1), equalTo(2));
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL_SELECT_STATEMENT);
-        assertThat(rows, hasSize(0));
-        rows = jdbcTemplate.queryForList("SELECT * FROM MENULIST WHERE ID_DISH=" + existingMenu1.getId());
+        assertThat(rows, hasSize(1));
+        rows = jdbcTemplate.queryForList("SELECT * FROM MENULIST WHERE ID_MENU=" + existingMenu1.getId());
         assertThat(rows, hasSize(0));
     }
 
