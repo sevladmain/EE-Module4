@@ -73,12 +73,37 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
 
     @Override
     public int remove(PreparedDish item) {
-        return 0;
+        int result = 0;
+        if (item.getId() > 0) {
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement statement = connection.prepareStatement("DELETE FROM PREPARED_DISHES WHERE ID=?")) {
+                statement.setInt(1, item.getId());
+                result = statement.executeUpdate();
+            } catch (SQLException e) {
+                LOGGER.error("Exception while connecting to DB in method remove Prepared Dish: " + e);
+                throw new RuntimeException(e);
+            }
+        }
+        return result;
     }
 
     @Override
     public int update(PreparedDish item) {
-        return 0;
+        int result = 0;
+        if (item.getId() > 0) {
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement statement = connection.prepareStatement("UPDATE PREPARED_DISHES SET ID_DISH=?, ID_EMPLOYEE=?, IS_PREPARED=? WHERE ID=?")) {
+                statement.setInt(1, item.getDish().getId());
+                statement.setInt(2, item.getEmployee().getId());
+                statement.setBoolean(3, item.isPrepared());
+                statement.setInt(4, item.getId());
+                result = statement.executeUpdate();
+            } catch (SQLException e) {
+                LOGGER.error("Exception while connecting to DB in method update PreparedStatement: " + item + e);
+                throw new RuntimeException(e);
+            }
+        }
+        return result;
     }
 
     @Override

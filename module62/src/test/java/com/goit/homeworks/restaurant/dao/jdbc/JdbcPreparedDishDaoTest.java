@@ -92,5 +92,26 @@ public class JdbcPreparedDishDaoTest {
         assertThat("IS PREPARED is not equal", ((Boolean) rows.get(0).get("IS_PREPARED")), equalTo(newDish.isPrepared()));
     }
 
+    @Test
+    public void removeTruePreparedOrder(){
+        assertThat(dao.remove(existingDish), equalTo(1));
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL_SELECT_STATEMENT);
+        assertThat(rows, hasSize(0));
+    }
+    @Test
+    public void testUpdatePreparedOrder(){
+        newDish.setId(1);
+        assertThat(dao.update(newDish), equalTo(1));
+
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT * FROM PREPARED_DISHES WHERE ID=1");
+        assertThat("Row not inserted or not exists", rows, hasSize(1));
+
+        assertThat("ID is not equal", ((Integer) rows.get(0).get("ID")), equalTo(newDish.getId()));
+        assertThat("ID EMPLOYEE is not equal", ((Integer) rows.get(0).get("ID_EMPLOYEE")), equalTo(newDish.getEmployee().getId()));
+        assertThat("ID DISH is not equal", ((Integer) rows.get(0).get("ID_DISH")), equalTo(newDish.getDish().getId()));
+        assertThat("IS PREPARED is not equal", ((Boolean) rows.get(0).get("IS_PREPARED")), equalTo(newDish.isPrepared()));
+    }
+
+
 
 }
