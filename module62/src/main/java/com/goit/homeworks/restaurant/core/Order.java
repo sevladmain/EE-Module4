@@ -87,4 +87,43 @@ public class Order {
             dishes.add(dish);
         return isOpen;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        if (id != order.id) return false;
+        if (tableNum != order.tableNum) return false;
+        if (isOpen != order.isOpen) return false;
+        if (employee != null ? !employee.equals(order.employee) : order.employee != null) return false;
+        if (dishes != null ? !dishes.equals(order.dishes) : order.dishes != null) return false;
+        return date != null ? date.equals(order.date) : order.date == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (employee != null ? employee.hashCode() : 0);
+        result = 31 * result + (dishes != null ? dishes.hashCode() : 0);
+        result = 31 * result + tableNum;
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (isOpen ? 1 : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", employee=" + employee +
+                ", dishes=" + dishes +
+                ", tableNum=" + tableNum +
+                ", date=" + date +
+                ", isOpen=" + isOpen +
+                '}';
+    }
 }

@@ -13,8 +13,6 @@ public class Dish {
     private List<Ingredient> ingredientList;
     private int price;
     private int weight;
-    private boolean isPrepared;
-    private Employee whoPrepared;
 
     public Dish() {
         this(0, "", new Category(), new ArrayList<>(), 0, 0);
@@ -30,8 +28,6 @@ public class Dish {
         this.ingredientList = ingredientList;
         this.price = price;
         this.weight = weight;
-        this.isPrepared = false;
-        this.whoPrepared = new Employee();
     }
 
     public Dish(int id, String name, Category category, List<Ingredient> ingredientList, int price, int weight) {
@@ -41,24 +37,6 @@ public class Dish {
         this.ingredientList = ingredientList;
         this.price = price;
         this.weight = weight;
-        this.isPrepared = false;
-        this.whoPrepared = new Employee();
-    }
-
-    public boolean isPrepared() {
-        return isPrepared;
-    }
-
-    public void setPrepared(boolean prepared) {
-        isPrepared = prepared;
-    }
-
-    public Employee getWhoPrepared() {
-        return whoPrepared;
-    }
-
-    public void setWhoPrepared(Employee whoPrepared) {
-        this.whoPrepared = whoPrepared;
     }
 
     public int getId() {
@@ -115,12 +93,9 @@ public class Dish {
         if (id != dish.id) return false;
         if (price != dish.price) return false;
         if (weight != dish.weight) return false;
-        if (isPrepared != dish.isPrepared) return false;
         if (name != null ? !name.equals(dish.name) : dish.name != null) return false;
         if (category != null ? !category.equals(dish.category) : dish.category != null) return false;
-        if (ingredientList != null ? !ingredientList.equals(dish.ingredientList) : dish.ingredientList != null)
-            return false;
-        return whoPrepared != null ? whoPrepared.equals(dish.whoPrepared) : dish.whoPrepared == null;
+        return ingredientList != null ? ingredientList.equals(dish.ingredientList) : dish.ingredientList == null;
 
     }
 
@@ -132,8 +107,6 @@ public class Dish {
         result = 31 * result + (ingredientList != null ? ingredientList.hashCode() : 0);
         result = 31 * result + price;
         result = 31 * result + weight;
-        result = 31 * result + (isPrepared ? 1 : 0);
-        result = 31 * result + (whoPrepared != null ? whoPrepared.hashCode() : 0);
         return result;
     }
 
@@ -146,8 +119,6 @@ public class Dish {
                 ", ingredientList=" + ingredientList +
                 ", price=" + price +
                 ", weight=" + weight +
-                ", isPrepared=" + isPrepared +
-                ", whoPrepared=" + whoPrepared +
                 '}';
     }
 }

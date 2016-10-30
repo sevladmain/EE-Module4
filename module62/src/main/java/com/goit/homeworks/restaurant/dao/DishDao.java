@@ -10,5 +10,4 @@ import java.util.List;
 public interface DishDao extends SimpleDao<Dish> {
     List<Dish> findDishByName(String name);
     Dish findDishById(int id);
-    List<Dish> getAllPreparedDishes();
 }

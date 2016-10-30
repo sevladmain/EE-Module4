@@ -10,4 +10,5 @@ import java.util.List;
 public interface OrderDao extends SimpleDao<Order> {
     List<Order> getAllOpenOrders();
     List<Order> getAllClosedOrders();
+    Order findOrderById(int id);
 }

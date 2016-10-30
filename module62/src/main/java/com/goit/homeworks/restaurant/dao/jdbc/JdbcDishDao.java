@@ -20,7 +20,6 @@ public class JdbcDishDao implements DishDao {
     private DataSource dataSource;
     private CategoryDao categoryDao;
     private IngredientDao ingredientDao;
-    private EmployeeDao employeeDao;
 
     public CategoryDao getCategoryDao() {
         return categoryDao;
@@ -40,19 +39,10 @@ public class JdbcDishDao implements DishDao {
 
     private static final Logger LOGGER = Logger.getLogger(JdbcDishDao.class);
 
-    public EmployeeDao getEmployeeDao() {
-        return employeeDao;
-    }
-
-    public void setEmployeeDao(EmployeeDao employeeDao) {
-        this.employeeDao = employeeDao;
-    }
-
-    public JdbcDishDao(DataSource dataSource, CategoryDao categoryDao, IngredientDao ingredientDao, EmployeeDao employeeDao) {
+    public JdbcDishDao(DataSource dataSource, CategoryDao categoryDao, IngredientDao ingredientDao) {
         this.dataSource = dataSource;
         this.categoryDao = categoryDao;
         this.ingredientDao = ingredientDao;
-        this.employeeDao = employeeDao;
     }
 
     public DataSource getDataSource() {
@@ -66,15 +56,13 @@ public class JdbcDishDao implements DishDao {
     @Override
     public Dish create(Dish item) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO DISHES (ID_CATEGORY, PRICE, WEIGHT, ISPREPARED, ID_EMPLOYEE_PREPARED, NAME)  VALUES (?, ?, ?, ?, ?, ?)",
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO DISHES (ID_CATEGORY, PRICE, WEIGHT, NAME)  VALUES (?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS);
              PreparedStatement updateStatement = connection.prepareStatement("INSERT INTO INGREDIENTLIST(ID_INGREDIENT, ID_DISH) VALUES (?,?)")) {
             statement.setInt(1, item.getCategory().getId());
             statement.setInt(2, item.getPrice());
             statement.setInt(3, item.getWeight());
-            statement.setBoolean(4, item.isPrepared());
-            statement.setInt(5, item.getWhoPrepared().getId());
-            statement.setString(6, item.getName());
+            statement.setString(4, item.getName());
             statement.executeUpdate();
             ResultSet set = statement.getGeneratedKeys();
             if (set.next()) {
@@ -121,16 +109,14 @@ public class JdbcDishDao implements DishDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE DISHES SET ID_CATEGORY=?, PRICE=?, WEIGHT=?, ISPREPARED=?, ID_EMPLOYEE_PREPARED=?, NAME=? WHERE ID=?");
+                 PreparedStatement statement = connection.prepareStatement("UPDATE DISHES SET ID_CATEGORY=?, PRICE=?, WEIGHT=?, NAME=? WHERE ID=?");
                  PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM INGREDIENTLIST WHERE ID_DISH=?");
                  PreparedStatement updateStatement = connection.prepareStatement("INSERT INTO INGREDIENTLIST(ID_INGREDIENT, ID_DISH) VALUES (?,?)")) {
                 statement.setInt(1, item.getCategory().getId());
                 statement.setInt(2, item.getPrice());
                 statement.setInt(3, item.getWeight());
-                statement.setBoolean(4, item.isPrepared());
-                statement.setInt(5, item.getWhoPrepared().getId());
-                statement.setString(6, item.getName());
-                statement.setInt(7, item.getId());
+                statement.setString(4, item.getName());
+                statement.setInt(5, item.getId());
 
                 deleteStatement.setInt(1, item.getId());
                 result = statement.executeUpdate();
@@ -186,8 +172,6 @@ public class JdbcDishDao implements DishDao {
         dish.setCategory(categoryDao.findCategoryById(set.getInt("ID_CATEGORY")));
         dish.setPrice(set.getInt("PRICE"));
         dish.setWeight(set.getInt("WEIGHT"));
-        dish.setPrepared(set.getBoolean("ISPREPARED"));
-        dish.setWhoPrepared(employeeDao.findEmployeeById(set.getInt("ID_EMPLOYEE_PREPARED")));
         dish.setName(set.getString("NAME").trim());
         return dish;
     }
@@ -229,24 +213,5 @@ public class JdbcDishDao implements DishDao {
             throw new RuntimeException(e);
         }
         return dish;
-    }
-
-    @Override
-    public List<Dish> getAllPreparedDishes() {
-        List<Dish> dishes = new ArrayList<>();
-        try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             PreparedStatement ingredientStatement = connection.prepareStatement("SELECT * FROM INGREDIENTLIST WHERE ID_DISH=?")) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM DISHES WHERE DISHES.ISPREPARED=TRUE");
-            while (resultSet.next()) {
-                Dish dish = extractDish(resultSet);
-                dish.setIngredientList(getIngredients(ingredientStatement, dish));
-                dishes.add(dish);
-            }
-        } catch (SQLException e) {
-            LOGGER.error("Exception while connecting to DB in method getAllEmployees: " + e);
-            throw new RuntimeException(e);
-        }
-        return dishes;
     }
 }

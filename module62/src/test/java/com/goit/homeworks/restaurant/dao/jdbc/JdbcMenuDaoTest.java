@@ -37,11 +37,9 @@ public class JdbcMenuDaoTest {
                 .addScript("scheme.sql")
                 .build();
         jdbcTemplate = new JdbcTemplate(db);
-        JdbcPositionDao positionDao = new JdbcPositionDao(db);
-        JdbcEmployeeDao employeeDao = new JdbcEmployeeDao(db, positionDao);
         JdbcCategoryDao categoryDao = new JdbcCategoryDao(db);
         JdbcIngredientDao ingredientDao = new JdbcIngredientDao(db);
-        JdbcDishDao dishDao = new JdbcDishDao(db, categoryDao, ingredientDao, employeeDao);
+        JdbcDishDao dishDao = new JdbcDishDao(db, categoryDao, ingredientDao);
         dao = new JdbcMenuDao(db, dishDao);
 
         Dish existDish;
@@ -50,13 +48,10 @@ public class JdbcMenuDaoTest {
         existDish .setCategory(new Category(1, "SOUPS"));
         existDish .setPrice(100);
         existDish .setWeight(250);
-        existDish .setPrepared(true);
         existDish.setName("Chicken");
         List<Ingredient> ingredients = new ArrayList<>();
         ingredients.add(new Ingredient(1, "Potato", 2));
         ingredients.add(new Ingredient(2, "Tomato", 3));
-        Position position = new Position(2, "NEWBIE");
-        existDish.setWhoPrepared(new Employee(1, "Mary", "Ivanova", Date.valueOf("1998-08-12"), position, 1000));
         existDish.setIngredientList(ingredients);
 
         List<Dish> dishes = new ArrayList<>();

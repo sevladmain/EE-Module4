@@ -36,23 +36,18 @@ public class JdbcDishDaoTest {
                 .addScript("scheme.sql")
                 .build();
         jdbcTemplate = new JdbcTemplate(db);
-        JdbcPositionDao positionDao = new JdbcPositionDao(db);
-        JdbcEmployeeDao employeeDao = new JdbcEmployeeDao(db, positionDao);
         JdbcCategoryDao categoryDao = new JdbcCategoryDao(db);
         JdbcIngredientDao ingredientDao = new JdbcIngredientDao(db);
-        dao = new JdbcDishDao(db, categoryDao, ingredientDao, employeeDao);
+        dao = new JdbcDishDao(db, categoryDao, ingredientDao);
         newDish = new Dish();
         newDish.setId(2);
         newDish.setCategory(new Category(1, "SOUPS"));
         newDish.setPrice(10);
         newDish.setWeight(100);
         newDish.setName("CoCoJambo");
-        newDish.setPrepared(true);
         Ingredient ingredient = new Ingredient(2, "Tomato", 100);
         List<Ingredient> ingredients = new ArrayList<>();
         ingredients.add(ingredient);
-        Position position = new Position(2, "NEWBIE");
-        newDish.setWhoPrepared(new Employee(1, "Mary", "Ivanova", Date.valueOf("1998-08-12"), position, 1000));
         newDish.setIngredientList(ingredients);
 
         existDish = new Dish();
@@ -60,13 +55,10 @@ public class JdbcDishDaoTest {
         existDish .setCategory(new Category(1, "SOUPS"));
         existDish .setPrice(100);
         existDish .setWeight(250);
-        existDish .setPrepared(true);
         existDish.setName("Chicken");
         ingredients = new ArrayList<>();
         ingredients.add(new Ingredient(1, "Potato", 2));
         ingredients.add(new Ingredient(2, "Tomato", 3));
-        position = new Position(2, "NEWBIE");
-        existDish .setWhoPrepared(new Employee(1, "Mary", "Ivanova", Date.valueOf("1998-08-12"), position, 1000));
         existDish .setIngredientList(ingredients);
     }
 
@@ -84,8 +76,6 @@ public class JdbcDishDaoTest {
         assertThat("ID_CATEGORY is not equal", ((Integer) rows.get(0).get("ID_CATEGORY")), equalTo(newDish.getCategory().getId()));
         assertThat("PRICE is not equal", ((Integer) rows.get(0).get("PRICE")), equalTo(newDish.getPrice()));
         assertThat("ID_CATEGORY is not equal", ((Integer) rows.get(0).get("WEIGHT")), equalTo(newDish.getWeight()));
-        assertThat("ISPREPERED is not equal", ((Boolean) rows.get(0).get("ISPREPARED")), equalTo(newDish.isPrepared()));
-        assertThat("ID_EMPLOYEE is not equal", ((Integer) rows.get(0).get("ID_EMPLOYEE_PREPARED")), equalTo(newDish.getWhoPrepared().getId()));
         assertThat("NAME DISH is not equal", ((String) rows.get(0).get("NAME")).trim(), equalTo(newDish.getName()));
         rows = jdbcTemplate.queryForList("SELECT * FROM INGREDIENTLIST WHERE ID_DISH=2");
         assertThat(rows, hasSize(1));
@@ -118,8 +108,6 @@ public class JdbcDishDaoTest {
         assertThat("ID_CATEGORY is not equal", ((Integer) rows.get(0).get("ID_CATEGORY")), equalTo(newDish.getCategory().getId()));
         assertThat("PRICE is not equal", ((Integer) rows.get(0).get("PRICE")), equalTo(newDish.getPrice()));
         assertThat("ID_CATEGORY is not equal", ((Integer) rows.get(0).get("WEIGHT")), equalTo(newDish.getWeight()));
-        assertThat("ISPREPERED is not equal", ((Boolean) rows.get(0).get("ISPREPARED")), equalTo(newDish.isPrepared()));
-        assertThat("ID_EMPLOYEE is not equal", ((Integer) rows.get(0).get("ID_EMPLOYEE_PREPARED")), equalTo(newDish.getWhoPrepared().getId()));
         assertThat("NAME DISH is not equal", ((String) rows.get(0).get("NAME")).trim(), equalTo(newDish.getName()));
 
         rows = jdbcTemplate.queryForList("SELECT * FROM INGREDIENTLIST WHERE ID_DISH=1");
@@ -168,12 +156,5 @@ public class JdbcDishDaoTest {
         assertThat(dishes.get(0), equalTo(existDish));
     }
 
-    @Test
-    public void getAllPreparedDishes() throws Exception {
-        List<Dish> dishes = dao.getAllPreparedDishes();
-        assertThat(dishes, hasSize(1));
-        assertThat(dishes.get(0), equalTo(existDish));
-
-    }
 
 }
