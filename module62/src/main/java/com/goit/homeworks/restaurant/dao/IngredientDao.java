@@ -10,4 +10,5 @@ import java.util.List;
 public interface IngredientDao extends SimpleDao<Ingredient> {
     List<Ingredient> findIngredientByName(String name);
     List<Ingredient> getAllEndIngredients(int minAmount);
+    Ingredient findIngredientById(int id);
 }

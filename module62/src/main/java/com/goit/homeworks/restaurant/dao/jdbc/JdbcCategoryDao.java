@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class JdbcCategoryDao implements CategoryDao {
     private DataSource dataSource;
-    private static final Logger LOGGER = Logger.getLogger(JdbcPositionDao.class);
+    private static final Logger LOGGER = Logger.getLogger(JdbcCategoryDao.class);
 
     public JdbcCategoryDao(DataSource dataSource) {
         this.dataSource = dataSource;

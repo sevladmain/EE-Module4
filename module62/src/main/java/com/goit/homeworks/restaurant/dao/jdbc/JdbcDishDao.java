@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class JdbcDishDao implements DishDao {
     private DataSource dataSource;
-    private static final Logger LOGGER = Logger.getLogger(JdbcEmployeeDao.class);
+    private static final Logger LOGGER = Logger.getLogger(JdbcDishDao.class);
 
     public JdbcDishDao(DataSource dataSource) {
         this.dataSource = dataSource;
