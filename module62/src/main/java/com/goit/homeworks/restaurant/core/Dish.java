@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class Dish {
     private int id;
+    private String name;
     private Category category;
     private List<Ingredient> ingredientList;
     private int price;
@@ -16,14 +17,15 @@ public class Dish {
     private Employee whoPrepared;
 
     public Dish() {
-        this(0, new Category(), new ArrayList<>(), 0, 0);
+        this(0, "", new Category(), new ArrayList<>(), 0, 0);
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public Dish(Category category, List<Ingredient> ingredientList, int price, int weight) {
+    public Dish(String name, Category category, List<Ingredient> ingredientList, int price, int weight) {
+        this.name = name;
         this.category = category;
         this.ingredientList = ingredientList;
         this.price = price;
@@ -32,8 +34,9 @@ public class Dish {
         this.whoPrepared = new Employee();
     }
 
-    public Dish(int id, Category category, List<Ingredient> ingredientList, int price, int weight) {
+    public Dish(int id, String name, Category category, List<Ingredient> ingredientList, int price, int weight) {
         this.id = id;
+        this.name = name;
         this.category = category;
         this.ingredientList = ingredientList;
         this.price = price;
@@ -94,6 +97,14 @@ public class Dish {
         this.weight = weight;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,10 +113,11 @@ public class Dish {
         Dish dish = (Dish) o;
 
         if (id != dish.id) return false;
-        if (!category.equals(dish.category)) return false;
         if (price != dish.price) return false;
         if (weight != dish.weight) return false;
         if (isPrepared != dish.isPrepared) return false;
+        if (name != null ? !name.equals(dish.name) : dish.name != null) return false;
+        if (category != null ? !category.equals(dish.category) : dish.category != null) return false;
         if (ingredientList != null ? !ingredientList.equals(dish.ingredientList) : dish.ingredientList != null)
             return false;
         return whoPrepared != null ? whoPrepared.equals(dish.whoPrepared) : dish.whoPrepared == null;
@@ -115,7 +127,8 @@ public class Dish {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + category.hashCode();
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (ingredientList != null ? ingredientList.hashCode() : 0);
         result = 31 * result + price;
         result = 31 * result + weight;
@@ -128,6 +141,7 @@ public class Dish {
     public String toString() {
         return "Dish{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", category=" + category +
                 ", ingredientList=" + ingredientList +
                 ", price=" + price +
