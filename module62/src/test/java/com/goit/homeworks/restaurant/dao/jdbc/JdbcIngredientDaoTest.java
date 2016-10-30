@@ -68,7 +68,7 @@ public class JdbcIngredientDaoTest {
         Ingredient ingredient = new Ingredient(2, "Tomato", 100);
         assertThat(dao.remove(ingredient), equalTo(1));
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL_SELECT_STATEMENT);
-        assertThat(rows, hasSize(2));
+        assertThat(rows, hasSize(1));
         rows = jdbcTemplate.queryForList("SELECT * FROM IngredientS WHERE ID=2");
         assertThat(rows, hasSize(0));
 
