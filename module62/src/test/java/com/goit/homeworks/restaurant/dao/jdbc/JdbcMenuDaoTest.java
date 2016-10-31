@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,22 +36,16 @@ public class JdbcMenuDaoTest {
                 .addScript("scheme.sql")
                 .build();
         jdbcTemplate = new JdbcTemplate(db);
-        JdbcCategoryDao categoryDao = new JdbcCategoryDao(db);
-        JdbcIngredientDao ingredientDao = new JdbcIngredientDao(db);
-        JdbcDishDao dishDao = new JdbcDishDao(db, categoryDao, ingredientDao);
+        JdbcDishDao dishDao = new JdbcDishDao(db);
         dao = new JdbcMenuDao(db, dishDao);
 
         Dish existDish;
         existDish = new Dish();
         existDish .setId(1);
-        existDish .setCategory(new Category(1, "SOUPS"));
+        existDish .setCategoryId(1);
         existDish .setPrice(100);
         existDish .setWeight(250);
         existDish.setName("Chicken");
-        List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(1, "Potato", 2));
-        ingredients.add(new Ingredient(2, "Tomato", 3));
-        existDish.setIngredientList(ingredients);
 
         List<Dish> dishes = new ArrayList<>();
         dishes.add(existDish);

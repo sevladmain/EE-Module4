@@ -19,22 +19,13 @@ import java.util.List;
 public class JdbcEmployeeDao implements EmployeeDao {
     private DataSource dataSource;
     private static final Logger LOGGER = Logger.getLogger(JdbcEmployeeDao.class);
-    private PositionDao positionDao;
 
-    public PositionDao getPositionDao() {
-        return positionDao;
-    }
-
-    public void setPositionDao(PositionDao positionDao) {
-        this.positionDao = positionDao;
-    }
 
     public DataSource getDataSource() {
         return dataSource;
     }
 
-    public JdbcEmployeeDao(DataSource dataSource, PositionDao positionDao) {
-        this.positionDao = positionDao;
+    public JdbcEmployeeDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -52,7 +43,6 @@ public class JdbcEmployeeDao implements EmployeeDao {
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM EMPLOYEE");
-
             while (resultSet.next()) {
                 Employee employee = extractEmployee(resultSet);
                 result.add(employee);
@@ -70,7 +60,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         employee.setFirstName(set.getString("FIRST_NAME").trim());
         employee.setLastName(set.getString("LAST_NAME").trim());
         employee.setDateBirth(set.getDate("DATE_BIRTH"));
-        employee.setPosition(positionDao.findPositionById(set.getInt("ID_POSITION")));
+        employee.setPositionId(set.getInt("ID_POSITION"));
         employee.setSalary(set.getInt("SALARY"));
         return employee;
     }
@@ -82,7 +72,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
             statement.setString(1, item.getFirstName());
             statement.setString(2, item.getLastName());
             statement.setDate(3, item.getDateBirth());
-            statement.setInt(4, item.getPosition().getId());
+            statement.setInt(4, item.getPositionId());
             statement.setInt(5, item.getSalary());
             statement.executeUpdate();
             ResultSet set = statement.getGeneratedKeys();
@@ -124,7 +114,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
                 statement.setString(1, item.getFirstName());
                 statement.setString(2, item.getLastName());
                 statement.setDate(3, (Date) item.getDateBirth());
-                statement.setInt(4, item.getPosition().getId());
+                statement.setInt(4, item.getPositionId());
                 statement.setInt(5, item.getSalary());
                 statement.setInt(6, item.getId());
                 result = statement.executeUpdate();

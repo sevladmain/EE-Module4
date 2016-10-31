@@ -10,31 +10,31 @@ public class Employee {
     private String firstName;
     private String lastName;
     private Date dateBirth;
-    private Position position;
+    private int positionId;
     private int salary;
 
     public Employee() {
-        this(0,"","", Date.valueOf("1900-01-01"), new Position(), 0);
+        this(0,"","", Date.valueOf("1900-01-01"), 0, 0);
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public Employee(String firstName, String lastName, Date dateBirth, Position position, int salary) {
+    public Employee(String firstName, String lastName, Date dateBirth, int positionId, int salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateBirth = dateBirth;
-        this.position = position;
+        this.positionId = positionId;
         this.salary = salary;
     }
 
-    public Employee(int id, String firstName, String lastName, Date dateBirth, Position position, int salary) {
+    public Employee(int id, String firstName, String lastName, Date dateBirth, int positionId, int salary) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateBirth = dateBirth;
-        this.position = position;
+        this.positionId = positionId;
         this.salary = salary;
     }
 
@@ -66,12 +66,12 @@ public class Employee {
         this.dateBirth = dateBirth;
     }
 
-    public Position getPosition() {
-        return position;
+    public int getPositionId() {
+        return positionId;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setPositionId(int positionId) {
+        this.positionId = positionId;
     }
 
     public int getSalary() {
@@ -88,30 +88,24 @@ public class Employee {
         if (o == null || getClass() != o.getClass()) return false;
 
         Employee employee = (Employee) o;
+
         if (id != employee.id) return false;
-        if (!position.equals(employee.position)) return false;
+        if (positionId != employee.positionId) return false;
         if (salary != employee.salary) return false;
-        if (!firstName.equals(employee.firstName)) return false;
-        if (!lastName.equals(employee.lastName)) return false;
-        return dateBirth.equals(employee.dateBirth);
+        if (firstName != null ? !firstName.equals(employee.firstName) : employee.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(employee.lastName) : employee.lastName != null) return false;
+        return dateBirth != null ? dateBirth.equals(employee.dateBirth) : employee.dateBirth == null;
 
-    }
-
-    public boolean isSimilar(Employee employee){
-        if (salary != employee.salary) return false;
-        if (!firstName.equals(employee.firstName)) return false;
-        if (!lastName.equals(employee.lastName)) return false;
-        return dateBirth.equals(employee.dateBirth);
     }
 
     @Override
     public int hashCode() {
-        int result = firstName.hashCode();
-        result = 31 * result + lastName.hashCode();
-        result = 31 * result + dateBirth.hashCode();
-        result = 31 * result + position.hashCode();
+        int result = id;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (dateBirth != null ? dateBirth.hashCode() : 0);
+        result = 31 * result + positionId;
         result = 31 * result + salary;
-        result = 31 * result + id;
         return result;
     }
 
@@ -122,7 +116,7 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", dateBirth=" + dateBirth +
-                ", position=" + position +
+                ", positionId=" + positionId +
                 ", salary=" + salary +
                 '}';
     }

@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,30 +35,20 @@ public class JdbcDishDaoTest {
                 .addScript("scheme.sql")
                 .build();
         jdbcTemplate = new JdbcTemplate(db);
-        JdbcCategoryDao categoryDao = new JdbcCategoryDao(db);
-        JdbcIngredientDao ingredientDao = new JdbcIngredientDao(db);
-        dao = new JdbcDishDao(db, categoryDao, ingredientDao);
+        dao = new JdbcDishDao(db);
         newDish = new Dish();
         newDish.setId(2);
-        newDish.setCategory(new Category(1, "SOUPS"));
+        newDish.setCategoryId(1);
         newDish.setPrice(10);
         newDish.setWeight(100);
         newDish.setName("CoCoJambo");
-        Ingredient ingredient = new Ingredient(2, "Tomato", 100);
-        List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(ingredient);
-        newDish.setIngredientList(ingredients);
 
         existDish = new Dish();
         existDish .setId(1);
-        existDish .setCategory(new Category(1, "SOUPS"));
+        existDish .setCategoryId(1);
         existDish .setPrice(100);
         existDish .setWeight(250);
         existDish.setName("Chicken");
-        ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(1, "Potato", 2));
-        ingredients.add(new Ingredient(2, "Tomato", 3));
-        existDish .setIngredientList(ingredients);
     }
 
     @After
@@ -73,14 +62,10 @@ public class JdbcDishDaoTest {
         assertThat("Row not inserted or not exists", rows, hasSize(1));
 
         assertThat("ID is not equal", ((Integer) rows.get(0).get("ID")), equalTo(newDish.getId()));
-        assertThat("ID_CATEGORY is not equal", ((Integer) rows.get(0).get("ID_CATEGORY")), equalTo(newDish.getCategory().getId()));
+        assertThat("ID_CATEGORY is not equal", ((Integer) rows.get(0).get("ID_CATEGORY")), equalTo(newDish.getCategoryId()));
         assertThat("PRICE is not equal", ((Integer) rows.get(0).get("PRICE")), equalTo(newDish.getPrice()));
-        assertThat("ID_CATEGORY is not equal", ((Integer) rows.get(0).get("WEIGHT")), equalTo(newDish.getWeight()));
+        assertThat("WEIGHT is not equal", ((Integer) rows.get(0).get("WEIGHT")), equalTo(newDish.getWeight()));
         assertThat("NAME DISH is not equal", ((String) rows.get(0).get("NAME")).trim(), equalTo(newDish.getName()));
-        rows = jdbcTemplate.queryForList("SELECT * FROM INGREDIENTLIST WHERE ID_DISH=2");
-        assertThat(rows, hasSize(1));
-
-        assertThat("INGREDIENTLIST is not inserted", ((Integer) rows.get(0).get("ID_INGREDIENT")), equalTo(newDish.getIngredientList().get(0).getId()));
 
         assertThat("Result dish and test dish not equal", resultDish, equalTo(newDish));
         assertThat("Result dish has wrong ID", resultDish.getId(), equalTo(2));
@@ -89,10 +74,8 @@ public class JdbcDishDaoTest {
 
     @Test
     public void removeTrueDish(){
-        assertThat(dao.remove(existDish), equalTo(3));
+        assertThat(dao.remove(existDish), equalTo(1));
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL_SELECT_STATEMENT);
-        assertThat(rows, hasSize(0));
-        rows = jdbcTemplate.queryForList("SELECT * FROM INGREDIENTLIST WHERE ID_DISH=" + existDish.getId());
         assertThat(rows, hasSize(0));
     }
 
@@ -105,22 +88,16 @@ public class JdbcDishDaoTest {
         assertThat("Row not inserted or not exists", rows, hasSize(1));
 
         assertThat("ID is not equal", ((Integer) rows.get(0).get("ID")), equalTo(newDish.getId()));
-        assertThat("ID_CATEGORY is not equal", ((Integer) rows.get(0).get("ID_CATEGORY")), equalTo(newDish.getCategory().getId()));
+        assertThat("ID_CATEGORY is not equal", ((Integer) rows.get(0).get("ID_CATEGORY")), equalTo(newDish.getCategoryId()));
         assertThat("PRICE is not equal", ((Integer) rows.get(0).get("PRICE")), equalTo(newDish.getPrice()));
-        assertThat("ID_CATEGORY is not equal", ((Integer) rows.get(0).get("WEIGHT")), equalTo(newDish.getWeight()));
+        assertThat("WEIGHT is not equal", ((Integer) rows.get(0).get("WEIGHT")), equalTo(newDish.getWeight()));
         assertThat("NAME DISH is not equal", ((String) rows.get(0).get("NAME")).trim(), equalTo(newDish.getName()));
 
-        rows = jdbcTemplate.queryForList("SELECT * FROM INGREDIENTLIST WHERE ID_DISH=1");
-        assertThat(rows, hasSize(1));
-
-        assertThat("INGREDIENTLIST is not inserted", ((Integer) rows.get(0).get("ID_INGREDIENT")), equalTo(newDish.getIngredientList().get(0).getId()));
     }
 
     @Test
     public void testUpdateFakeDish(){
         assertThat(dao.update(newDish), equalTo(0));
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT * FROM INGREDIENTLIST");
-        assertThat(rows, hasSize(2));
     }
 
     @Test

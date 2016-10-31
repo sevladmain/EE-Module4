@@ -16,8 +16,6 @@ CREATE TABLE "DISHES" (
     "ID_CATEGORY" integer NOT NULL,
     "PRICE" integer,
     "WEIGHT" integer,
-    "ISPREPARED" boolean DEFAULT false NOT NULL,
-    "ID_EMPLOYEE_PREPARED" integer,
     "NAME" CHARACTER(50)
 );
 

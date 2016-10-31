@@ -1,7 +1,8 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
-import com.goit.homeworks.restaurant.core.*;
-import com.goit.homeworks.restaurant.dao.MenuDao;
+import com.goit.homeworks.restaurant.core.Dish;
+import com.goit.homeworks.restaurant.core.Employee;
+import com.goit.homeworks.restaurant.core.PreparedDish;
 import com.goit.homeworks.restaurant.dao.PreparedDishDao;
 import org.junit.After;
 import org.junit.Before;
@@ -11,14 +12,12 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
 
 /**
  * Created by SeVlad on 30.10.2016.
@@ -38,39 +37,30 @@ public class JdbcPreparedDishDaoTest {
                 .addScript("scheme.sql")
                 .build();
         jdbcTemplate = new JdbcTemplate(db);
-        JdbcCategoryDao categoryDao = new JdbcCategoryDao(db);
-        JdbcIngredientDao ingredientDao = new JdbcIngredientDao(db);
-        JdbcDishDao dishDao = new JdbcDishDao(db, categoryDao, ingredientDao);
-        JdbcPositionDao positionDao = new JdbcPositionDao(db);
-        JdbcEmployeeDao employeeDao = new JdbcEmployeeDao(db, positionDao);
+        JdbcDishDao dishDao = new JdbcDishDao(db);
+        JdbcEmployeeDao employeeDao = new JdbcEmployeeDao(db);
         dao = new JdbcPreparedDishDao(db, dishDao, employeeDao);
 
-        Position position = new Position(2, "NEWBIE");
+        int position = 2;
         Employee employee = new Employee(1, "Mary", "Ivanova", Date.valueOf("1998-08-12"), position, 1000);
 
         Dish dish;
         dish = new Dish();
         dish.setId(1);
-        dish.setCategory(new Category(1, "SOUPS"));
+        dish.setCategoryId(1);
         dish.setPrice(100);
         dish.setWeight(250);
         dish.setName("Chicken");
-        List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(1, "Potato", 2));
-        ingredients.add(new Ingredient(2, "Tomato", 3));
-        dish.setIngredientList(ingredients);
 
         existingDish = new PreparedDish(dish, employee, false);
         existingDish.setId(1);
 
         dish = new Dish();
         dish.setId(1);
-        dish.setCategory(new Category(1, "SOUPS"));
+        dish.setCategoryId(1);
         dish.setPrice(100);
         dish.setWeight(250);
         dish.setName("Chicken");
-        ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(1, "Potato", 2));
 
         newDish = new PreparedDish(dish, employee, true);
     }
