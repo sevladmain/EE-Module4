@@ -1,8 +1,6 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
-import com.goit.homeworks.restaurant.core.Dish;
 import com.goit.homeworks.restaurant.core.Menu;
-import com.goit.homeworks.restaurant.dao.DishDao;
 import com.goit.homeworks.restaurant.dao.MenuDao;
 import org.apache.log4j.Logger;
 
@@ -17,7 +15,6 @@ import java.util.List;
 public class JdbcMenuDao implements MenuDao {
     private static final Logger LOGGER = Logger.getLogger(JdbcMenuDao.class);
     private DataSource dataSource;
-    private DishDao dishDao;
 
     public DataSource getDataSource() {
         return dataSource;
@@ -27,25 +24,15 @@ public class JdbcMenuDao implements MenuDao {
         this.dataSource = dataSource;
     }
 
-    public JdbcMenuDao(DataSource dataSource, DishDao dishDao) {
+    public JdbcMenuDao(DataSource dataSource) {
         this.dataSource = dataSource;
-        this.dishDao = dishDao;
-    }
-
-    public DishDao getDishDao() {
-        return dishDao;
-    }
-
-    public void setDishDao(DishDao dishDao) {
-        this.dishDao = dishDao;
     }
 
     @Override
     public Menu create(Menu item) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO MENU (NAME)  VALUES (?)",
-                     Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement updateStatement = connection.prepareStatement("INSERT INTO MENULIST (ID_MENU, ID_DISH) VALUES (?,?)")) {
+                     Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
             statement.executeUpdate();
             ResultSet set = statement.getGeneratedKeys();
@@ -54,12 +41,6 @@ public class JdbcMenuDao implements MenuDao {
             } else {
                 LOGGER.error("Unknown Error in create Menu: " + item);
                 throw new RuntimeException("Unknown Error in create Menu");
-            }
-            for (Dish dish :
-                    item.getDishes()) {
-                updateStatement.setInt(1, item.getId());
-                updateStatement.setInt(2, dish.getId());
-                updateStatement.executeUpdate();
             }
         } catch (SQLException e) {
             LOGGER.error("Exception while connecting to DB in method create Menu: " + e);
@@ -74,12 +55,9 @@ public class JdbcMenuDao implements MenuDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("DELETE FROM MENU WHERE ID=?");
-                 PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM MENULIST WHERE ID_MENU=?")) {
+                 PreparedStatement statement = connection.prepareStatement("DELETE FROM MENU WHERE ID=?")) {
                 statement.setInt(1, item.getId());
-                deleteStatement.setInt(1, item.getId());
                 result = statement.executeUpdate();
-                result += deleteStatement.executeUpdate();
             } catch (SQLException e) {
                 LOGGER.error("Exception while connecting to DB in method remove Menu: " + item + " " + e);
                 throw new RuntimeException(e);
@@ -93,23 +71,10 @@ public class JdbcMenuDao implements MenuDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE MENU SET NAME=? WHERE ID=?");
-                 PreparedStatement deleteStatement = connection.prepareStatement("DELETE FROM MENULIST WHERE ID_MENU=?");
-                 PreparedStatement updateStatement = connection.prepareStatement("INSERT INTO MENULIST(ID_MENU, ID_DISH) VALUES (?,?)")) {
+                 PreparedStatement statement = connection.prepareStatement("UPDATE MENU SET NAME=? WHERE ID=?")) {
                 statement.setString(1, item.getName());
                 statement.setInt(2, item.getId());
-
-                deleteStatement.setInt(1, item.getId());
                 result = statement.executeUpdate();
-                deleteStatement.executeUpdate();
-                if(result > 0) {
-                    for (Dish dish :
-                            item.getDishes()) {
-                        updateStatement.setInt(1, item.getId());
-                        updateStatement.setInt(2, dish.getId());
-                        updateStatement.executeUpdate();
-                    }
-                }
             } catch (SQLException e) {
                 LOGGER.error("Exception while connecting to DB in method update Menu: " + item + e);
                 throw new RuntimeException(e);
@@ -122,12 +87,10 @@ public class JdbcMenuDao implements MenuDao {
     public List<Menu> getAll() {
         List<Menu> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             PreparedStatement ingredientStatement = connection.prepareStatement("SELECT * FROM MENULIST WHERE ID_MENU=?")) {
+             Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM MENU");
             while (resultSet.next()) {
                 Menu menu = extractMenu(resultSet);
-                menu.setDishes(getDishes(ingredientStatement, menu));
                 result.add(menu);
             }
         } catch (SQLException e) {
@@ -135,17 +98,6 @@ public class JdbcMenuDao implements MenuDao {
             throw new RuntimeException(e);
         }
         return result;
-    }
-
-    private List<Dish> getDishes(PreparedStatement statement, Menu menu) throws SQLException {
-        List<Dish> dishes = new ArrayList<>();
-        statement.setInt(1, menu.getId());
-        ResultSet ingrSets = statement.executeQuery();
-        while(ingrSets.next()){
-            dishes.add(dishDao.findDishById(ingrSets.getInt("ID_DISH")));
-        }
-        return dishes;
-
     }
 
     private Menu extractMenu(ResultSet set) throws SQLException {
@@ -159,13 +111,11 @@ public class JdbcMenuDao implements MenuDao {
     public List<Menu> findMenuByName(String name){
         List<Menu> menus = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM MENU WHERE MENU.NAME LIKE ?");
-             PreparedStatement ingredientStatement = connection.prepareStatement("SELECT * FROM MENULIST WHERE ID_MENU=?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM MENU WHERE MENU.NAME LIKE ?")) {
             statement.setString(1, "%" + name + "%");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Menu menu = extractMenu(resultSet);
-                menu.setDishes(getDishes(ingredientStatement, menu));
                 menus.add(menu);
             }
         } catch (SQLException e) {
@@ -179,13 +129,11 @@ public class JdbcMenuDao implements MenuDao {
     public Menu findMenuById(int id) {
         Menu menu = new Menu();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM MENU WHERE MENU.ID =?");
-             PreparedStatement ingredientStatement = connection.prepareStatement("SELECT * FROM MENULIST WHERE ID_MENU=?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM MENU WHERE MENU.ID =?")) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 menu = extractMenu(resultSet);
-                menu.setDishes(getDishes(ingredientStatement, menu));
             }
         } catch (SQLException e) {
             LOGGER.error("Exception while connecting to DB in method find menu by id: " + id + e);

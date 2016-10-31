@@ -1,6 +1,6 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
-import com.goit.homeworks.restaurant.core.*;
+import com.goit.homeworks.restaurant.core.Dish;
 import com.goit.homeworks.restaurant.dao.DishDao;
 import org.junit.After;
 import org.junit.Before;
@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

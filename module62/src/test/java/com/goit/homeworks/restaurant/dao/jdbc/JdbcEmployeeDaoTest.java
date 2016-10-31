@@ -1,7 +1,6 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.core.Employee;
-import com.goit.homeworks.restaurant.core.Position;
 import com.goit.homeworks.restaurant.dao.EmployeeDao;
 import org.junit.After;
 import org.junit.Before;

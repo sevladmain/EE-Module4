@@ -1,6 +1,6 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
-import com.goit.homeworks.restaurant.core.*;
+import com.goit.homeworks.restaurant.core.Menu;
 import com.goit.homeworks.restaurant.dao.MenuDao;
 import org.junit.After;
 import org.junit.Before;
@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,23 +35,12 @@ public class JdbcMenuDaoTest {
                 .addScript("scheme.sql")
                 .build();
         jdbcTemplate = new JdbcTemplate(db);
-        JdbcDishDao dishDao = new JdbcDishDao(db);
-        dao = new JdbcMenuDao(db, dishDao);
+        dao = new JdbcMenuDao(db);
 
-        Dish existDish;
-        existDish = new Dish();
-        existDish .setId(1);
-        existDish .setCategoryId(1);
-        existDish .setPrice(100);
-        existDish .setWeight(250);
-        existDish.setName("Chicken");
+        existingMenu1 = new Menu(1, "Mega-Menu");
+        existingMenu2 = new Menu(2, "Empty-Menu");
 
-        List<Dish> dishes = new ArrayList<>();
-        dishes.add(existDish);
-        existingMenu1 = new Menu(1, "Mega-Menu",dishes);
-        existingMenu2 = new Menu(2, "Empty-Menu", new ArrayList<>());
-
-        newMenu = new Menu(3, "Ok-menu", dishes);
+        newMenu = new Menu(3, "Ok-menu");
     }
 
     @After
@@ -69,11 +57,6 @@ public class JdbcMenuDaoTest {
         assertThat("ID is not equal", ((Integer) rows.get(0).get("ID")), equalTo(newMenu.getId()));
         assertThat("NAME DISH is not equal", ((String) rows.get(0).get("NAME")).trim(), equalTo(newMenu.getName()));
 
-        rows = jdbcTemplate.queryForList("SELECT * FROM MENULIST WHERE ID_MENU=3");
-        assertThat(rows, hasSize(1));
-
-        assertThat("INGREDIENTLIST is not inserted", ((Integer) rows.get(0).get("ID_DISH")), equalTo(newMenu.getDishes().get(0).getId()));
-
         assertThat("Result dish and test dish not equal", resultMenu, equalTo(newMenu));
         assertThat("Result dish has wrong ID", resultMenu.getId(), equalTo(3));
     }
@@ -81,11 +64,9 @@ public class JdbcMenuDaoTest {
 
     @Test
     public void removeTrueMenu(){
-        assertThat(dao.remove(existingMenu1), equalTo(2));
+        assertThat(dao.remove(existingMenu1), equalTo(1));
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(SQL_SELECT_STATEMENT);
         assertThat(rows, hasSize(1));
-        rows = jdbcTemplate.queryForList("SELECT * FROM MENULIST WHERE ID_MENU=" + existingMenu1.getId());
-        assertThat(rows, hasSize(0));
     }
 
     @Test
@@ -98,11 +79,6 @@ public class JdbcMenuDaoTest {
 
         assertThat("ID is not equal", ((Integer) rows.get(0).get("ID")), equalTo(newMenu.getId()));
         assertThat("NAME DISH is not equal", ((String) rows.get(0).get("NAME")).trim(), equalTo(newMenu.getName()));
-
-        rows = jdbcTemplate.queryForList("SELECT * FROM MENULIST WHERE ID_MENU=2");
-        assertThat(rows, hasSize(1));
-
-        assertThat("INGREDIENTLIST is not inserted", ((Integer) rows.get(0).get("ID_DISH")), equalTo(newMenu.getDishes().get(0).getId()));
     }
 
     @Test

@@ -9,25 +9,22 @@ import java.util.List;
 public class Menu {
     private int id;
     private String name;
-    private List<Dish> dishes;
 
     public Menu() {
-        this(0, "", new ArrayList<>());
+        this(0, "");
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public Menu(int id, String name, List<Dish> dishes) {
+    public Menu(int id, String name) {
         this.id = id;
         this.name = name;
-        this.dishes = dishes;
     }
 
-    public Menu(String name, List<Dish> dishes) {
+    public Menu(String name) {
         this.name = name;
-        this.dishes = dishes;
     }
 
     public int getId() {
@@ -42,22 +39,6 @@ public class Menu {
         this.name = name;
     }
 
-    public List<Dish> getDishes() {
-        return dishes;
-    }
-
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
-    }
-
-    public void addDish(Dish dish){
-        dishes.add(dish);
-    }
-
-    public boolean removeDish(Dish dish){
-        return dishes.remove(dish);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,8 +47,7 @@ public class Menu {
         Menu menu = (Menu) o;
 
         if (id != menu.id) return false;
-        if (name != null ? !name.equals(menu.name) : menu.name != null) return false;
-        return dishes != null ? dishes.equals(menu.dishes) : menu.dishes == null;
+        return name != null ? name.equals(menu.name) : menu.name == null;
 
     }
 
@@ -75,7 +55,6 @@ public class Menu {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (dishes != null ? dishes.hashCode() : 0);
         return result;
     }
 
@@ -84,7 +63,6 @@ public class Menu {
         return "Menu{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", dishes=" + dishes +
                 '}';
     }
 }
