@@ -8,8 +8,7 @@ import java.util.List;
  */
 public class Order {
     private int id;
-    private Employee employee;
-    private List<Dish> dishes;
+    private int employeeId;
     private int tableNum;
     private Date date;
     private boolean isOpen;
@@ -17,22 +16,16 @@ public class Order {
     public Order() {
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Order(Employee employee, List<Dish> dishes, int tableNum, Date date, boolean isOpen) {
-        this.employee = employee;
-        this.dishes = dishes;
+    public Order(int employeeId, int tableNum, Date date, boolean isOpen) {
+        this.employeeId = employeeId;
         this.tableNum = tableNum;
         this.date = date;
         this.isOpen = isOpen;
     }
 
-    public Order(int id, Employee employee, List<Dish> dishes, int tableNum, Date date, boolean isOpen) {
+    public Order(int id, int employeeId, int tableNum, Date date, boolean isOpen) {
         this.id = id;
-        this.employee = employee;
-        this.dishes = dishes;
+        this.employeeId = employeeId;
         this.tableNum = tableNum;
         this.date = date;
         this.isOpen = isOpen;
@@ -46,24 +39,20 @@ public class Order {
         isOpen = open;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public List<Dish> getDishes() {
-        return dishes;
-    }
-
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public int getTableNum() {
@@ -82,12 +71,6 @@ public class Order {
         this.date = date;
     }
 
-    public boolean addDish(Dish dish){
-        if(isOpen)
-            dishes.add(dish);
-        return isOpen;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -96,10 +79,9 @@ public class Order {
         Order order = (Order) o;
 
         if (id != order.id) return false;
+        if (employeeId != order.employeeId) return false;
         if (tableNum != order.tableNum) return false;
         if (isOpen != order.isOpen) return false;
-        if (employee != null ? !employee.equals(order.employee) : order.employee != null) return false;
-        if (dishes != null ? !dishes.equals(order.dishes) : order.dishes != null) return false;
         return date != null ? date.equals(order.date) : order.date == null;
 
     }
@@ -107,8 +89,7 @@ public class Order {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (employee != null ? employee.hashCode() : 0);
-        result = 31 * result + (dishes != null ? dishes.hashCode() : 0);
+        result = 31 * result + employeeId;
         result = 31 * result + tableNum;
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (isOpen ? 1 : 0);
@@ -119,8 +100,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", employee=" + employee +
-                ", dishes=" + dishes +
+                ", employeeId=" + employeeId +
                 ", tableNum=" + tableNum +
                 ", date=" + date +
                 ", isOpen=" + isOpen +

@@ -16,7 +16,6 @@ public class JdbcOrderDao implements OrderDao {
     private static final Logger LOGGER = Logger.getLogger(JdbcOrderDao.class);
     private DataSource dataSource;
     private DishDao dishDao;
-    private EmployeeDao employeeDao;
 
     @Override
     public Order create(Order item) {
