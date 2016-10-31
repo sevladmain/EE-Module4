@@ -1,7 +1,6 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
-import com.goit.homeworks.restaurant.core.Dish;
-import com.goit.homeworks.restaurant.core.Employee;
+import com.goit.homeworks.restaurant.core.Position;
 import com.goit.homeworks.restaurant.core.PreparedDish;
 import com.goit.homeworks.restaurant.dao.PreparedDishDao;
 import org.junit.After;
@@ -11,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -37,32 +35,15 @@ public class JdbcPreparedDishDaoTest {
                 .addScript("scheme.sql")
                 .build();
         jdbcTemplate = new JdbcTemplate(db);
-        JdbcDishDao dishDao = new JdbcDishDao(db);
-        JdbcEmployeeDao employeeDao = new JdbcEmployeeDao(db);
-        dao = new JdbcPreparedDishDao(db, dishDao, employeeDao);
+        dao = new JdbcPreparedDishDao(db);
 
-        int position = 2;
-        Employee employee = new Employee(1, "Mary", "Ivanova", Date.valueOf("1998-08-12"), position, 1000);
-
-        Dish dish;
-        dish = new Dish();
-        dish.setId(1);
-        dish.setCategoryId(1);
-        dish.setPrice(100);
-        dish.setWeight(250);
-        dish.setName("Chicken");
+        int employee = 1;
+        int dish = 1;
 
         existingDish = new PreparedDish(dish, employee, false);
         existingDish.setId(1);
 
-        dish = new Dish();
-        dish.setId(1);
-        dish.setCategoryId(1);
-        dish.setPrice(100);
-        dish.setWeight(250);
-        dish.setName("Chicken");
-
-        newDish = new PreparedDish(dish, employee, true);
+        newDish = new PreparedDish(dish+1, employee, true);
     }
 
     @After
@@ -77,8 +58,8 @@ public class JdbcPreparedDishDaoTest {
         assertThat("Row not inserted or not exists", rows, hasSize(1));
 
         assertThat("ID is not equal", ((Integer) rows.get(0).get("ID")), equalTo(newDish.getId()));
-        assertThat("ID DISH is not equal", ((Integer) rows.get(0).get("ID_DISH")), equalTo(newDish.getDish().getId()));
-        assertThat("ID EMPOYEE is not equal", ((Integer) rows.get(0).get("ID_EMPLOYEE")), equalTo(newDish.getEmployee().getId()));
+        assertThat("ID DISH is not equal", ((Integer) rows.get(0).get("ID_DISH")), equalTo(newDish.getDishId()));
+        assertThat("ID EMPOYEE is not equal", ((Integer) rows.get(0).get("ID_EMPLOYEE")), equalTo(newDish.getEmployeeId()));
         assertThat("IS PREPARED is not equal", ((Boolean) rows.get(0).get("IS_PREPARED")), equalTo(newDish.isPrepared()));
     }
 
@@ -97,11 +78,34 @@ public class JdbcPreparedDishDaoTest {
         assertThat("Row not inserted or not exists", rows, hasSize(1));
 
         assertThat("ID is not equal", ((Integer) rows.get(0).get("ID")), equalTo(newDish.getId()));
-        assertThat("ID EMPLOYEE is not equal", ((Integer) rows.get(0).get("ID_EMPLOYEE")), equalTo(newDish.getEmployee().getId()));
-        assertThat("ID DISH is not equal", ((Integer) rows.get(0).get("ID_DISH")), equalTo(newDish.getDish().getId()));
+        assertThat("ID EMPLOYEE is not equal", ((Integer) rows.get(0).get("ID_EMPLOYEE")), equalTo(newDish.getEmployeeId()));
+        assertThat("ID DISH is not equal", ((Integer) rows.get(0).get("ID_DISH")), equalTo(newDish.getDishId()));
         assertThat("IS PREPARED is not equal", ((Boolean) rows.get(0).get("IS_PREPARED")), equalTo(newDish.isPrepared()));
     }
 
+    @Test
+    public  void getAllPositionsTest(){
+        List<PreparedDish> preparedDishes = dao.getAll();
+        assertThat(preparedDishes, hasSize(1));
+        assertThat(preparedDishes.get(0), equalTo(existingDish));
+    }
 
+    @Test
+    public void testFindFakePreparedDishByID(){
+        PreparedDish preparedDish = dao.findPreparedDishById(2);
+        assertThat(preparedDish, equalTo(new PreparedDish()));
+    }
+
+    @Test
+    public void testFindPreparedDishByID(){
+        PreparedDish preparedDish = dao.findPreparedDishById(1);
+        assertThat(preparedDish, equalTo(existingDish));
+    }
+
+    @Test
+    public void testFindPreparedDishes(){
+        List<PreparedDish> preparedDishes = dao.findPreparedDishes();
+        assertThat(preparedDishes, hasSize(0));
+    }
 
 }

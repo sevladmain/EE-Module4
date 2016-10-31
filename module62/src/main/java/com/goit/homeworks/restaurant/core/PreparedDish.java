@@ -5,25 +5,25 @@ package com.goit.homeworks.restaurant.core;
  */
 public class PreparedDish {
     private int id;
-    private Dish dish;
-    private Employee employee;
+    private int dishId;
+    private int employeeId;
     private boolean isPrepared;
 
     public PreparedDish() {
-        this(0, new Dish(), new Employee(), false);
+        this(0, 0, 0, false);
     }
 
-    public PreparedDish(Dish dish, Employee employee, boolean isPrepared) {
-        this.dish = dish;
-        this.employee = employee;
+    public PreparedDish(int dishId, int employeeId, boolean isPrepared) {
+        this.dishId = dishId;
+        this.employeeId = employeeId;
         this.isPrepared = isPrepared;
     }
 
-    public PreparedDish(int id, Dish dish, Employee employee, boolean isPrepared) {
+    public PreparedDish(int id, int dishId, int employeeId, boolean isPrepared) {
 
         this.id = id;
-        this.dish = dish;
-        this.employee = employee;
+        this.dishId = dishId;
+        this.employeeId = employeeId;
         this.isPrepared = isPrepared;
     }
 
@@ -35,20 +35,20 @@ public class PreparedDish {
         this.id = id;
     }
 
-    public Dish getDish() {
-        return dish;
+    public int getDishId() {
+        return dishId;
     }
 
-    public void setDish(Dish dish) {
-        this.dish = dish;
+    public void setDishId(int dishId) {
+        this.dishId = dishId;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public boolean isPrepared() {
@@ -67,17 +67,17 @@ public class PreparedDish {
         PreparedDish that = (PreparedDish) o;
 
         if (id != that.id) return false;
-        if (isPrepared != that.isPrepared) return false;
-        if (dish != null ? !dish.equals(that.dish) : that.dish != null) return false;
-        return employee != null ? employee.equals(that.employee) : that.employee == null;
+        if (dishId != that.dishId) return false;
+        if (employeeId != that.employeeId) return false;
+        return isPrepared == that.isPrepared;
 
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (dish != null ? dish.hashCode() : 0);
-        result = 31 * result + (employee != null ? employee.hashCode() : 0);
+        result = 31 * result + dishId;
+        result = 31 * result + employeeId;
         result = 31 * result + (isPrepared ? 1 : 0);
         return result;
     }
@@ -86,8 +86,8 @@ public class PreparedDish {
     public String toString() {
         return "PreparedDish{" +
                 "id=" + id +
-                ", dish=" + dish +
-                ", employee=" + employee +
+                ", dishId=" + dishId +
+                ", employeeId=" + employeeId +
                 ", isPrepared=" + isPrepared +
                 '}';
     }

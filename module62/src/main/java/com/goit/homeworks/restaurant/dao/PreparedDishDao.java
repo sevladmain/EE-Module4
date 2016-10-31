@@ -8,6 +8,6 @@ import java.util.List;
  * Created by SeVlad on 30.10.2016.
  */
 public interface PreparedDishDao extends SimpleDao<PreparedDish> {
-    List<PreparedDish> findPreparedDish();
+    List<PreparedDish> findPreparedDishes();
     PreparedDish findPreparedDishById(int id);
 }
