@@ -1,0 +1,99 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <title><tiles:insertAttribute name="title"/></title>
+    <!-- Bootstrap -->
+    <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCss" />
+    <spring:url value="/resources/js/bootstrap.min.js" var="bootstrapJs" />
+    <link href="${bootstrapCss}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!-- Static navbar -->
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Працівники<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Додати</a></li>
+                        <li><a href="#">Видалити</a></li>
+                        <li><a href="#">Пошук за іменем</a></li>
+                        <li><a href="#">Вивести всіх</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Блюдо<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Додати</a></li>
+                        <li><a href="#">Видалити</a></li>
+                        <li><a href="#">Пошук за назвою</a></li>
+                        <li><a href="#">Вивести всіх</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Меню<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Створити</a></li>
+                        <li><a href="#">Видалити</a></li>
+                        <li><a href="#">Змінити склад страв меню</a></li>
+                        <li><a href="#">Пошук за назвою</a></li>
+                        <li><a href="#">Вивести всіх</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Замовлення<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Створити</a></li>
+                        <li><a href="#">Змінити склад страв замовлення</a></li>
+                        <li><a href="#">Змінити статус замовлення</a></li>
+                        <li><a href="#">Видалити</a></li>
+                        <li><a href="#">Вивести відкриті замовлення</a></li>
+                        <li><a href="#">Вивести закриті замовлення</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Історія кухні<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Додати приготовлені страви</a></li>
+                        <li><a href="#">Вивести приготовлені страви</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Склад<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Додати нові інгредієнти</a></li>
+                        <li><a href="#">Видалити інгредієнти</a></li>
+                        <li><a href="#">Змінити кількість інгредієнтів</a></li>
+                        <li><a href="#">Пошук інгредієнтів</a></li>
+                        <li><a href="#">Вивести всі інгредієнти</a></li>
+                        <li><a href="#">Вивести інгредієнти, що закінчуються</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+<tiles:insertAttribute name="content"/>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="${bootstrapJs}"></script>
+</body>
+</html>
