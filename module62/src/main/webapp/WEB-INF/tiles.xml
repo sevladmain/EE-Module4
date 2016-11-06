@@ -9,4 +9,11 @@
     <definition name="app.homepage" extends="app.default">
         <put-attribute name="content" value="/WEB-INF/servlets/home.jsp" />
     </definition>
+    <definition name="app.employees" extends="app.default">
+        <put-attribute name="content" value="/WEB-INF/servlets/employees.jsp" />
+    </definition>
+    <definition name="app.message" extends="app.default">
+        <put-attribute name="content" value="/WEB-INF/servlets/message.jsp" />
+    </definition>
+
 </tiles-definitions>

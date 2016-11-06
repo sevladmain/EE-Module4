@@ -31,7 +31,7 @@ public class JdbcMenuDao implements MenuDao {
     @Override
     public Menu create(Menu item) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO MENU (NAME)  VALUES (?)",
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"MENU\" (\"NAME\")  VALUES (?)",
                      Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
             statement.executeUpdate();
@@ -55,7 +55,7 @@ public class JdbcMenuDao implements MenuDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("DELETE FROM MENU WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("DELETE FROM \"MENU\" WHERE \"ID\"=?")) {
                 statement.setInt(1, item.getId());
                 result = statement.executeUpdate();
             } catch (SQLException e) {
@@ -71,7 +71,7 @@ public class JdbcMenuDao implements MenuDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE MENU SET NAME=? WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("UPDATE \"MENU\" SET \"NAME\"=? WHERE \"ID\"=?")) {
                 statement.setString(1, item.getName());
                 statement.setInt(2, item.getId());
                 result = statement.executeUpdate();
@@ -88,7 +88,7 @@ public class JdbcMenuDao implements MenuDao {
         List<Menu> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM MENU");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM \"MENU\"");
             while (resultSet.next()) {
                 Menu menu = extractMenu(resultSet);
                 result.add(menu);
@@ -111,7 +111,7 @@ public class JdbcMenuDao implements MenuDao {
     public List<Menu> findMenuByName(String name){
         List<Menu> menus = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM MENU WHERE MENU.NAME LIKE ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"MENU\" WHERE \"NAME\" LIKE ?")) {
             statement.setString(1, "%" + name + "%");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -129,7 +129,7 @@ public class JdbcMenuDao implements MenuDao {
     public Menu findMenuById(int id) {
         Menu menu = new Menu();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM MENU WHERE MENU.ID =?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"MENU\" WHERE \"ID\" =?")) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {

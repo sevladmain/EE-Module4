@@ -31,7 +31,7 @@ public class JdbcOrderDao implements OrderDao {
     @Override
     public Order create(Order item) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO ORDERS (ID_EMP, TABLE_NUM, DATE, ISOPEN)  VALUES (?,?,?,?)",
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"ORDERS\" (\"ID_EMP\", \"TABLE_NUM\", \"DATE\", \"ISOPEN\")  VALUES (?,?,?,?)",
                      Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, item.getEmployeeId());
             statement.setInt(2, item.getTableNum());
@@ -57,7 +57,7 @@ public class JdbcOrderDao implements OrderDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("DELETE FROM ORDERS WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("DELETE FROM \"ORDERS\" WHERE \"ID\"=?")) {
                 statement.setInt(1, item.getId());
                 result = statement.executeUpdate();
             } catch (SQLException e) {
@@ -73,7 +73,7 @@ public class JdbcOrderDao implements OrderDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE ORDERS SET ID_EMP=?, TABLE_NUM=?, DATE=?, ISOPEN=? WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("UPDATE \"ORDERS\" SET \"ID_EMP\"=?, \"TABLE_NUM\"=?, \"DATE\"=?, \"ISOPEN\"=? WHERE \"ID\"=?")) {
                 statement.setInt(1, item.getEmployeeId());
                 statement.setInt(2, item.getTableNum());
                 statement.setDate(3, item.getDate());
@@ -93,7 +93,7 @@ public class JdbcOrderDao implements OrderDao {
         List<Order> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM ORDERS");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM \"ORDERS\"");
             while (resultSet.next()) {
                 Order order = extractOrder(resultSet);
                 result.add(order);
@@ -121,7 +121,7 @@ public class JdbcOrderDao implements OrderDao {
         List<Order> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM ORDERS WHERE ISOPEN=TRUE");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM \"ORDERS\" WHERE \"ISOPEN\"=TRUE");
             while (resultSet.next()) {
                 Order order = extractOrder(resultSet);
                 result.add(order);
@@ -138,7 +138,7 @@ public class JdbcOrderDao implements OrderDao {
         List<Order> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM ORDERS WHERE ISOPEN=FALSE");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM \"ORDERS\" WHERE \"ISOPEN\"=FALSE");
             while (resultSet.next()) {
                 Order order = extractOrder(resultSet);
                 result.add(order);
@@ -154,7 +154,7 @@ public class JdbcOrderDao implements OrderDao {
     public Order findOrderById(int id) {
         Order order = new Order();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM ORDERS WHERE ID =?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"ORDERS\" WHERE \"ID\" =?")) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {

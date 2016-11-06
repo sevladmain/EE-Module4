@@ -34,7 +34,7 @@ public class JdbcMenuListDao implements MenuListDao {
     public int addDishToMenu(int dishId, int menuId) {
         int result = 0;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO MENULIST (ID_MENU, ID_DISH)  VALUES (?,?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"MENULIST\" (\"ID_MENU\", \"ID_DISH\")  VALUES (?,?)")) {
             statement.setInt(1, menuId);
             statement.setInt(2, dishId);
             result = statement.executeUpdate();
@@ -49,7 +49,7 @@ public class JdbcMenuListDao implements MenuListDao {
     public int removeDishFromMenu(int dishId, int menuId) {
         int result = 0;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM MENULIST WHERE ID_MENU=? AND ID_DISH=?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM \"MENULIST\" WHERE \"ID_MENU\"=? AND \"ID_DISH\"=?")) {
             statement.setInt(1, menuId);
             statement.setInt(2, dishId);
             result = statement.executeUpdate();
@@ -64,7 +64,7 @@ public class JdbcMenuListDao implements MenuListDao {
     public boolean isDishFromMenu(int dishId, int menuId) {
         boolean result = false;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM MENULIST WHERE ID_MENU=? AND ID_DISH=?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"MENULIST\" WHERE \"ID_MENU\"=? AND \"ID_DISH\"=?")) {
             statement.setInt(1, menuId);
             statement.setInt(2, dishId);
             ResultSet set = statement.executeQuery();
@@ -80,7 +80,7 @@ public class JdbcMenuListDao implements MenuListDao {
     public List<Integer> getAllDishes(int menuId) {
         List<Integer> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM MENULIST WHERE ID_MENU=?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"MENULIST\" WHERE \"ID_MENU\"=?")) {
             statement.setInt(1, menuId);
             ResultSet set = statement.executeQuery();
             while (set.next()){

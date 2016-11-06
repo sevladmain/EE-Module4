@@ -34,7 +34,7 @@ public class JdbcIngredientListDao implements IngredientListDao {
     public int addIngredientToDish(int ingredientId, int dishId) {
         int result = 0;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO INGREDIENTLIST (ID_INGREDIENT, ID_DISH)  VALUES (?,?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"INGREDIENTLIST\" (\"ID_INGREDIENT\", \"ID_DISH\")  VALUES (?,?)")) {
             statement.setInt(1, ingredientId);
             statement.setInt(2, dishId);
             result = statement.executeUpdate();
@@ -49,7 +49,7 @@ public class JdbcIngredientListDao implements IngredientListDao {
     public int removeIngredientFromDish(int ingredientId, int dishId) {
         int result = 0;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM INGREDIENTLIST WHERE ID_INGREDIENT=? AND ID_DISH=?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM \"INGREDIENTLIST\" WHERE \"ID_INGREDIENT\"=? AND \"ID_DISH\"=?")) {
             statement.setInt(1, ingredientId);
             statement.setInt(2, dishId);
             result = statement.executeUpdate();
@@ -64,7 +64,7 @@ public class JdbcIngredientListDao implements IngredientListDao {
     public boolean isIngredientFromDish(int ingredientId, int dishId) {
         boolean result = false;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM INGREDIENTLIST WHERE ID_INGREDIENT=? AND ID_DISH=?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"INGREDIENTLIST\" WHERE \"ID_INGREDIENT\"=? AND \"ID_DISH\"=?")) {
             statement.setInt(1, ingredientId);
             statement.setInt(2, dishId);
             ResultSet set = statement.executeQuery();
@@ -80,7 +80,7 @@ public class JdbcIngredientListDao implements IngredientListDao {
     public List<Integer> getAllIngredientsIds(int dishId) {
         List<Integer> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM INGREDIENTLIST WHERE ID_DISH=?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"INGREDIENTLIST\" WHERE \"ID_DISH\"=?")) {
             statement.setInt(1, dishId);
             ResultSet set = statement.executeQuery();
             while (set.next()){

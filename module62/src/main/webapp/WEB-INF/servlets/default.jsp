@@ -33,7 +33,7 @@
                         <li><a href="#">Додати</a></li>
                         <li><a href="#">Видалити</a></li>
                         <li><a href="#">Пошук за іменем</a></li>
-                        <li><a href="#">Вивести всіх</a></li>
+                        <li><a href="/get-all-employees">Вивести всіх</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

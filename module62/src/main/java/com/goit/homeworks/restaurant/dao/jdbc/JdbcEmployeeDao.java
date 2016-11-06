@@ -2,7 +2,6 @@ package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.core.Employee;
 import com.goit.homeworks.restaurant.dao.EmployeeDao;
-import com.goit.homeworks.restaurant.dao.PositionDao;
 import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
@@ -42,7 +41,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         List<Employee> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM EMPLOYEE");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM \"EMPLOYEE\"");
             while (resultSet.next()) {
                 Employee employee = extractEmployee(resultSet);
                 result.add(employee);
@@ -68,7 +67,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     @Override
     public Employee create(Employee item) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO EMPLOYEE (FIRST_NAME, LAST_NAME, DATE_BIRTH, ID_POSITION, SALARY)  VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"EMPLOYEE\" (\"FIRST_NAME\", \"LAST_NAME\", \"DATE_BIRTH\", \"ID_POSITION\", \"SALARY\")  VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getFirstName());
             statement.setString(2, item.getLastName());
             statement.setDate(3, item.getDateBirth());
@@ -94,7 +93,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("DELETE FROM EMPLOYEE WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("DELETE FROM \"EMPLOYEE\" WHERE \"ID\"=?")) {
                 statement.setInt(1, item.getId());
                 result = statement.executeUpdate();
             } catch (SQLException e) {
@@ -110,7 +109,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE EMPLOYEE SET FIRST_NAME=?, LAST_NAME=?, DATE_BIRTH=?, ID_POSITION=?, SALARY=? WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("UPDATE \"EMPLOYEE\" SET \"FIRST_NAME\"=?, \"LAST_NAME\"=?, \"DATE_BIRTH\"=?, \"ID_POSITION\"=?, \"SALARY\"=? WHERE ID=?")) {
                 statement.setString(1, item.getFirstName());
                 statement.setString(2, item.getLastName());
                 statement.setDate(3, (Date) item.getDateBirth());
@@ -130,7 +129,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     public List<Employee> findEmployeeByName(String name) {
         List<Employee> employees = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE FIRST_NAME LIKE ? OR LAST_NAME LIKE ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"EMPLOYEE\" WHERE \"FIRST_NAME\" LIKE ? OR LAST_NAME LIKE ?")) {
             statement.setString(1, "%" + name + "%");
             statement.setString(2, "%" + name + "%");
             ResultSet resultSet = statement.executeQuery();
@@ -150,7 +149,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         Employee employee = new Employee();
         if (id > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM EMPLOYEE WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"EMPLOYEE\" WHERE \"ID\"=?")) {
                 statement.setInt(1, id);
                 ResultSet resultSet = statement.executeQuery();
                 if(resultSet.next()) {

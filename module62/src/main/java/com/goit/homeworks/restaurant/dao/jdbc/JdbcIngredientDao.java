@@ -34,7 +34,7 @@ public class JdbcIngredientDao implements IngredientDao {
     @Override
     public Ingredient create(Ingredient item) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO INGREDIENTS (NAME, AMOUNT)  VALUES (?, ?)",
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"INGREDIENTS\" (\"NAME\", \"AMOUNT\")  VALUES (?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
             statement.setInt(2, item.getAmount());
@@ -58,7 +58,7 @@ public class JdbcIngredientDao implements IngredientDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("DELETE FROM INGREDIENTS WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("DELETE FROM \"INGREDIENTS\" WHERE \"ID\"=?")) {
                 statement.setInt(1, item.getId());
                 result = statement.executeUpdate();
             } catch (SQLException e) {
@@ -74,7 +74,7 @@ public class JdbcIngredientDao implements IngredientDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE INGREDIENTS SET NAME=?, AMOUNT=? WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("UPDATE \"INGREDIENTS\" SET \"NAME\"=?, \"AMOUNT\"=? WHERE \"ID\"=?")) {
                 statement.setString(1, item.getName());
                 statement.setInt(2, item.getAmount());
                 statement.setInt(3, item.getId());
@@ -93,7 +93,7 @@ public class JdbcIngredientDao implements IngredientDao {
         List<Ingredient> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM INGREDIENTS");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM \"INGREDIENTS\"");
 
             while (resultSet.next()) {
                 Ingredient ingredient = extractIngredient(resultSet);
@@ -118,7 +118,7 @@ public class JdbcIngredientDao implements IngredientDao {
     public List<Ingredient> findIngredientByName(String name) {
         List<Ingredient> ingredients = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM INGREDIENTS WHERE NAME LIKE ? ")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"INGREDIENTS\" WHERE \"NAME\" LIKE ? ")) {
             statement.setString(1, "%" + name + "%");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -136,7 +136,7 @@ public class JdbcIngredientDao implements IngredientDao {
     public List<Ingredient> getAllEndIngredients(int minAmount) {
         List<Ingredient> ingredients = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM INGREDIENTS WHERE INGREDIENTS.AMOUNT <= ? ")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"INGREDIENTS\" WHERE \"AMOUNT\" <= ? ")) {
             statement.setInt(1, minAmount);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -155,7 +155,7 @@ public class JdbcIngredientDao implements IngredientDao {
         Ingredient ingredient = new Ingredient();
         if (id > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM INGREDIENTS WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"INGREDIENTS\" WHERE \"ID\"=?")) {
                 statement.setInt(1, id);
                 ResultSet resultSet = statement.executeQuery();
                 if(resultSet.next()) {

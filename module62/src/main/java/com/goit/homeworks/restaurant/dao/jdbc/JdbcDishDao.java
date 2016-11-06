@@ -1,10 +1,7 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.core.Dish;
-import com.goit.homeworks.restaurant.core.Ingredient;
-import com.goit.homeworks.restaurant.dao.CategoryDao;
 import com.goit.homeworks.restaurant.dao.DishDao;
-import com.goit.homeworks.restaurant.dao.IngredientDao;
 import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
@@ -35,7 +32,7 @@ public class JdbcDishDao implements DishDao {
     @Override
     public Dish create(Dish item) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO DISHES (ID_CATEGORY, PRICE, WEIGHT, NAME)  VALUES (?, ?, ?, ?)",
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"DISHES\" (\"ID_CATEGORY\", \"PRICE\", \"WEIGHT\", \"NAME\")  VALUES (?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, item.getCategoryId());
             statement.setInt(2, item.getPrice());
@@ -61,7 +58,7 @@ public class JdbcDishDao implements DishDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("DELETE FROM DISHES WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("DELETE FROM \"DISHES\" WHERE \"ID\"=?")) {
                 statement.setInt(1, item.getId());
                 result = statement.executeUpdate();
             } catch (SQLException e) {
@@ -78,7 +75,7 @@ public class JdbcDishDao implements DishDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE DISHES SET ID_CATEGORY=?, PRICE=?, WEIGHT=?, NAME=? WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("UPDATE \"DISHES\" SET \"ID_CATEGORY\"=?, \"PRICE\"=?, \"WEIGHT\"=?, \"NAME\"=? WHERE \"ID\"=?")) {
                 statement.setInt(1, item.getCategoryId());
                 statement.setInt(2, item.getPrice());
                 statement.setInt(3, item.getWeight());
@@ -99,7 +96,7 @@ public class JdbcDishDao implements DishDao {
         List<Dish> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM DISHES");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM \"DISHES\"");
             while (resultSet.next()) {
                 Dish dish = extractDish(resultSet);
                 result.add(dish);
@@ -125,7 +122,7 @@ public class JdbcDishDao implements DishDao {
     public List<Dish> findDishByName(String name) {
         List<Dish> dishes = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM DISHES WHERE DISHES.NAME LIKE ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"DISHES\" WHERE \"DISHES.NAME\" LIKE ?")) {
             statement.setString(1, "%" + name + "%");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -143,7 +140,7 @@ public class JdbcDishDao implements DishDao {
     public Dish findDishById(int id) {
         Dish dish = new Dish();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM DISHES WHERE DISHES.ID =?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"DISHES\" WHERE \"DISHES.ID\" =?")) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {

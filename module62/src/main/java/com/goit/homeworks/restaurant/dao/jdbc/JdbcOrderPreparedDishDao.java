@@ -35,7 +35,7 @@ public class JdbcOrderPreparedDishDao implements OrderPreparedDishDao {
     public int addPreparedDishToOrder(int preparedDishId, int orderId) {
         int result = 0;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO ORDER_PREPARED_DISHES (ID_ORDER, ID_PREPARED_DISH)  VALUES (?,?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"ORDER_PREPARED_DISHES\" (\"ID_ORDER\", \"ID_PREPARED_DISH\")  VALUES (?,?)")) {
             statement.setInt(1, orderId);
             statement.setInt(2, preparedDishId);
             result = statement.executeUpdate();
@@ -50,7 +50,7 @@ public class JdbcOrderPreparedDishDao implements OrderPreparedDishDao {
     public int removePreparedDishFromOrder(int preparedDishId, int orderId) {
         int result = 0;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM ORDER_PREPARED_DISHES WHERE ID_ORDER=? AND ID_PREPARED_DISH=?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM \"ORDER_PREPARED_DISHES\" WHERE \"ID_ORDER\"=? AND \"ID_PREPARED_DISH\"=?")) {
             statement.setInt(1, orderId);
             statement.setInt(2, preparedDishId);
             result = statement.executeUpdate();
@@ -65,7 +65,7 @@ public class JdbcOrderPreparedDishDao implements OrderPreparedDishDao {
     public boolean isPreparedDishFromOrder(int preparedDishId, int orderId) {
         boolean result = false;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM ORDER_PREPARED_DISHES WHERE ID_ORDER=? AND ID_PREPARED_DISH=?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"ORDER_PREPARED_DISHES\" WHERE \"ID_ORDER\"=? AND \"ID_PREPARED_DISH\"=?")) {
             statement.setInt(1, orderId);
             statement.setInt(2, preparedDishId);
             ResultSet set = statement.executeQuery();
@@ -81,7 +81,7 @@ public class JdbcOrderPreparedDishDao implements OrderPreparedDishDao {
     public List<Integer> getAllPreparedDish(int orderId) {
         List<Integer> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM ORDER_PREPARED_DISHES WHERE ID_ORDER=?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"ORDER_PREPARED_DISHES\" WHERE \"ID_ORDER\"=?")) {
             statement.setInt(1, orderId);
             ResultSet set = statement.executeQuery();
             while (set.next()){

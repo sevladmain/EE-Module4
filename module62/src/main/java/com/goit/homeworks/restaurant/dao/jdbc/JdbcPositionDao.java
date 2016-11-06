@@ -36,7 +36,7 @@ public class JdbcPositionDao implements PositionDao {
     @Override
     public Position create(Position item) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO POSITIONS (POSITION)  VALUES (?)",
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"POSITIONS\" (\"POSITION\")  VALUES (?)",
                      Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getPosition());
             statement.executeUpdate();
@@ -59,7 +59,7 @@ public class JdbcPositionDao implements PositionDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("DELETE FROM POSITIONS WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("DELETE FROM \"POSITIONS\" WHERE \"ID\"=?")) {
                 statement.setInt(1, item.getId());
                 result = statement.executeUpdate();
             } catch (SQLException e) {
@@ -75,7 +75,7 @@ public class JdbcPositionDao implements PositionDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE POSITIONS SET POSITION=? WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("UPDATE \"POSITIONS\" SET \"POSITION\"=? WHERE \"ID\"=?")) {
                 statement.setString(1, item.getPosition());
                 statement.setInt(2, item.getId());
                 result = statement.executeUpdate();
@@ -93,7 +93,7 @@ public class JdbcPositionDao implements PositionDao {
         List<Position> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM POSITIONS");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM \"POSITIONS\"");
 
             while (resultSet.next()) {
                 Position position = extractPosition(resultSet);
@@ -119,7 +119,7 @@ public class JdbcPositionDao implements PositionDao {
         Position position = new Position();
         if (id > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM POSITIONS WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"POSITIONS\" WHERE \"ID\"=?")) {
                 statement.setInt(1, id);
                 ResultSet resultSet = statement.executeQuery();
                 if(resultSet.next()) {

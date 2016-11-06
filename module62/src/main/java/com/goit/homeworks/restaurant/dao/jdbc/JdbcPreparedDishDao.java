@@ -31,7 +31,7 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
     @Override
     public PreparedDish create(PreparedDish item) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO PREPARED_DISHES (ID_DISH, ID_EMPLOYEE, IS_PREPARED)  VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"PREPARED_DISHES\" (\"ID_DISH\", \"ID_EMPLOYEE\", \"IS_PREPARED\")  VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, item.getDishId());
             statement.setInt(2, item.getEmployeeId());
             statement.setBoolean(3, item.isPrepared());
@@ -55,7 +55,7 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("DELETE FROM PREPARED_DISHES WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("DELETE FROM \"PREPARED_DISHES\" WHERE \"ID\"=?")) {
                 statement.setInt(1, item.getId());
                 result = statement.executeUpdate();
             } catch (SQLException e) {
@@ -71,7 +71,7 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE PREPARED_DISHES SET ID_DISH=?, ID_EMPLOYEE=?, IS_PREPARED=? WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("UPDATE \"PREPARED_DISHES\" SET \"ID_DISH\"=?, \"ID_EMPLOYEE\"=?, \"IS_PREPARED\"=? WHERE ID=?")) {
                 statement.setInt(1, item.getDishId());
                 statement.setInt(2, item.getEmployeeId());
                 statement.setBoolean(3, item.isPrepared());
@@ -90,7 +90,7 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
         List<PreparedDish> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM PREPARED_DISHES");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM \"PREPARED_DISHES\"");
 
             while (resultSet.next()) {
                 PreparedDish dish = extractPreparedDish(resultSet);
@@ -117,7 +117,7 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
         List<PreparedDish> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM PREPARED_DISHES WHERE IS_PREPARED=TRUE");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM \"PREPARED_DISHES\" WHERE \"IS_PREPARED\"=TRUE");
 
             while (resultSet.next()) {
                 PreparedDish dish = extractPreparedDish(resultSet);
@@ -135,7 +135,7 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
         PreparedDish dish = new PreparedDish();
         if (id > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM PREPARED_DISHES WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"PREPARED_DISHES\" WHERE \"ID\"=?")) {
                 statement.setInt(1, id);
                 ResultSet resultSet = statement.executeQuery();
                 if(resultSet.next()) {
