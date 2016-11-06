@@ -33,6 +33,7 @@ public class EmployeeService {
     public void setPositionDao(PositionDao positionDao) {
         this.positionDao = positionDao;
     }
+
     public Map<Employee, Position> getAllEmployees(){
         Map<Employee, Position> result = new HashMap<>();
         List<Employee> employees = employeeDao.getAll();
@@ -47,5 +48,12 @@ public class EmployeeService {
     }
     public int deleteEmployee(Employee employee){
         return employeeDao.remove(employee);
+    }
+
+    public void addEmployee(Employee employee){
+        employeeDao.create(employee);
+    }
+    public  List<Position> getAllPositions(){
+        return positionDao.getAll();
     }
 }

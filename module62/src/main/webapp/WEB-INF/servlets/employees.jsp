@@ -22,7 +22,7 @@
                 <td>${employee.key.dateBirth}</td>
                 <td>${employee.value.position}</td>
                 <td>${employee.key.salary}</td>
-                <td><a href= "delete-employee/${employee.key.id}">Видалити</a></td>
+                <td><a href= "/delete-employee/${employee.key.id}">Видалити</a></td>
             </tr>
         </c:forEach>
         </tbody>

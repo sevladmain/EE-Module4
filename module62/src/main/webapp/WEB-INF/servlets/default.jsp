@@ -30,10 +30,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Працівники<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Додати</a></li>
-                        <li><a href="#">Видалити</a></li>
-                        <li><a href="#">Пошук за іменем</a></li>
-                        <li><a href="/get-all-employees">Вивести всіх</a></li>
+                        <li><a href="/employee/add">Додати</a></li>
+                        <li><a href="/employee/find">Пошук за іменем</a></li>
+                        <li><a href="/employee/all">Вивести всіх</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
