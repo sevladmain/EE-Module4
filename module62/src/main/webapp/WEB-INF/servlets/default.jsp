@@ -12,8 +12,10 @@
     <!-- Bootstrap -->
     <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCss" />
     <spring:url value="/resources/js/bootstrap.min.js" var="bootstrapJs" />
-    <link href="${bootstrapCss}" rel="stylesheet">
+    <spring:url value="/resources/js/script.js" var="script" />
 
+    <link href="${bootstrapCss}" rel="stylesheet">
+    <script src="${script}"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

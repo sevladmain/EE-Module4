@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,19 +50,16 @@ public class WebController {
         return "app.employees";
     }
 
-    @RequestMapping(value = "/delete-employee/{id}", method = RequestMethod.GET)
-    public String deleteEmployee(@PathVariable("id") int id, Map<String, Object> model) {
+    @RequestMapping(value = "/employee/{id}/delete", method = RequestMethod.POST)
+    public String deleteEmployee(@PathVariable("id") int id, final RedirectAttributes redirectAttributes) {
 
         LOGGER.debug("deleteEmployee() is executed!");
         Employee employee = employeeService.getEmployeeById(id);
-        if(employeeService.deleteEmployee(employee) > 0){
-            model.put("result", "Працівник " + employee.getFirstName() + " " + employee.getLastName()
+        employeeService.deleteEmployee(employee);
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Працівник " + employee.getFirstName() + " " + employee.getLastName()
                     + " видалений з бази даних");
-        }else{
-            model.put("result", "Працівник " + employee.getFirstName() + " " + employee.getLastName()
-                    + "не може бути видалений з бази даних");
-        }
-        return "app.message";
+        return "redirect:/employee/all";
     }
 
     @RequestMapping(value = "employee/add", method = RequestMethod.GET)
@@ -81,13 +79,13 @@ public class WebController {
     }
 
     @RequestMapping(value = "employee/added", method = RequestMethod.POST)
-    public String saveEmployee(@ModelAttribute("employeeForm") Employee employee, Model model) {
+    public String saveEmployee(@ModelAttribute("employeeForm") Employee employee, final RedirectAttributes redirectAttributes) {
         LOGGER.debug("saveEmployee() is executed!");
         employeeService.addEmployee(employee);
-        model.addAttribute("result", "Працівник " + employee.getFirstName() + " " + employee.getLastName()
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Працівник " + employee.getFirstName() + " " + employee.getLastName()
                 + " доданий до бази даних");
-
-        return "app.message";
+        return "redirect:/";
     }
 
 }
