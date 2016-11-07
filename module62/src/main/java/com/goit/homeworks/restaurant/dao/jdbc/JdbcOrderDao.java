@@ -2,7 +2,8 @@ package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.core.Order;
 import com.goit.homeworks.restaurant.dao.OrderDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by SeVlad on 30.10.2016.
  */
 public class JdbcOrderDao implements OrderDao {
-    private static final Logger LOGGER = Logger.getLogger(JdbcOrderDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcOrderDao.class);
     private DataSource dataSource;
 
     public JdbcOrderDao(DataSource dataSource) {

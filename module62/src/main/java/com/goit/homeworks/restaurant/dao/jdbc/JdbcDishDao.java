@@ -2,7 +2,8 @@ package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.core.Dish;
 import com.goit.homeworks.restaurant.dao.DishDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -15,7 +16,7 @@ import java.util.List;
 public class JdbcDishDao implements DishDao {
     private DataSource dataSource;
 
-    private static final Logger LOGGER = Logger.getLogger(JdbcDishDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcDishDao.class);
 
     public JdbcDishDao(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -122,7 +123,7 @@ public class JdbcDishDao implements DishDao {
     public List<Dish> findDishByName(String name) {
         List<Dish> dishes = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"DISHES\" WHERE \"DISHES.NAME\" LIKE ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"DISHES\" WHERE \"NAME\" LIKE ?")) {
             statement.setString(1, "%" + name + "%");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -140,7 +141,7 @@ public class JdbcDishDao implements DishDao {
     public Dish findDishById(int id) {
         Dish dish = new Dish();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"DISHES\" WHERE \"DISHES.ID\" =?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"DISHES\" WHERE \"ID\" =?")) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {

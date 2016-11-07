@@ -3,7 +3,8 @@ package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.core.Position;
 import com.goit.homeworks.restaurant.dao.PositionDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class JdbcPositionDao implements PositionDao {
     private DataSource dataSource;
-    private static final Logger LOGGER = Logger.getLogger(JdbcPositionDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcPositionDao.class);
 
     public DataSource getDataSource() {
         return dataSource;

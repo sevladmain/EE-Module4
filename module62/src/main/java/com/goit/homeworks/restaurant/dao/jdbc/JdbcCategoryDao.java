@@ -2,7 +2,9 @@ package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.core.Category;
 import com.goit.homeworks.restaurant.dao.CategoryDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -14,7 +16,7 @@ import java.util.List;
  */
 public class JdbcCategoryDao implements CategoryDao {
     private DataSource dataSource;
-    private static final Logger LOGGER = Logger.getLogger(JdbcCategoryDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcCategoryDao.class);
 
     public JdbcCategoryDao(DataSource dataSource) {
         this.dataSource = dataSource;

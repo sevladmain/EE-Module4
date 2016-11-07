@@ -1,7 +1,8 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.dao.IngredientListDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class JdbcIngredientListDao implements IngredientListDao {
     private DataSource dataSource;
-    private static final Logger LOGGER = Logger.getLogger(JdbcIngredientListDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcIngredientListDao.class);
 
     public JdbcIngredientListDao(DataSource dataSource) {
         this.dataSource = dataSource;

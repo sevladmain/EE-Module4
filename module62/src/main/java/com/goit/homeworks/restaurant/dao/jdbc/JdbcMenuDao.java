@@ -2,7 +2,8 @@ package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.core.Menu;
 import com.goit.homeworks.restaurant.dao.MenuDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by SeVlad on 30.10.2016.
  */
 public class JdbcMenuDao implements MenuDao {
-    private static final Logger LOGGER = Logger.getLogger(JdbcMenuDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcMenuDao.class);
     private DataSource dataSource;
 
     public DataSource getDataSource() {

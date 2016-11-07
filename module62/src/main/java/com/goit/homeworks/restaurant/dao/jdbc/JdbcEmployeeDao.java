@@ -2,7 +2,8 @@ package com.goit.homeworks.restaurant.dao.jdbc;
 
 import com.goit.homeworks.restaurant.core.Employee;
 import com.goit.homeworks.restaurant.dao.EmployeeDao;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class JdbcEmployeeDao implements EmployeeDao {
     private DataSource dataSource;
-    private static final Logger LOGGER = Logger.getLogger(JdbcEmployeeDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
 
 
     public DataSource getDataSource() {
