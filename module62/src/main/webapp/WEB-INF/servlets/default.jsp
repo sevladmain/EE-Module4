@@ -38,7 +38,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Блюдо<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Страва<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Додати</a></li>
                         <li><a href="#">Видалити</a></li>
@@ -77,12 +77,12 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Склад<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Додати нові інгредієнти</a></li>
-                        <li><a href="#">Видалити інгредієнти</a></li>
-                        <li><a href="#">Змінити кількість інгредієнтів</a></li>
-                        <li><a href="#">Пошук інгредієнтів</a></li>
-                        <li><a href="#">Вивести всі інгредієнти</a></li>
-                        <li><a href="#">Вивести інгредієнти, що закінчуються</a></li>
+                        <li><a href="#">Додати нові складові</a></li>
+                        <li><a href="#">Видалити складові</a></li>
+                        <li><a href="#">Змінити кількість складових</a></li>
+                        <li><a href="#">Пошук складових</a></li>
+                        <li><a href="#">Вивести всі складові</a></li>
+                        <li><a href="#">Вивести складові, що закінчуються</a></li>
                     </ul>
                 </li>
             </ul>

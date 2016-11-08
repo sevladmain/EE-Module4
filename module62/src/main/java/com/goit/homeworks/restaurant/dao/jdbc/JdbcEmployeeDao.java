@@ -110,7 +110,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE \"EMPLOYEE\" SET \"FIRST_NAME\"=?, \"LAST_NAME\"=?, \"DATE_BIRTH\"=?, \"ID_POSITION\"=?, \"SALARY\"=? WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("UPDATE \"EMPLOYEE\" SET \"FIRST_NAME\"=?, \"LAST_NAME\"=?, \"DATE_BIRTH\"=?, \"ID_POSITION\"=?, \"SALARY\"=? WHERE \"ID\"=?")) {
                 statement.setString(1, item.getFirstName());
                 statement.setString(2, item.getLastName());
                 statement.setDate(3, (Date) item.getDateBirth());

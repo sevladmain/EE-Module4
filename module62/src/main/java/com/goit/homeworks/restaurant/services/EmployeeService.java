@@ -50,10 +50,11 @@ public class EmployeeService {
         return employeeDao.remove(employee);
     }
 
-    public void addEmployee(Employee employee){
-        employeeDao.create(employee);
+    public Employee addEmployee(Employee employee){
+        return employeeDao.create(employee);
     }
     public  List<Position> getAllPositions(){
         return positionDao.getAll();
     }
+    public int updateEmployee(Employee employee){ return employeeDao.update(employee);}
 }

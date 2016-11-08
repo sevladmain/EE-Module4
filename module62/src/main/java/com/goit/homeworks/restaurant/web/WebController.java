@@ -42,6 +42,7 @@ public class WebController {
 
         return "app.homepage";
     }
+
     @RequestMapping(value = "/employee/all", method = RequestMethod.GET)
     public String getAllEmployees(Map<String, Object> model) {
 
@@ -58,7 +59,7 @@ public class WebController {
         employeeService.deleteEmployee(employee);
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", "Працівник " + employee.getFirstName() + " " + employee.getLastName()
-                    + " видалений з бази даних");
+                + " видалений з бази даних");
         return "redirect:/employee/all";
     }
 
@@ -68,23 +69,45 @@ public class WebController {
         Employee employee = new Employee();
 
         model.addAttribute("employeeForm", employee);
+        populatePostitions(model);
+        return "app.add-update-employee";
+    }
+
+    private void populatePostitions(Model model) {
         List<Position> positions = employeeService.getAllPositions();
         Map<Integer, String> positionsList = new HashMap<>();
-        for (Position position:
-             positions) {
+        for (Position position :
+                positions) {
             positionsList.put(position.getId(), position.getPosition());
         }
         model.addAttribute("positionsList", positionsList);
-        return "app.add-employee";
+    }
+
+    @RequestMapping(value = "/employee/{id}/update", method = RequestMethod.GET)
+    public String showUpdateEmployeeForm(@PathVariable("id") int id, Model model) {
+
+        LOGGER.debug("showUpdateEmployeeForm() : {}", id);
+
+        Employee employee = employeeService.getEmployeeById(id);
+        model.addAttribute("employeeForm", employee);
+        populatePostitions(model);
+        return "app.add-update-employee";
     }
 
     @RequestMapping(value = "employee/added", method = RequestMethod.POST)
-    public String saveEmployee(@ModelAttribute("employeeForm") Employee employee, final RedirectAttributes redirectAttributes) {
-        LOGGER.debug("saveEmployee() is executed!");
-        employeeService.addEmployee(employee);
+    public String saveOrUpdateEmployee(@ModelAttribute("employeeForm") Employee employee, final RedirectAttributes redirectAttributes) {
+        LOGGER.debug("saveOrUpdateEmployee() is executed!");
+        if (employee.getId() == 0) {
+            employeeService.addEmployee(employee).getId();
+            redirectAttributes.addFlashAttribute("msg", "Працівник " + employee.getFirstName() + " " + employee.getLastName()
+                    + " доданий до бази даних");
+        } else {
+            employeeService.updateEmployee(employee);
+            redirectAttributes.addFlashAttribute("msg", "Працівник " + employee.getFirstName() + " " + employee.getLastName()
+                    + " оновлений у базі даних");
+
+        }
         redirectAttributes.addFlashAttribute("css", "success");
-        redirectAttributes.addFlashAttribute("msg", "Працівник " + employee.getFirstName() + " " + employee.getLastName()
-                + " доданий до бази даних");
         return "redirect:/";
     }
 
