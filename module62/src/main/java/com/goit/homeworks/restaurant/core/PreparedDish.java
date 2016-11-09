@@ -27,6 +27,8 @@ public class PreparedDish {
         this.isPrepared = isPrepared;
     }
 
+    public boolean isNew(){ return id == 0; }
+
     public int getId() {
         return id;
     }

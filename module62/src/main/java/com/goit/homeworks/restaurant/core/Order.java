@@ -30,6 +30,8 @@ public class Order {
         this.isOpen = isOpen;
     }
 
+    public boolean isNew(){ return id == 0; }
+
     public boolean isOpen() {
         return isOpen;
     }

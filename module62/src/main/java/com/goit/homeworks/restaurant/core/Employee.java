@@ -38,6 +38,8 @@ public class Employee {
         this.salary = salary;
     }
 
+    public boolean isNew(){ return id == 0; }
+
     public int getId() {
         return id;
     }

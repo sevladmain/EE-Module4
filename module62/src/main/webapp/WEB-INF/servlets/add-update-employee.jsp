@@ -6,7 +6,7 @@
 <spring:url value="/employee/added" var="userActionUrl"/>
 <div class="container">
     <c:choose>
-        <c:when test="${employeeForm['id']==0}">
+        <c:when test="${employeeForm['new']}">
             <h1>Додати працівника</h1>
         </c:when>
         <c:otherwise>
@@ -74,7 +74,7 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-2">
                 <c:choose>
-                    <c:when test="${employeeForm['id']==0}">
+                    <c:when test="${employeeForm['new']}">
                         <button type="submit" class="btn-lg btn-primary pull-right">Додати</button>
                     </c:when>
                     <c:otherwise>

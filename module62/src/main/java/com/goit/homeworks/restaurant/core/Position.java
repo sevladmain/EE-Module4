@@ -24,6 +24,8 @@ public class Position {
         this.id = id;
     }
 
+    public boolean isNew(){ return id == 0; }
+
     public int getId() {
         return id;
     }

@@ -24,6 +24,8 @@ public class Category {
         this.name = name;
     }
 
+    public boolean isNew(){ return id == 0; }
+
     public int getId() {
         return id;
     }
@@ -62,4 +64,5 @@ public class Category {
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }

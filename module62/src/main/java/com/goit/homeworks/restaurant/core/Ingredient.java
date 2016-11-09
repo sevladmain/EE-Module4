@@ -23,6 +23,8 @@ public class Ingredient {
         this(0, "", 0);
     }
 
+    public boolean isNew(){ return id == 0; }
+
     public void setId(int id) {
         this.id = id;
     }

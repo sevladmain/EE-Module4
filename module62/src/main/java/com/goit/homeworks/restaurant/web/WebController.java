@@ -97,7 +97,7 @@ public class WebController {
     @RequestMapping(value = "employee/added", method = RequestMethod.POST)
     public String saveOrUpdateEmployee(@ModelAttribute("employeeForm") Employee employee, final RedirectAttributes redirectAttributes) {
         LOGGER.debug("saveOrUpdateEmployee() is executed!");
-        if (employee.getId() == 0) {
+        if (employee.isNew()) {
             employeeService.addEmployee(employee).getId();
             redirectAttributes.addFlashAttribute("msg", "Працівник " + employee.getFirstName() + " " + employee.getLastName()
                     + " доданий до бази даних");

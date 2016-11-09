@@ -27,6 +27,8 @@ public class Menu {
         this.name = name;
     }
 
+    public boolean isNew(){ return id == 0; }
+
     public int getId() {
         return id;
     }
