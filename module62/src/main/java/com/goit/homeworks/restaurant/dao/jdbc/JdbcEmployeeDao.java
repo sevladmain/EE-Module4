@@ -130,7 +130,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     public List<Employee> findEmployeeByName(String name) {
         List<Employee> employees = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"EMPLOYEE\" WHERE \"FIRST_NAME\" LIKE ? OR LAST_NAME LIKE ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"EMPLOYEE\" WHERE \"FIRST_NAME\" LIKE ? OR \"LAST_NAME\" LIKE ?")) {
             statement.setString(1, "%" + name + "%");
             statement.setString(2, "%" + name + "%");
             ResultSet resultSet = statement.executeQuery();

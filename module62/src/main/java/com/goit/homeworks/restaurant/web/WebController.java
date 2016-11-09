@@ -111,4 +111,19 @@ public class WebController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "employee/find", method = RequestMethod.GET)
+    public String showFindEmployeeForm(Model model) {
+        LOGGER.debug("showFindEmployeeForm() is executed!");
+        model.addAttribute("findWhat", "EMPLOYEE");
+        populatePostitions(model);
+        return "app.find";
+    }
+
+    @RequestMapping(value = "employee/finded", method = RequestMethod.POST)
+    public String showFindedEmployeesForm(@ModelAttribute("findString") String findString, Map<String, Object> model) {
+        LOGGER.debug("showFindedEmployeesForm() is executed!", findString);
+        model.put("employees", employeeService.findEmployeeByName(findString));
+        return "app.employees";
+    }
+
 }

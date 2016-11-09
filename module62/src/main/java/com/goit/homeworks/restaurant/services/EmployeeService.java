@@ -43,6 +43,17 @@ public class EmployeeService {
         }
         return result;
     }
+
+    public Map<Employee, Position> findEmployeeByName(String name){
+        Map<Employee, Position> result = new HashMap<>();
+        List<Employee> employees = employeeDao.findEmployeeByName(name);
+        for (Employee employee :
+                employees) {
+            result.put(employee, positionDao.findPositionById(employee.getPositionId()));
+        }
+        return result;
+    }
+
     public Employee getEmployeeById(int id){
         return employeeDao.findEmployeeById(id);
     }
