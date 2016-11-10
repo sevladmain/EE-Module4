@@ -24,5 +24,8 @@
     <definition name="app.dishes" extends="app.default">
         <put-attribute name="content" value="/WEB-INF/servlets/dishes.jsp" />
     </definition>
+    <definition name="app.add-update-dish" extends="app.default">
+        <put-attribute name="content" value="/WEB-INF/servlets/add-update-dish.jsp" />
+    </definition>
 
 </tiles-definitions>
