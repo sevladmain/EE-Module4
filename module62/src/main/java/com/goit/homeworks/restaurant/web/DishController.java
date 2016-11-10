@@ -105,4 +105,19 @@ public class DishController {
         return "app.add-update-dish";
     }
 
+    @RequestMapping(value = "dish/find", method = RequestMethod.GET)
+    public String showFindDishForm(Model model) {
+        LOGGER.debug("showFindDishForm() is executed!");
+        model.addAttribute("findWhat", "DISH");
+        populateCategories(model);
+        return "app.find";
+    }
+
+    @RequestMapping(value = "dish/finded", method = RequestMethod.POST)
+    public String showFindedEmployeesForm(@ModelAttribute("findString") String findString, Map<String, Object> model) {
+        LOGGER.debug("showFindedEmployeesForm() is executed!", findString);
+        model.put("dishes", dishService.findDishByName(findString));
+        return "app.dishes";
+    }
+
 }
