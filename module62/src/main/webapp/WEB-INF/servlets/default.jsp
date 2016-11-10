@@ -41,9 +41,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Страва<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Додати</a></li>
-                        <li><a href="#">Видалити</a></li>
                         <li><a href="#">Пошук за назвою</a></li>
-                        <li><a href="#">Вивести всіх</a></li>
+                        <li><a href="/dish/all">Вивести всіх</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
