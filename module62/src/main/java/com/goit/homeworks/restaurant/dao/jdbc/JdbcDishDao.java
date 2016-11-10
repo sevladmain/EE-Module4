@@ -22,6 +22,9 @@ public class JdbcDishDao implements DishDao {
         this.dataSource = dataSource;
     }
 
+    public JdbcDishDao() {
+    }
+
     public DataSource getDataSource() {
         return dataSource;
     }

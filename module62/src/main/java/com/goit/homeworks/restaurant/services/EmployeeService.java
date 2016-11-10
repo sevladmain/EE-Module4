@@ -34,7 +34,7 @@ public class EmployeeService {
         this.positionDao = positionDao;
     }
 
-    public Map<Employee, Position> getAllEmployees(){
+    public Map<Employee, Position> getAllEmployees() {
         Map<Employee, Position> result = new HashMap<>();
         List<Employee> employees = employeeDao.getAll();
         for (Employee employee :
@@ -44,7 +44,7 @@ public class EmployeeService {
         return result;
     }
 
-    public Map<Employee, Position> findEmployeeByName(String name){
+    public Map<Employee, Position> findEmployeeByName(String name) {
         Map<Employee, Position> result = new HashMap<>();
         List<Employee> employees = employeeDao.findEmployeeByName(name);
         for (Employee employee :
@@ -54,18 +54,23 @@ public class EmployeeService {
         return result;
     }
 
-    public Employee getEmployeeById(int id){
+    public Employee getEmployeeById(int id) {
         return employeeDao.findEmployeeById(id);
     }
-    public int deleteEmployee(Employee employee){
+
+    public int deleteEmployee(Employee employee) {
         return employeeDao.remove(employee);
     }
 
-    public Employee addEmployee(Employee employee){
+    public Employee addEmployee(Employee employee) {
         return employeeDao.create(employee);
     }
-    public  List<Position> getAllPositions(){
+
+    public List<Position> getAllPositions() {
         return positionDao.getAll();
     }
-    public int updateEmployee(Employee employee){ return employeeDao.update(employee);}
+
+    public int updateEmployee(Employee employee) {
+        return employeeDao.update(employee);
+    }
 }

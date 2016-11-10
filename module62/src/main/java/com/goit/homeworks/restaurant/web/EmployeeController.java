@@ -22,8 +22,8 @@ import java.util.Map;
  * Created by SeVlad on 05.11.2016.
  */
 @Controller
-public class WebController {
-    private final Logger LOGGER = LoggerFactory.getLogger(WebController.class);
+public class EmployeeController {
+    private final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
     @Autowired
     private EmployeeService employeeService;
 
