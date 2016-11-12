@@ -1,5 +1,6 @@
 package com.goit.homeworks.restaurant.web;
 
+import com.goit.homeworks.restaurant.core.Dish;
 import com.goit.homeworks.restaurant.core.Employee;
 import com.goit.homeworks.restaurant.core.Menu;
 import com.goit.homeworks.restaurant.services.MenuService;
@@ -111,6 +112,7 @@ public class MenuController {
         model.addAttribute("menu", menuService.getMenuById(id));
         model.addAttribute("dishes", menuService.getDishesFromMenu(id));
         model.addAttribute("newDishes", menuService.getNewDishes(id));
+        model.addAttribute("newDish", new Dish(0, "Temp", 0, 0, 0));
         return "app.menu-details";
     }
     @RequestMapping(value = "/menu/{menuid}/dish/{dishid}/delete", method = RequestMethod.POST)
@@ -125,17 +127,17 @@ public class MenuController {
         return "redirect:/menu/" + menuId +"/details";
     }
 
-     @RequestMapping(value = "/menu/dish/add", method = RequestMethod.POST)
-    public String addDishToMenu(@ModelAttribute("menu") Menu menu,
-                                @ModelAttribute("newDishId") Integer newDishId,
+     @RequestMapping(value = "/menu/{menuid}/dish/add", method = RequestMethod.POST)
+    public String addDishToMenu(@PathVariable("menuid") int menuid,
+                                @ModelAttribute("newDish") Dish newDish,
                                 final RedirectAttributes redirectAttributes){
          LOGGER.debug("addDishToMenu() is executed!");
-         menuService.addDishToMenu(newDishId, menu.getId());
+         menuService.addDishToMenu(newDish.getId(), menuid);
 
          redirectAttributes.addFlashAttribute("css", "success");
          redirectAttributes.addFlashAttribute("msg", "Страву додано");
 
-         return "redirect:/menu/" + menu +"/details";
+         return "redirect:/menu/" + menuid +"/details";
      }
 
 }

@@ -33,24 +33,31 @@
         </c:forEach>
         </tbody>
     </table>
-    <spring:url value="/menu/dish/add" var="userActionUrl"/>
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Нова страва:</label>
-            <div class="col-sm-9">
-                <select id = "newDishId" class="form-control">
-                    <option value="0">--- Виберіть ---</option>
-                    <c:forEach items="${newDishes}" var="newDish">
-                        <option value="${newDish.id}">${newDish.name}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
+    <spring:url value="/menu/${menu.id}/dish/add" var="userActionUrl"/>
 
+    <form:form modelAttribute="newDish" class="form-horizontal" action="${userActionUrl}"
+               method="post">
+        <spring:bind path="id">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Нова страва:</label>
+                <div class="col-sm-9">
+                    <form:select path="id" class="form-control">
+
+                        <c:forEach items="${newDishes}" var="dish">
+                            <option value="${dish.id}">${dish.name}</option>
+                        </c:forEach>
+                    </form:select>
+                </div>
+            </div>
+        </spring:bind>
+        <form:hidden path="name"/>
+        <form:hidden path="categoryId"/>
+        <form:hidden path="price"/>
+        <form:hidden path="weight"/>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-2">
-                <button class="btn btn-info" onclick="this.disabled=true;post('${userActionUrl}')">Додати</button>
+                <button class="btn btn-info">Додати</button>
             </div>
         </div>
-    </form>
+    </form:form>
 </div>
