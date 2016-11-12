@@ -105,4 +105,37 @@ public class MenuController {
         return "app.menus";
     }
 
+    @RequestMapping(value = "menu/{id}/details", method = RequestMethod.GET)
+    public String getMenuDetails(@PathVariable("id") int id, Model model){
+        LOGGER.debug("getMenuDetails() is executed!");
+        model.addAttribute("menu", menuService.getMenuById(id));
+        model.addAttribute("dishes", menuService.getDishesFromMenu(id));
+        model.addAttribute("newDishes", menuService.getNewDishes(id));
+        return "app.menu-details";
+    }
+    @RequestMapping(value = "/menu/{menuid}/dish/{dishid}/delete", method = RequestMethod.POST)
+    public String deleteDishFromMenu(@PathVariable("menuid") int menuId, @PathVariable("dishid") int dishId,
+                                     final RedirectAttributes redirectAttributes)
+    {
+        LOGGER.debug("deleteDishFromMenu() is executed!");
+        menuService.removeDishFromMenu(dishId, menuId);
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Страву видалено");
+
+        return "redirect:/menu/" + menuId +"/details";
+    }
+
+     @RequestMapping(value = "/menu/dish/add", method = RequestMethod.POST)
+    public String addDishToMenu(@ModelAttribute("menu") Menu menu,
+                                @ModelAttribute("newDishId") Integer newDishId,
+                                final RedirectAttributes redirectAttributes){
+         LOGGER.debug("addDishToMenu() is executed!");
+         menuService.addDishToMenu(newDishId, menu.getId());
+
+         redirectAttributes.addFlashAttribute("css", "success");
+         redirectAttributes.addFlashAttribute("msg", "Страву додано");
+
+         return "redirect:/menu/" + menu +"/details";
+     }
+
 }

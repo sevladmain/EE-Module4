@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by SeVlad on 12.11.2016.
@@ -37,16 +38,14 @@ public class MenuService {
         return menus;
     }
 
-    public Map<Menu, List<Dish>> getDishesFromMenu(int id){
-        Map<Menu, List<Dish>> menuListMap = new HashMap<>();
+    public List<Dish> getDishesFromMenu(int id){
         List<Dish> dishes = new ArrayList<>();
         List<Integer> dishesId = menuListDao.getAllDishes(id);
-        for (Integer dish :
-                dishesId) {
-            dishes.add(dishDao.findDishById(dish));
-        }
-        menuListMap.put(menuDao.findMenuById(id), new ArrayList<>());
-        return menuListMap;
+        dishes.addAll(dishesId
+                .stream()
+                .map(dish -> dishDao.findDishById(dish))
+                .collect(Collectors.toList()));
+        return dishes;
     }
 
     public List<Menu> findMenuByName(String name){
@@ -84,7 +83,15 @@ public class MenuService {
     public int removeDishFromMenu(int dishId, int menuId){
         return menuListDao.removeDishFromMenu(dishId, menuId);
     }
+
     public List<Dish> getAllDishes(){
         return dishDao.getAll();
+    }
+
+    public List<Dish> getNewDishes(int id) {
+        List<Dish> newDishes = getAllDishes();
+        List<Dish> exDishes = getDishesFromMenu(id);
+        newDishes.removeAll(exDishes);
+        return newDishes;
     }
 }
