@@ -29,9 +29,6 @@ public class JdbcEmployeeDao implements EmployeeDao {
         this.dataSource = dataSource;
     }
 
-    public JdbcEmployeeDao() {
-    }
-
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }

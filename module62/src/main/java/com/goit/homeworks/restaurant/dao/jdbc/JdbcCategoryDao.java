@@ -22,9 +22,6 @@ public class JdbcCategoryDao implements CategoryDao {
         this.dataSource = dataSource;
     }
 
-    public JdbcCategoryDao() {
-    }
-
     public DataSource getDataSource() {
         return dataSource;
     }

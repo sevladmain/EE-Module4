@@ -17,9 +17,6 @@ public class JdbcIngredientDao implements IngredientDao {
     private DataSource dataSource;
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcIngredientDao.class);
 
-    public JdbcIngredientDao() {
-    }
-
     public JdbcIngredientDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
