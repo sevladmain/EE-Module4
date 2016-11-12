@@ -11,7 +11,7 @@
             <strong>${msg}</strong>
         </div>
     </c:if>
-    <div class="panel-heading">Перелік страв</div>
+    <div class="panel-heading">Перелік меню</div>
     <table class="table">
         <thead>
         <tr>
@@ -28,7 +28,7 @@
                     <spring:url value="/menu/${menu.id}/update" var="updateUrl" />
                     <spring:url value="/menu/${menu.id}/details" var="detailsUrl" />
                     <button class="btn btn-primary" onclick="location.href='${updateUrl}'">Редагувати назву</button>
-                    <button class="btn btn-primary" onclick="location.href='${detailsUrl}'">Детальна інформація</button>
+                    <button class="btn btn-info" onclick="location.href='${detailsUrl}'">Детальна інформація</button>
                     <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">Видалити</button></td>
                 </td>
             </tr>

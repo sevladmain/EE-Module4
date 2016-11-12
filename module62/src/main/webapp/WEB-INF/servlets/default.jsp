@@ -48,9 +48,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Меню<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Створити</a></li>
-                        <li><a href="#">Видалити</a></li>
-                        <li><a href="#">Змінити склад страв меню</a></li>
+                        <li><a href="/menu/add">Додати</a></li>
                         <li><a href="#">Пошук за назвою</a></li>
                         <li><a href="/menu/all">Вивести всіх</a></li>
                     </ul>

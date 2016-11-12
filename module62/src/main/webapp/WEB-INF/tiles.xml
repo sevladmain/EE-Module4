@@ -30,5 +30,8 @@
     <definition name="app.menus" extends="app.default">
         <put-attribute name="content" value="/WEB-INF/servlets/menus.jsp" />
     </definition>
+    <definition name="app.add-update-menu" extends="app.default">
+        <put-attribute name="content" value="/WEB-INF/servlets/add-update-menu.jsp" />
+    </definition>
 
 </tiles-definitions>

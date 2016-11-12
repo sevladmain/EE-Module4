@@ -58,7 +58,7 @@ public class MenuService {
     }
 
     public boolean menuHasDishes(int id){
-        return menuListDao.getAllDishes(id).size() == 0;
+        return menuListDao.getAllDishes(id).size() > 0;
     }
 
     public int deleteMenu(Menu menu){
