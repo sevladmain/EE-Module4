@@ -52,7 +52,7 @@
                         <li><a href="#">Видалити</a></li>
                         <li><a href="#">Змінити склад страв меню</a></li>
                         <li><a href="#">Пошук за назвою</a></li>
-                        <li><a href="#">Вивести всіх</a></li>
+                        <li><a href="/menu/all">Вивести всіх</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
