@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Map;
+
 /**
  * Created by SeVlad on 12.11.2016.
  */
@@ -87,6 +89,20 @@ public class MenuController {
         Menu menu = menuService.getMenuById(id);
         model.addAttribute("menuForm", menu);
         return "app.add-update-menu";
+    }
+
+    @RequestMapping(value = "menu/find", method = RequestMethod.GET)
+    public String showFindMenuForm(Model model) {
+        LOGGER.debug("showFindMenuForm() is executed!");
+        model.addAttribute("findWhat", "MENU");
+        return "app.find";
+    }
+
+    @RequestMapping(value = "menu/finded", method = RequestMethod.POST)
+    public String showFindedMenuForm(@ModelAttribute("findString") String findString, Map<String, Object> model) {
+        LOGGER.debug("showFindedMenuForm() is executed!", findString);
+        model.put("menus", menuService.findMenuByName(findString));
+        return "app.menus";
     }
 
 }

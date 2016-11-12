@@ -19,6 +19,10 @@
             <h1>Введіть назву страви</h1>
             <spring:url value="/dish/finded" var="userActionUrl"/>
         </c:when>
+        <c:when test="${findWhat == 'MENU'}">
+            <h1>Введіть назву меню</h1>
+            <spring:url value="/dish/finded" var="userActionUrl"/>
+        </c:when>
         <c:otherwise>
         </c:otherwise>
     </c:choose>

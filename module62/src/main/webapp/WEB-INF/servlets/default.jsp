@@ -49,7 +49,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Меню<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/menu/add">Додати</a></li>
-                        <li><a href="#">Пошук за назвою</a></li>
+                        <li><a href="/menu/find">Пошук за назвою</a></li>
                         <li><a href="/menu/all">Вивести всіх</a></li>
                     </ul>
                 </li>
