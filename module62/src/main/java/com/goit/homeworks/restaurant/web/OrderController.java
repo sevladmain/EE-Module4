@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,5 +59,39 @@ public class OrderController {
         return "redirect:/order/" + redirect;
     }
 
+    @RequestMapping(value = "/order/add", method = RequestMethod.GET)
+    public String showCreateOrderForm(Model model){
+        LOGGER.debug("showCreateOrderForm() is executed!");
+        Order order = new Order();
+        model.addAttribute("orderForm", order);
+        model.addAttribute("employees", orderService.getAllEmployee());
+        return "app.add-update-order";
+    }
+
+    @RequestMapping(value = "/order/added", method = RequestMethod.POST)
+    public String addOrUpdateOrder(@ModelAttribute("orderForm") Order order, final RedirectAttributes redirectAttributes){
+        LOGGER.debug("addOrUpdateOrder() is executed!");
+        if (order.isNew()) {
+            orderService.addOrder(order);
+            redirectAttributes.addFlashAttribute("msg", "Замовлення №" + order.getId()
+                    + " додане до бази даних");
+        } else {
+            orderService.updateOrder(order);
+            redirectAttributes.addFlashAttribute("msg", "Замовлення №" + order.getId()
+                    + " оновлене у базі даних");
+        }
+        redirectAttributes.addFlashAttribute("css", "success");
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/order/{id}/update", method = RequestMethod.GET)
+    public String updateOrder(@PathVariable("id") int id, Model model){
+        LOGGER.debug("addOrUpdateOrder() is executed!");
+        Order order = orderService.getOrderById(id);
+        model.addAttribute("orderForm", order);
+        model.addAttribute("employees", orderService.getAllEmployee());
+
+        return "app.add-update-order";
+    }
 
 }

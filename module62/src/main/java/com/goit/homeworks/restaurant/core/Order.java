@@ -10,34 +10,35 @@ public class Order {
     private int employeeId;
     private int tableNum;
     private Date date;
-    private boolean isOpen;
+    private boolean open;
 
     public Order() {
+        this(0, 0, 0, Date.valueOf("2010-01-01"), true);
     }
 
-    public Order(int employeeId, int tableNum, Date date, boolean isOpen) {
+    public Order(int employeeId, int tableNum, Date date, boolean open) {
         this.employeeId = employeeId;
         this.tableNum = tableNum;
         this.date = date;
-        this.isOpen = isOpen;
+        this.open = open;
     }
 
-    public Order(int id, int employeeId, int tableNum, Date date, boolean isOpen) {
+    public Order(int id, int employeeId, int tableNum, Date date, boolean open) {
         this.id = id;
         this.employeeId = employeeId;
         this.tableNum = tableNum;
         this.date = date;
-        this.isOpen = isOpen;
+        this.open = open;
     }
 
     public boolean isNew(){ return id == 0; }
 
     public boolean isOpen() {
-        return isOpen;
+        return open;
     }
 
     public void setOpen(boolean open) {
-        isOpen = open;
+        this.open = open;
     }
 
     public void setId(int id) {
@@ -82,7 +83,7 @@ public class Order {
         if (id != order.id) return false;
         if (employeeId != order.employeeId) return false;
         if (tableNum != order.tableNum) return false;
-        if (isOpen != order.isOpen) return false;
+        if (open != order.open) return false;
         return date != null ? date.equals(order.date) : order.date == null;
 
     }
@@ -93,7 +94,7 @@ public class Order {
         result = 31 * result + employeeId;
         result = 31 * result + tableNum;
         result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (isOpen ? 1 : 0);
+        result = 31 * result + (open ? 1 : 0);
         return result;
     }
 
@@ -104,7 +105,7 @@ public class Order {
                 ", employeeId=" + employeeId +
                 ", tableNum=" + tableNum +
                 ", date=" + date +
-                ", isOpen=" + isOpen +
+                ", open=" + open +
                 '}';
     }
 }

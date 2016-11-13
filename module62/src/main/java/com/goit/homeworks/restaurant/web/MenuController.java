@@ -69,7 +69,7 @@ public class MenuController {
     public String saveOrUpdateMenu(@ModelAttribute("menuForm") Menu menu, final RedirectAttributes redirectAttributes) {
         LOGGER.debug("saveOrUpdateEmployee() is executed!");
         if (menu.isNew()) {
-            menuService.addMenu(menu).getId();
+            menuService.addMenu(menu);
             redirectAttributes.addFlashAttribute("msg", "Меню " + menu.getName()
                     + " додане до бази даних");
         } else {
