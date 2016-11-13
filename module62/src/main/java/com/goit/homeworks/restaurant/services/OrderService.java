@@ -2,6 +2,7 @@ package com.goit.homeworks.restaurant.services;
 
 import com.goit.homeworks.restaurant.core.Employee;
 import com.goit.homeworks.restaurant.core.Order;
+import com.goit.homeworks.restaurant.core.PreparedDish;
 import com.goit.homeworks.restaurant.dao.*;
 
 import java.util.List;
@@ -58,4 +59,24 @@ public class OrderService {
         return employeeDao.getAll();
     }
 
+    public Employee getEmployee(int id){
+        return employeeDao.findEmployeeById(id);
+    }
+    public PreparedDish addPreparedDish(PreparedDish dish){
+        return preparedDishDao.create(dish);
+    }
+
+    public int removePreparedDish(PreparedDish dish){
+        return preparedDishDao.remove(dish);
+    }
+
+    public int setPreparedToDish(PreparedDish dish){
+        dish.setPrepared(true);
+        return preparedDishDao.update(dish);
+    }
+
+    public int closeOrder(Order order){
+        order.setOpen(false);
+        return orderDao.update(order);
+    }
 }
