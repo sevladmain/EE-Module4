@@ -40,10 +40,10 @@ public class JdbcPreparedDishDaoTest {
         int employee = 1;
         int dish = 1;
 
-        existingDish = new PreparedDish(dish, employee, false);
+        existingDish = new PreparedDish(dish, employee, 1, false);
         existingDish.setId(1);
 
-        newDish = new PreparedDish(dish+1, employee, true);
+        newDish = new PreparedDish(dish+1, employee, 1, true);
     }
 
     @After
@@ -61,6 +61,7 @@ public class JdbcPreparedDishDaoTest {
         assertThat("ID DISH is not equal", ((Integer) rows.get(0).get("ID_DISH")), equalTo(newDish.getDishId()));
         assertThat("ID EMPOYEE is not equal", ((Integer) rows.get(0).get("ID_EMPLOYEE")), equalTo(newDish.getEmployeeId()));
         assertThat("IS PREPARED is not equal", ((Boolean) rows.get(0).get("IS_PREPARED")), equalTo(newDish.isPrepared()));
+        assertThat("IS ORDER is not equal", ((Integer) rows.get(0).get("ID_ORDER")), equalTo(newDish.getOrderId()));
     }
 
     @Test
@@ -81,6 +82,7 @@ public class JdbcPreparedDishDaoTest {
         assertThat("ID EMPLOYEE is not equal", ((Integer) rows.get(0).get("ID_EMPLOYEE")), equalTo(newDish.getEmployeeId()));
         assertThat("ID DISH is not equal", ((Integer) rows.get(0).get("ID_DISH")), equalTo(newDish.getDishId()));
         assertThat("IS PREPARED is not equal", ((Boolean) rows.get(0).get("IS_PREPARED")), equalTo(newDish.isPrepared()));
+        assertThat("IS ORDER is not equal", ((Integer) rows.get(0).get("ID_ORDER")), equalTo(newDish.getOrderId()));
     }
 
     @Test

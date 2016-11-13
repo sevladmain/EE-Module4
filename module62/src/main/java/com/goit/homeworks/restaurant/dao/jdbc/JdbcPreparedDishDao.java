@@ -32,10 +32,11 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
     @Override
     public PreparedDish create(PreparedDish item) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"PREPARED_DISHES\" (\"ID_DISH\", \"ID_EMPLOYEE\", \"IS_PREPARED\")  VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"PREPARED_DISHES\" (\"ID_DISH\", \"ID_EMPLOYEE\", \"IS_PREPARED\", \"ID_ORDER\")  VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, item.getDishId());
             statement.setInt(2, item.getEmployeeId());
             statement.setBoolean(3, item.isPrepared());
+            statement.setInt(4, item.getOrderId());
             statement.executeUpdate();
             ResultSet set = statement.getGeneratedKeys();
             if (set.next()) {
@@ -72,11 +73,12 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE \"PREPARED_DISHES\" SET \"ID_DISH\"=?, \"ID_EMPLOYEE\"=?, \"IS_PREPARED\"=? WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("UPDATE \"PREPARED_DISHES\" SET \"ID_DISH\"=?, \"ID_EMPLOYEE\"=?, \"IS_PREPARED\"=?, \"ID_ORDER\"=? WHERE ID=?")) {
                 statement.setInt(1, item.getDishId());
                 statement.setInt(2, item.getEmployeeId());
                 statement.setBoolean(3, item.isPrepared());
                 statement.setInt(4, item.getId());
+                statement.setInt(5,item.getOrderId());
                 result = statement.executeUpdate();
             } catch (SQLException e) {
                 LOGGER.error("Exception while connecting to DB in method update PreparedStatement: " + item + e);
@@ -110,6 +112,7 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
         dish.setEmployeeId(set.getInt("ID_EMPLOYEE"));
         dish.setDishId(set.getInt("ID_DISH"));
         dish.setPrepared(set.getBoolean("IS_PREPARED"));
+        dish.setOrderId(set.getInt("ID_ORDER"));
         return dish;
     }
 
@@ -149,5 +152,46 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
 
         }
         return dish;
+    }
+
+    @Override
+    public List<PreparedDish> getAllDishFromOrder(int orderId) {
+        List<PreparedDish> result = new ArrayList<>();
+        if(orderId > 0) {
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"PREPARED_DISHES\" WHERE \"ID_DISH\"=?")) {
+                statement.setInt(1, orderId);
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    PreparedDish dish = extractPreparedDish(resultSet);
+                    result.add(dish);
+                }
+            } catch (SQLException e) {
+                LOGGER.error("Exception while connecting to DB in method getAllDishFromOrder: " + e);
+                throw new RuntimeException(e);
+            }
+        }
+        return result;
+    }
+    @Override
+    public List<PreparedDish> getAllPreparedDishFromOrder(int orderId) {
+        List<PreparedDish> result = new ArrayList<>();
+        if(orderId > 0) {
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"PREPARED_DISHES\" WHERE \"ID_DISH\"=? AND \"IS_PREPARED\"=TRUE")) {
+                statement.setInt(1, orderId);
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    PreparedDish dish = extractPreparedDish(resultSet);
+                    result.add(dish);
+                }
+            } catch (SQLException e) {
+                LOGGER.error("Exception while connecting to DB in method getAllPreparedDishFromOrder: " + e);
+                throw new RuntimeException(e);
+            }
+        }
+        return result;
     }
 }

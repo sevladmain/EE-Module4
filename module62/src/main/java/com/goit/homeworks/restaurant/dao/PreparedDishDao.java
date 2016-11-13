@@ -10,4 +10,6 @@ import java.util.List;
 public interface PreparedDishDao extends SimpleDao<PreparedDish> {
     List<PreparedDish> findPreparedDishes();
     PreparedDish findPreparedDishById(int id);
+    List<PreparedDish> getAllDishFromOrder(int orderId);
+    List<PreparedDish> getAllPreparedDishFromOrder(int orderId);
 }
