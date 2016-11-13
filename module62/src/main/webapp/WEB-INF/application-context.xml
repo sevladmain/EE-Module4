@@ -47,4 +47,20 @@
         <property name="menuDao" ref="menuDao"/>
         <property name="menuListDao" ref="menuListDao"/>
     </bean>
+    <bean id="orderDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcOrderDao">
+        <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
+    </bean>
+    <bean id="preparedDishDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcPreparedDishDao">
+        <constructor-arg type="javax.sql.DataSource" ref="dataSource" />
+    </bean>
+    <bean id="orderPreparedDishDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcOrderPreparedDishDao">
+        <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
+    </bean>
+    <bean id="orderService" class="com.goit.homeworks.restaurant.services.OrderService">
+        <property name="orderDao" ref="orderDao"/>
+        <property name="dishDao" ref="dishDao" />
+        <property name="employeeDao" ref="employeeDao"/>
+        <property name="preparedDishDao" ref="preparedDishDao"/>
+        <property name="orderPreparedDishDao" ref="orderPreparedDishDao"/>
+    </bean>
 </beans>
