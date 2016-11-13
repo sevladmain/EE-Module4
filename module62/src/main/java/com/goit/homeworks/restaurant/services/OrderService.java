@@ -5,7 +5,9 @@ import com.goit.homeworks.restaurant.core.Order;
 import com.goit.homeworks.restaurant.core.PreparedDish;
 import com.goit.homeworks.restaurant.dao.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by SeVlad on 13.11.2016.
@@ -32,11 +34,23 @@ public class OrderService {
         this.dishDao = dishDao;
     }
 
-    public List<Order> getAllOpenOrders(){
-        return orderDao.getAllOpenOrders();
+    public Map<Order, Employee> getAllOpenOrders(){
+        Map<Order, Employee> result = new HashMap<>();
+        List<Order> orders = orderDao.getAllOpenOrders();
+        for (Order order :
+                orders) {
+            result.put(order, employeeDao.findEmployeeById(order.getEmployeeId()));
+        }
+        return result;
     }
-    public List<Order> getAllClosedOrders(){
-        return orderDao.getAllClosedOrders();
+    public Map<Order, Employee> getAllClosedOrders(){
+        Map<Order, Employee> result = new HashMap<>();
+        List<Order> orders = orderDao.getAllClosedOrders();
+        for (Order order :
+                orders) {
+            result.put(order, employeeDao.findEmployeeById(order.getEmployeeId()));
+        }
+        return result;
     }
 
     public Order getOrderById(int id){

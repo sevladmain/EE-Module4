@@ -57,11 +57,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Замовлення<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Створити</a></li>
-                        <li><a href="#">Змінити склад страв замовлення</a></li>
-                        <li><a href="#">Змінити статус замовлення</a></li>
-                        <li><a href="#">Видалити</a></li>
-                        <li><a href="#">Вивести відкриті замовлення</a></li>
-                        <li><a href="#">Вивести закриті замовлення</a></li>
+                        <li><a href="/order/allOpen">Вивести відкриті замовлення</a></li>
+                        <li><a href="/order/allClosed">Вивести закриті замовлення</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
