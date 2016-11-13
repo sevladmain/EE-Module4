@@ -159,7 +159,7 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
         List<PreparedDish> result = new ArrayList<>();
         if(orderId > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"PREPARED_DISHES\" WHERE \"ID_DISH\"=?")) {
+                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM \"PREPARED_DISHES\" WHERE \"ID_ORDER\"=?")) {
                 statement.setInt(1, orderId);
                 ResultSet resultSet = statement.executeQuery();
 

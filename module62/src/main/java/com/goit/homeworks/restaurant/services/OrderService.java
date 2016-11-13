@@ -1,5 +1,6 @@
 package com.goit.homeworks.restaurant.services;
 
+import com.goit.homeworks.restaurant.core.Dish;
 import com.goit.homeworks.restaurant.core.Employee;
 import com.goit.homeworks.restaurant.core.Order;
 import com.goit.homeworks.restaurant.core.PreparedDish;
@@ -92,5 +93,23 @@ public class OrderService {
     public int closeOrder(Order order){
         order.setOpen(false);
         return orderDao.update(order);
+    }
+
+    public Map<PreparedDish, Dish> getDishesFromOrder(int orderId){
+        Map<PreparedDish, Dish> dishMap = new HashMap<>();
+        List<PreparedDish> preparedDishes = preparedDishDao.getAllDishFromOrder(orderId);
+        for (PreparedDish dish :
+                preparedDishes) {
+            dishMap.put(dish, dishDao.findDishById(dish.getDishId()));
+        }
+        return dishMap;
+    }
+
+    public List<Dish> getAllDishes(){
+        return dishDao.getAll();
+    }
+
+    public PreparedDish getPreparedDishById(int id){
+        return preparedDishDao.findPreparedDishById(id);
     }
 }

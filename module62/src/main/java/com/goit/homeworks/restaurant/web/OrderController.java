@@ -1,7 +1,9 @@
 package com.goit.homeworks.restaurant.web;
 
+import com.goit.homeworks.restaurant.core.Dish;
 import com.goit.homeworks.restaurant.core.Menu;
 import com.goit.homeworks.restaurant.core.Order;
+import com.goit.homeworks.restaurant.core.PreparedDish;
 import com.goit.homeworks.restaurant.services.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,4 +96,41 @@ public class OrderController {
         return "app.add-update-order";
     }
 
+    @RequestMapping(value = "/order/{id}/details", method = RequestMethod.GET)
+    public String showOrderDetails(@PathVariable("id") int orderId, Model model){
+        LOGGER.debug("showOrderDetails() is executed!");
+        Order order = orderService.getOrderById(orderId);
+
+        model.addAttribute("order", order);
+        model.addAttribute("dishes", orderService.getDishesFromOrder(orderId));
+        model.addAttribute("newDish", new PreparedDish());
+        model.addAttribute("allDishes", orderService.getAllDishes());
+
+        return "app.order-details";
+    }
+    @RequestMapping(value = "/order/{orderid}/dish/{dishid}/delete", method = RequestMethod.POST)
+    public String deleteDishFromOrder(@PathVariable("orderid") int orderid,
+                                      @PathVariable("dishid") int dishid,
+                                      final RedirectAttributes redirectAttributes){
+        LOGGER.debug("deleteDishFromOrder() is executed!");
+        PreparedDish dish = orderService.getPreparedDishById(dishid);
+        orderService.removePreparedDish(dish);
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Страву видалено");
+
+        return "redirect:/order/" + orderid + "/details";
+    }
+
+    @RequestMapping(value = "/order/{orderid}/dish/add", method = RequestMethod.POST)
+    public String addDishToOrder(@PathVariable("orderid") int orderid,
+                                 @ModelAttribute("newDish") PreparedDish newDish,
+                                 final RedirectAttributes redirectAttributes){
+        LOGGER.debug("addDishToOrder() is executed!");
+        newDish.setOrderId(orderid);
+        orderService.addPreparedDish(newDish);
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Страву додано");
+
+        return "redirect:/order/" + orderid + "/details";
+    }
 }
