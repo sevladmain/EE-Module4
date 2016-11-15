@@ -73,12 +73,12 @@ public class JdbcPreparedDishDao implements PreparedDishDao {
         int result = 0;
         if (item.getId() > 0) {
             try (Connection connection = dataSource.getConnection();
-                 PreparedStatement statement = connection.prepareStatement("UPDATE \"PREPARED_DISHES\" SET \"ID_DISH\"=?, \"ID_EMPLOYEE\"=?, \"IS_PREPARED\"=?, \"ID_ORDER\"=? WHERE ID=?")) {
+                 PreparedStatement statement = connection.prepareStatement("UPDATE \"PREPARED_DISHES\" SET \"ID_DISH\"=?, \"ID_EMPLOYEE\"=?, \"IS_PREPARED\"=?, \"ID_ORDER\"=? WHERE \"ID\"=?")) {
                 statement.setInt(1, item.getDishId());
                 statement.setInt(2, item.getEmployeeId());
                 statement.setBoolean(3, item.isPrepared());
-                statement.setInt(4, item.getId());
-                statement.setInt(5,item.getOrderId());
+                statement.setInt(4,item.getOrderId());
+                statement.setInt(5, item.getId());
                 result = statement.executeUpdate();
             } catch (SQLException e) {
                 LOGGER.error("Exception while connecting to DB in method update PreparedStatement: " + item + e);

@@ -81,6 +81,9 @@ public class OrderService {
         return preparedDishDao.create(dish);
     }
 
+    public int updatePreparedDish(PreparedDish dish){
+        return preparedDishDao.update(dish);
+    }
     public int removePreparedDish(PreparedDish dish){
         return preparedDishDao.remove(dish);
     }
@@ -111,5 +114,9 @@ public class OrderService {
 
     public PreparedDish getPreparedDishById(int id){
         return preparedDishDao.findPreparedDishById(id);
+    }
+
+    public Dish getDishById(int id){
+        return dishDao.findDishById(id);
     }
 }

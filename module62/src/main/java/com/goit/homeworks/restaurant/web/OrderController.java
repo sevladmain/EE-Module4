@@ -133,4 +133,31 @@ public class OrderController {
 
         return "redirect:/order/" + orderid + "/details";
     }
+
+    @RequestMapping(value = "/order/{orderid}/dish/{dishkeyid}/update", method = RequestMethod.GET)
+    public String updatePreparedDishForm(@PathVariable("orderid") int orderid,
+                                     @PathVariable("dishkeyid") int dishid,
+                                     Model model){
+        LOGGER.debug("updatePreparedDish() is executed!");
+        model.addAttribute("orderid", orderid);
+        PreparedDish preparedDish = orderService.getPreparedDishById(dishid);
+        model.addAttribute("preparedDish", preparedDish);
+        model.addAttribute("dish", orderService.getDishById(preparedDish.getDishId()));
+        model.addAttribute("employees", orderService.getAllEmployee());
+
+        return "app.prepared-dish";
+    }
+
+    @RequestMapping(value = "/order/prepareddish/update", method = RequestMethod.POST)
+    public String updatePreparedDish(@ModelAttribute("preparedDish") PreparedDish preparedDish,
+                                     final RedirectAttributes redirectAttributes){
+        LOGGER.debug("updatePreparedDish() is executed!");
+
+        orderService.updatePreparedDish(preparedDish);
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Страву оновлено");
+
+        return "redirect:/order/" + preparedDish.getOrderId() + "/details";
+
+    }
 }

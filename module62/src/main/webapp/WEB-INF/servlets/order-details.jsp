@@ -36,7 +36,9 @@
                     </c:choose>
                 </td>
                 <td>
+                    <spring:url value="/order/${order.id}/dish/${dish.key.id}/update" var="updUrl"/>
                     <spring:url value="/order/${order.id}/dish/${dish.key.id}/delete" var="deleteUrl"/>
+                    <button class="btn btn-info" onclick="location.href='${updUrl}'">Деталі</button>
                     <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">Видалити</button>
                 </td>
                 </td>

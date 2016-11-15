@@ -44,6 +44,8 @@
     </definition>
     <definition name="app.order-details" extends="app.default">
         <put-attribute name="content" value="/WEB-INF/servlets/order-details.jsp" />
+    </definition><definition name="app.prepared-dish" extends="app.default">
+        <put-attribute name="content" value="/WEB-INF/servlets/prepared-dishes.jsp" />
     </definition>
 
 </tiles-definitions>
