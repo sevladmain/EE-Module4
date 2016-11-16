@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -90,10 +91,15 @@ public class OrderController {
     public String updateOrder(@PathVariable("id") int id, Model model){
         LOGGER.debug("addOrUpdateOrder() is executed!");
         Order order = orderService.getOrderById(id);
-        model.addAttribute("orderForm", order);
-        model.addAttribute("employees", orderService.getAllEmployee());
-
-        return "app.add-update-order";
+        if(order.isOpen()) {
+            model.addAttribute("orderForm", order);
+            model.addAttribute("employees", orderService.getAllEmployee());
+            return "app.add-update-order";
+        } else{
+            model.addAttribute("css", "warning");
+            model.addAttribute("msg", "Закрите замовлення не можна редагувати");
+            return "app.homepage";
+        }
     }
 
     @RequestMapping(value = "/order/{id}/details", method = RequestMethod.GET)
@@ -158,6 +164,6 @@ public class OrderController {
         redirectAttributes.addFlashAttribute("msg", "Страву оновлено");
 
         return "redirect:/order/" + preparedDish.getOrderId() + "/details";
-
     }
+
 }

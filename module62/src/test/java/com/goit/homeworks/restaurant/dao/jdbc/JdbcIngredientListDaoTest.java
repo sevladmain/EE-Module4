@@ -39,7 +39,6 @@ public class JdbcIngredientListDaoTest {
         existingIngrId1 = 1;
         existingIngrId2 = 2;
         newIngrId = 3;
-
     }
 
     @After
@@ -49,12 +48,13 @@ public class JdbcIngredientListDaoTest {
 
     @Test
     public void addIngredientToDishTest() {
-        assertThat(dao.addIngredientToDish(newIngrId, dishId), equalTo(1));
+        assertThat(dao.addIngredientToDish(newIngrId, dishId, 10 * newIngrId + dishId), equalTo(1));
         List<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT * FROM INGREDIENTLIST WHERE ID_DISH=" + dishId + " AND ID_INGREDIENT=" + newIngrId);
         assertThat("Row not inserted or not exists", rows, hasSize(1));
 
         assertThat(((Integer) rows.get(0).get("ID_DISH")), equalTo(dishId));
         assertThat(((Integer) rows.get(0).get("ID_INGREDIENT")), equalTo(newIngrId));
+        assertThat(((Integer) rows.get(0).get("USED_AMOUNT")), equalTo(10 * newIngrId + dishId));
 
     }
 
@@ -77,6 +77,11 @@ public class JdbcIngredientListDaoTest {
         List<Integer> list = dao.getAllIngredientsIds(dishId);
         assertThat(list, hasSize(2));
         assertThat(list, contains(existingIngrId1, existingIngrId2));
+    }
+
+    @Test
+    public void getUsedAmountIngredient() {
+        assertThat(dao.getUsedAmountOfDishIngredient(existingIngrId1, dishId), equalTo(10* existingIngrId1 + dishId));
     }
 
 }

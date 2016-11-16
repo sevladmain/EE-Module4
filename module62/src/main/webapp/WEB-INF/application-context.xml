@@ -50,13 +50,22 @@
     <bean id="orderDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcOrderDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
+    <bean id="ingredientListDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcIngredientListDao">
+        <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
+    </bean>
     <bean id="preparedDishDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcPreparedDishDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource" />
+    </bean>
+    <bean id="ingredientDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcIngredientDao">
+        <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
     <bean id="orderService" class="com.goit.homeworks.restaurant.services.OrderService">
         <property name="orderDao" ref="orderDao"/>
         <property name="dishDao" ref="dishDao" />
         <property name="employeeDao" ref="employeeDao"/>
         <property name="preparedDishDao" ref="preparedDishDao"/>
+        <property name="ingredientDao" ref="ingredientDao"/>
+        <property name="ingredientListDao" ref="ingredientListDao"/>
     </bean>
+
 </beans>

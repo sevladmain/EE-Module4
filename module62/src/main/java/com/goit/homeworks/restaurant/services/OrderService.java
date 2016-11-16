@@ -1,9 +1,6 @@
 package com.goit.homeworks.restaurant.services;
 
-import com.goit.homeworks.restaurant.core.Dish;
-import com.goit.homeworks.restaurant.core.Employee;
-import com.goit.homeworks.restaurant.core.Order;
-import com.goit.homeworks.restaurant.core.PreparedDish;
+import com.goit.homeworks.restaurant.core.*;
 import com.goit.homeworks.restaurant.dao.*;
 
 import java.util.HashMap;
@@ -18,6 +15,16 @@ public class OrderService {
     EmployeeDao employeeDao;
     PreparedDishDao preparedDishDao;
     DishDao dishDao;
+    IngredientListDao ingredientListDao;
+    IngredientDao ingredientDao;
+
+    public void setIngredientListDao(IngredientListDao ingredientListDao) {
+        this.ingredientListDao = ingredientListDao;
+    }
+
+    public void setIngredientDao(IngredientDao ingredientDao) {
+        this.ingredientDao = ingredientDao;
+    }
 
     public void setOrderDao(OrderDao orderDao) {
         this.orderDao = orderDao;
@@ -118,5 +125,26 @@ public class OrderService {
 
     public Dish getDishById(int id){
         return dishDao.findDishById(id);
+    }
+
+    public int getUsedAmountOfDishIngredient(int ingredientId, int dishId){
+        return ingredientListDao.getUsedAmountOfDishIngredient(ingredientId, dishId);
+    }
+
+    public void reduceIngredientsAmountFromOrder(int orderId){
+        Map<PreparedDish, Dish> dishes = getDishesFromOrder(orderId);
+        int amount = 0;
+        for (Map.Entry<PreparedDish, Dish> entry :
+                dishes.entrySet()) {
+            if(entry.getKey().isPrepared()){
+                List<Integer> ingredients = ingredientListDao.getAllIngredientsIds(entry.getValue().getId());
+                for (Integer ingredientId :
+                        ingredients) {
+                    amount = getUsedAmountOfDishIngredient(ingredientId, entry.getValue().getId());
+                    Ingredient ingredient = ingredientDao.findIngredientById(ingredientId);
+                    ingredient.setAmount(ingredient.getAmount() - amount);
+                }
+            }
+        }
     }
 }

@@ -62,19 +62,10 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Історія кухні<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Складові<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Додати приготовлені страви</a></li>
-                        <li><a href="#">Вивести приготовлені страви</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Склад<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Додати нові складові</a></li>
-                        <li><a href="#">Видалити складові</a></li>
-                        <li><a href="#">Змінити кількість складових</a></li>
-                        <li><a href="#">Пошук складових</a></li>
+                        <li><a href="#">Додати</a></li>
+                        <li><a href="#">Пошук</a></li>
                         <li><a href="#">Вивести всі складові</a></li>
                         <li><a href="#">Вивести складові, що закінчуються</a></li>
                     </ul>

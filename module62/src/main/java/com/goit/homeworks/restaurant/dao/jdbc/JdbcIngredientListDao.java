@@ -32,12 +32,13 @@ public class JdbcIngredientListDao implements IngredientListDao {
     }
 
     @Override
-    public int addIngredientToDish(int ingredientId, int dishId) {
+    public int addIngredientToDish(int ingredientId, int dishId, int amount) {
         int result = 0;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"INGREDIENTLIST\" (\"ID_INGREDIENT\", \"ID_DISH\")  VALUES (?,?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO \"INGREDIENTLIST\" (\"ID_INGREDIENT\", \"ID_DISH\", \"USED_AMOUNT\")  VALUES (?,?,?)")) {
             statement.setInt(1, ingredientId);
             statement.setInt(2, dishId);
+            statement.setInt(3, amount);
             result = statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("Exception while connecting to DB in method addIngredientToDish: " + e);
@@ -93,4 +94,23 @@ public class JdbcIngredientListDao implements IngredientListDao {
         }
         return result;
     }
+
+    @Override
+    public int getUsedAmountOfDishIngredient(int ingredientId, int dishId) {
+        int result = 0;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT \"USED_AMOUNT\" FROM \"INGREDIENTLIST\" WHERE \"ID_INGREDIENT\"=? AND \"ID_DISH\"=?")) {
+            statement.setInt(1, ingredientId);
+            statement.setInt(2, dishId);
+            ResultSet set = statement.executeQuery();
+            if(set.next()){
+                result = set.getInt("USED_AMOUNT");
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Exception while connecting to DB in method isIngredientFromDish: " + e);
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
 }
