@@ -166,4 +166,15 @@ public class OrderController {
         return "redirect:/order/" + preparedDish.getOrderId() + "/details";
     }
 
+    @RequestMapping(value = "/order/{orderid}/dish/{dishid}/prepared", method = RequestMethod.POST)
+    public String setPreparedToPreparedDish(@PathVariable("orderid") int orderid,
+                                            @PathVariable("dishid") int dishid,
+                                            final RedirectAttributes redirectAttributes){
+        LOGGER.debug("updatePreparedDish() is executed!");
+        PreparedDish preparedDish = orderService.getPreparedDishById(dishid);
+        orderService.setPreparedToDish(preparedDish);
+        orderService.reduceIngredientsAmountFromPreparedDish(dishid);
+        return "redirect:/order/" + orderid + "/details";
+    }
+
 }

@@ -32,15 +32,7 @@
                 </div>
             </div>
         </spring:bind>
-        <spring:bind path="prepared">
-            <div class="form-group">
-                <label for="prepared" class="col-sm-3 control-label">Приготовлене?</label>
-                <div class="col-sm-9">
-                    <form:checkbox path="prepared" class="form-control" aria-describedby="basic-addon1"
-                                   id="prepared"/>
-                </div>
-            </div>
-        </spring:bind>
+        <form:hidden path="prepared"/>
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-2">

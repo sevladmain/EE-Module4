@@ -42,7 +42,7 @@ public class OrderService {
         this.dishDao = dishDao;
     }
 
-    public Map<Order, Employee> getAllOpenOrders(){
+    public Map<Order, Employee> getAllOpenOrders() {
         Map<Order, Employee> result = new HashMap<>();
         List<Order> orders = orderDao.getAllOpenOrders();
         for (Order order :
@@ -51,7 +51,8 @@ public class OrderService {
         }
         return result;
     }
-    public Map<Order, Employee> getAllClosedOrders(){
+
+    public Map<Order, Employee> getAllClosedOrders() {
         Map<Order, Employee> result = new HashMap<>();
         List<Order> orders = orderDao.getAllClosedOrders();
         for (Order order :
@@ -61,51 +62,53 @@ public class OrderService {
         return result;
     }
 
-    public Order getOrderById(int id){
+    public Order getOrderById(int id) {
         return orderDao.findOrderById(id);
     }
 
-    public int deleteOrder(Order order){
+    public int deleteOrder(Order order) {
         return orderDao.remove(order);
     }
 
-    public Order addOrder(Order order){
+    public Order addOrder(Order order) {
         return orderDao.create(order);
     }
 
-    public int updateOrder(Order order){
+    public int updateOrder(Order order) {
         return orderDao.update(order);
     }
 
-    public List<Employee> getAllEmployee(){
+    public List<Employee> getAllEmployee() {
         return employeeDao.getAll();
     }
 
-    public Employee getEmployee(int id){
+    public Employee getEmployee(int id) {
         return employeeDao.findEmployeeById(id);
     }
-    public PreparedDish addPreparedDish(PreparedDish dish){
+
+    public PreparedDish addPreparedDish(PreparedDish dish) {
         return preparedDishDao.create(dish);
     }
 
-    public int updatePreparedDish(PreparedDish dish){
+    public int updatePreparedDish(PreparedDish dish) {
         return preparedDishDao.update(dish);
     }
-    public int removePreparedDish(PreparedDish dish){
+
+    public int removePreparedDish(PreparedDish dish) {
         return preparedDishDao.remove(dish);
     }
 
-    public int setPreparedToDish(PreparedDish dish){
+    public int setPreparedToDish(PreparedDish dish) {
         dish.setPrepared(true);
         return preparedDishDao.update(dish);
     }
 
-    public int closeOrder(Order order){
+    public int closeOrder(Order order) {
         order.setOpen(false);
         return orderDao.update(order);
     }
 
-    public Map<PreparedDish, Dish> getDishesFromOrder(int orderId){
+    public Map<PreparedDish, Dish> getDishesFromOrder(int orderId) {
         Map<PreparedDish, Dish> dishMap = new HashMap<>();
         List<PreparedDish> preparedDishes = preparedDishDao.getAllDishFromOrder(orderId);
         for (PreparedDish dish :
@@ -115,36 +118,31 @@ public class OrderService {
         return dishMap;
     }
 
-    public List<Dish> getAllDishes(){
+    public List<Dish> getAllDishes() {
         return dishDao.getAll();
     }
 
-    public PreparedDish getPreparedDishById(int id){
+    public PreparedDish getPreparedDishById(int id) {
         return preparedDishDao.findPreparedDishById(id);
     }
 
-    public Dish getDishById(int id){
+    public Dish getDishById(int id) {
         return dishDao.findDishById(id);
     }
 
-    public int getUsedAmountOfDishIngredient(int ingredientId, int dishId){
+    public int getUsedAmountOfDishIngredient(int ingredientId, int dishId) {
         return ingredientListDao.getUsedAmountOfDishIngredient(ingredientId, dishId);
     }
 
-    public void reduceIngredientsAmountFromOrder(int orderId){
-        Map<PreparedDish, Dish> dishes = getDishesFromOrder(orderId);
-        int amount = 0;
-        for (Map.Entry<PreparedDish, Dish> entry :
-                dishes.entrySet()) {
-            if(entry.getKey().isPrepared()){
-                List<Integer> ingredients = ingredientListDao.getAllIngredientsIds(entry.getValue().getId());
-                for (Integer ingredientId :
-                        ingredients) {
-                    amount = getUsedAmountOfDishIngredient(ingredientId, entry.getValue().getId());
-                    Ingredient ingredient = ingredientDao.findIngredientById(ingredientId);
-                    ingredient.setAmount(ingredient.getAmount() - amount);
-                }
-            }
+    public void reduceIngredientsAmountFromPreparedDish(int preparedDishId) {
+        PreparedDish preparedDish = preparedDishDao.findPreparedDishById(preparedDishId);
+        List<Integer> ingredients = ingredientListDao.getAllIngredientsIds(preparedDish.getDishId());
+        for (Integer ingredientId :
+                ingredients) {
+            int amount = getUsedAmountOfDishIngredient(ingredientId, preparedDish.getDishId());
+            Ingredient ingredient = ingredientDao.findIngredientById(ingredientId);
+            ingredient.setAmount(ingredient.getAmount() - amount);
+            ingredientDao.update(ingredient);
         }
     }
 }
