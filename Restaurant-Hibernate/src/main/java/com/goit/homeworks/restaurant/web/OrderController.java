@@ -1,7 +1,7 @@
 package com.goit.homeworks.restaurant.web;
 
-import com.goit.homeworks.restaurant.core.Order;
-import com.goit.homeworks.restaurant.core.PreparedDish;
+import com.goit.homeworks.restaurant.model.Order;
+import com.goit.homeworks.restaurant.model.PreparedDish;
 import com.goit.homeworks.restaurant.services.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

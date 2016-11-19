@@ -1,26 +1,26 @@
-package com.goit.homeworks.restaurant.core;
+package com.goit.homeworks.restaurant.model;
 
 /**
  * Created by SeVlad on 22.10.2016.
  */
-public class Category {
+public class Menu {
     private int id;
     private String name;
 
-    public Category() {
-        this(0,"");
+    public Menu() {
+        this(0, "");
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public Category(int id, String name) {
+    public Menu(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Category(String name) {
+    public Menu(String name) {
         this.name = name;
     }
 
@@ -43,10 +43,10 @@ public class Category {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Category category = (Category) o;
+        Menu menu = (Menu) o;
 
-        if (id != category.id) return false;
-        return name != null ? name.equals(category.name) : category.name == null;
+        if (id != menu.id) return false;
+        return name != null ? name.equals(menu.name) : menu.name == null;
 
     }
 
@@ -59,10 +59,9 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" +
+        return "Menu{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }
-
 }

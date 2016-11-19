@@ -1,10 +1,8 @@
 package com.goit.homeworks.restaurant.web;
 
-import com.goit.homeworks.restaurant.core.Dish;
-import com.goit.homeworks.restaurant.core.Employee;
-import com.goit.homeworks.restaurant.core.Menu;
+import com.goit.homeworks.restaurant.model.Dish;
+import com.goit.homeworks.restaurant.model.Menu;
 import com.goit.homeworks.restaurant.services.MenuService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

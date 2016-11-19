@@ -1,9 +1,7 @@
 package com.goit.homeworks.restaurant.web;
 
-import com.goit.homeworks.restaurant.core.Dish;
-import com.goit.homeworks.restaurant.core.Menu;
-import com.goit.homeworks.restaurant.core.Order;
-import com.goit.homeworks.restaurant.core.PreparedDish;
+import com.goit.homeworks.restaurant.model.Order;
+import com.goit.homeworks.restaurant.model.PreparedDish;
 import com.goit.homeworks.restaurant.services.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by SeVlad on 13.11.2016.

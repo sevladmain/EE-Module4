@@ -1,6 +1,6 @@
 package com.goit.homeworks.restaurant.services;
 
-import com.goit.homeworks.restaurant.core.*;
+import com.goit.homeworks.restaurant.model.*;
 import com.goit.homeworks.restaurant.dao.*;
 
 import java.util.HashMap;

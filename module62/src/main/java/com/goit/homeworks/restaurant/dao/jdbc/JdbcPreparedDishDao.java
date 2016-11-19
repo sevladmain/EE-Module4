@@ -1,6 +1,6 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
-import com.goit.homeworks.restaurant.core.PreparedDish;
+import com.goit.homeworks.restaurant.model.PreparedDish;
 import com.goit.homeworks.restaurant.dao.PreparedDishDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

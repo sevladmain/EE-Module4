@@ -1,7 +1,7 @@
 package com.goit.homeworks.restaurant.services;
 
-import com.goit.homeworks.restaurant.core.Employee;
-import com.goit.homeworks.restaurant.core.Position;
+import com.goit.homeworks.restaurant.model.Employee;
+import com.goit.homeworks.restaurant.model.Position;
 import com.goit.homeworks.restaurant.dao.EmployeeDao;
 import com.goit.homeworks.restaurant.dao.PositionDao;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,6 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
-import com.goit.homeworks.restaurant.core.Position;
-import com.goit.homeworks.restaurant.core.PreparedDish;
+import com.goit.homeworks.restaurant.model.PreparedDish;
 import com.goit.homeworks.restaurant.dao.PreparedDishDao;
 import org.junit.After;
 import org.junit.Before;

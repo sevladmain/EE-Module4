@@ -1,6 +1,6 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
-import com.goit.homeworks.restaurant.core.Employee;
+import com.goit.homeworks.restaurant.model.Employee;
 import com.goit.homeworks.restaurant.dao.EmployeeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
 package com.goit.homeworks.restaurant.dao;
 
-import com.goit.homeworks.restaurant.core.Category;
+import com.goit.homeworks.restaurant.model.Category;
 
 /**
  * Created by SeVlad on 29.10.2016.

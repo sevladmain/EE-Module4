@@ -1,7 +1,7 @@
 package com.goit.homeworks.restaurant.dao.jdbc;
 
 
-import com.goit.homeworks.restaurant.core.Position;
+import com.goit.homeworks.restaurant.model.Position;
 import com.goit.homeworks.restaurant.dao.PositionDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

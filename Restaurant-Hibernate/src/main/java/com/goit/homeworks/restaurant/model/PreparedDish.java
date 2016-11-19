@@ -1,4 +1,4 @@
-package com.goit.homeworks.restaurant.core;
+package com.goit.homeworks.restaurant.model;
 
 /**
  * Created by SeVlad on 30.10.2016.

@@ -1,7 +1,7 @@
 package com.goit.homeworks.restaurant.services;
 
-import com.goit.homeworks.restaurant.core.Category;
-import com.goit.homeworks.restaurant.core.Dish;
+import com.goit.homeworks.restaurant.model.Category;
+import com.goit.homeworks.restaurant.model.Dish;
 import com.goit.homeworks.restaurant.dao.CategoryDao;
 import com.goit.homeworks.restaurant.dao.DishDao;
 

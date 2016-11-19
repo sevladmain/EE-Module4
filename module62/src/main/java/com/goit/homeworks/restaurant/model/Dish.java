@@ -1,7 +1,4 @@
-package com.goit.homeworks.restaurant.core;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.goit.homeworks.restaurant.model;
 
 /**
  * Created by SeVlad on 22.10.2016.

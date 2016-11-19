@@ -1,4 +1,4 @@
-package com.goit.homeworks.restaurant.core;
+package com.goit.homeworks.restaurant.model;
 
 import java.sql.Date;
 

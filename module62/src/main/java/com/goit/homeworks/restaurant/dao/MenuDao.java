@@ -1,6 +1,6 @@
 package com.goit.homeworks.restaurant.dao;
 
-import com.goit.homeworks.restaurant.core.Menu;
+import com.goit.homeworks.restaurant.model.Menu;
 
 import java.util.List;
 

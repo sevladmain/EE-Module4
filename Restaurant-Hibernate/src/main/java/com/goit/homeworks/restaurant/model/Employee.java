@@ -1,10 +1,11 @@
-package com.goit.homeworks.restaurant.core;
+package com.goit.homeworks.restaurant.model;
 
 import java.sql.Date;
 
 /**
  * Created by SeVlad on 22.10.2016.
  */
+
 public class Employee {
     private int id;
     private String firstName;

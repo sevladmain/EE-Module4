@@ -1,7 +1,7 @@
 package com.goit.homeworks.restaurant.web;
 
-import com.goit.homeworks.restaurant.core.Dish;
-import com.goit.homeworks.restaurant.core.Menu;
+import com.goit.homeworks.restaurant.model.Dish;
+import com.goit.homeworks.restaurant.model.Menu;
 import com.goit.homeworks.restaurant.services.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
