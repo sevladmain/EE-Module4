@@ -1,17 +1,34 @@
 package com.goit.homeworks.restaurant.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Date;
 
 /**
  * Created by SeVlad on 22.10.2016.
  */
-
+@Entity
+@Table(name = "EMPLOYEE")
 public class Employee {
+    @Id
+    @Column(name = "ID")
     private int id;
+
+    @Column(name = "FIRST_NAME")
     private String firstName;
+
+    @Column(name = "LAST_NAME")
     private String lastName;
+
+    @Column(name = "DATE_BIRTH")
     private Date dateBirth;
+
+    @Column(name = "ID_POSITION")
     private int positionId;
+
+    @Column(name = "SALARY")
     private int salary;
 
     public Employee() {
