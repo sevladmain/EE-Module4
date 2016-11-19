@@ -37,8 +37,8 @@
         <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean class="com.goit.homeworks.restaurant.dao.jdbc.JdbcPositionDao" id="positionDao">
-        <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
+    <bean class="com.goit.homeworks.restaurant.dao.hibernate.HPositionDao" id="positionDao">
+        <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory"/>
     </bean>
     <bean id="categoryDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcCategoryDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
