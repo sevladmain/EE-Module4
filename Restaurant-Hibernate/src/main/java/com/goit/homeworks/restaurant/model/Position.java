@@ -1,10 +1,21 @@
 package com.goit.homeworks.restaurant.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Created by SeVlad on 22.10.2016.
  */
+@Entity
+@Table(name = "POSITIONS")
 public class Position {
+    @Id
+    @Column(name = "ID")
     private int id;
+
+    @Column(name = "POSITION")
     private String position;
 
     public Position() {
