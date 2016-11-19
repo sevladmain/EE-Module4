@@ -22,13 +22,10 @@ public class EmployeeService {
     public EmployeeDao getEmployeeDao() {
         return employeeDao;
     }
-
-    @Transactional
     public void setEmployeeDao(EmployeeDao employeeDao) {
         this.employeeDao = employeeDao;
     }
 
-    @Transactional
     public PositionDao getPositionDao() {
         return positionDao;
     }

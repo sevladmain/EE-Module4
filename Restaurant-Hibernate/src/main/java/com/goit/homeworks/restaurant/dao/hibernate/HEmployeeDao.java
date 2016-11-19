@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Query;
+import org.hibernate.query.Query;
 import java.util.List;
 
 /**
@@ -57,7 +57,11 @@ public class HEmployeeDao implements EmployeeDao {
     @Override
     @Transactional
     public Employee findEmployeeById(int id) {
-        Employee result = sessionFactory.getCurrentSession().load(Employee.class, id);
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query query = currentSession.createQuery("select e from Employee e where e.id=:id");
+        query.setParameter("id", id);
+        query.uniqueResult();
+        Employee result = (Employee) query.uniqueResult();
         if (result == null)
             result = new Employee();
         return result;
