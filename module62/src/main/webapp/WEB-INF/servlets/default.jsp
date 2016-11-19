@@ -64,10 +64,10 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Складові<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Додати</a></li>
-                        <li><a href="#">Пошук</a></li>
+                        <li><a href="/ingredient/add">Додати</a></li>
+                        <li><a href="/ingredient/find">Пошук</a></li>
                         <li><a href="/ingredient/all">Вивести всі складові</a></li>
-                        <li><a href="#">Вивести складові, що закінчуються</a></li>
+                        <li><a href="/ingredient/min">Вивести складові, що закінчуються</a></li>
                     </ul>
                 </li>
             </ul>
