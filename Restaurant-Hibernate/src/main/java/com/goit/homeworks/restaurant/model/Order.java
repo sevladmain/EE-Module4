@@ -1,15 +1,31 @@
 package com.goit.homeworks.restaurant.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Date;
 
 /**
  * Created by SeVlad on 22.10.2016.
  */
+@Entity
+@Table(name = "ORDERS")
 public class Order {
+    @Id
+    @Column(name = "ID")
     private int id;
+
+    @Column(name = "ID_EMP")
     private int employeeId;
+
+    @Column(name = "TABLE_NUM")
     private int tableNum;
+
+    @Column(name = "DATE")
     private Date date;
+
+    @Column(name = "ISOPEN")
     private boolean open;
 
     public Order() {
