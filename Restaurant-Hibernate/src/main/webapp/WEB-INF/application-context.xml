@@ -15,51 +15,51 @@
         <property name="location" value="classpath:jdbc.properties"/>
     </bean>
 
-    <bean class="com.goit.homeworks.JdbcEmployeeDao" id="employeeDao">
+    <bean class="com.goit.homeworks.restaurant.dao.jdbc.JdbcEmployeeDao" id="employeeDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
 
-    <bean class="com.goit.homeworks.JdbcPositionDao" id="positionDao">
+    <bean class="com.goit.homeworks.restaurant.dao.jdbc.JdbcPositionDao" id="positionDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
-    <bean id="categoryDao" class="com.goit.homeworks.JdbcCategoryDao">
+    <bean id="categoryDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcCategoryDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
-    <bean id="dishDao" class="com.goit.homeworks.JdbcDishDao">
+    <bean id="dishDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcDishDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
-    <bean class="com.goit.homeworks.EmployeeService" id="employeeService">
+    <bean class="com.goit.homeworks.restaurant.services.EmployeeService" id="employeeService">
         <property name="positionDao" ref="positionDao"/>
         <property name="employeeDao" ref="employeeDao"/>
     </bean>
-    <bean id="dishService" class="com.goit.homeworks.DishService">
+    <bean id="dishService" class="com.goit.homeworks.restaurant.services.DishService">
         <property name="dishDao" ref="dishDao"/>
         <property name="categoryDao" ref="categoryDao" />
     </bean>
-    <bean id="menuDao" class="com.goit.homeworks.JdbcMenuDao">
+    <bean id="menuDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcMenuDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
-    <bean id="menuListDao" class="com.goit.homeworks.JdbcMenuListDao">
+    <bean id="menuListDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcMenuListDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
-    <bean id="menuService" class="com.goit.homeworks.MenuService">
+    <bean id="menuService" class="com.goit.homeworks.restaurant.services.MenuService">
         <property name="dishDao" ref="dishDao"/>
         <property name="menuDao" ref="menuDao"/>
         <property name="menuListDao" ref="menuListDao"/>
     </bean>
-    <bean id="orderDao" class="com.goit.homeworks.JdbcOrderDao">
+    <bean id="orderDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcOrderDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
-    <bean id="ingredientListDao" class="com.goit.homeworks.JdbcIngredientListDao">
+    <bean id="ingredientListDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcIngredientListDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
-    <bean id="preparedDishDao" class="com.goit.homeworks.JdbcPreparedDishDao">
+    <bean id="preparedDishDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcPreparedDishDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource" />
     </bean>
-    <bean id="ingredientDao" class="com.goit.homeworks.JdbcIngredientDao">
+    <bean id="ingredientDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcIngredientDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
-    <bean id="orderService" class="com.goit.homeworks.OrderService">
+    <bean id="orderService" class="com.goit.homeworks.restaurant.services.OrderService">
         <property name="orderDao" ref="orderDao"/>
         <property name="dishDao" ref="dishDao" />
         <property name="employeeDao" ref="employeeDao"/>
@@ -67,7 +67,7 @@
         <property name="ingredientDao" ref="ingredientDao"/>
         <property name="ingredientListDao" ref="ingredientListDao"/>
     </bean>
-    <bean id="ingredientService" class="com.goit.homeworks.IngredientService">
+    <bean id="ingredientService" class="com.goit.homeworks.restaurant.services.IngredientService">
         <property name="ingredientDao" ref="ingredientDao"/>
     </bean>
 </beans>
