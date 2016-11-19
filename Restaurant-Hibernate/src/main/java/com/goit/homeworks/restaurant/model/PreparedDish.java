@@ -1,13 +1,30 @@
 package com.goit.homeworks.restaurant.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Created by SeVlad on 30.10.2016.
  */
+@Entity
+@Table(name = "PREPARED_DISHES")
 public class PreparedDish {
+    @Id
+    @Column(name = "ID")
     private int id;
+
+    @Column(name = "ID_DISH")
     private int dishId;
+
+    @Column(name = "ID_EMPLOYEE")
     private int employeeId;
+
+    @Column(name = "ID_ORDER")
     private int orderId;
+
+    @Column(name = "IS_PREPARED")
     private boolean prepared;
 
     public PreparedDish() {
