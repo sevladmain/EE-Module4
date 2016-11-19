@@ -66,7 +66,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#">Додати</a></li>
                         <li><a href="#">Пошук</a></li>
-                        <li><a href="#">Вивести всі складові</a></li>
+                        <li><a href="/ingredient/all">Вивести всі складові</a></li>
                         <li><a href="#">Вивести складові, що закінчуються</a></li>
                     </ul>
                 </li>

@@ -67,5 +67,7 @@
         <property name="ingredientDao" ref="ingredientDao"/>
         <property name="ingredientListDao" ref="ingredientListDao"/>
     </bean>
-
+    <bean id="ingredientService" class="com.goit.homeworks.restaurant.services.IngredientService">
+        <property name="ingredientDao" ref="ingredientDao"/>
+    </bean>
 </beans>
