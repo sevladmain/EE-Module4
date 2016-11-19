@@ -41,8 +41,8 @@ public class IngredientController {
         LOGGER.debug("deleteIngredient()");
         Ingredient ingredient = ingredientService.getIngredientById(id);
         ingredientService.deleteIngredient(ingredient);
-        redirectAttributes.addAttribute("css", "success");
-        redirectAttributes.addAttribute("msg", "Складова " + ingredient.getName() +
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Складова " + ingredient.getName() +
                 " успішно видалена");
 
         return "redirect:/ingredient/all";
@@ -64,5 +64,48 @@ public class IngredientController {
         model.addAttribute("ingredients", ingredientService.findIngredientByName(findString));
         return "app.ingredients";
     }
+
+    @RequestMapping(value = "ingredient/min", method = RequestMethod.GET)
+    public String minIngredients(Model model){
+        LOGGER.debug("minIngredients()");
+
+        model.addAttribute("ingredients", ingredientService.getAllEndIngredients(20));
+        return "app.ingredients";
+    }
+
+    @RequestMapping(value = "ingredient/add", method = RequestMethod.GET)
+    public String addIngredientForm(Model model){
+        LOGGER.debug("addIngredientForm()");
+
+        model.addAttribute("ingredient", new Ingredient());
+        return "app.add-update-ingredient";
+    }
+
+    @RequestMapping(value = "ingredient/{id}/update", method = RequestMethod.GET)
+    public String updateIngredientForm(@PathVariable("id") int id, Model model){
+        LOGGER.debug("updateIngredientForm()");
+
+        model.addAttribute("ingredient", ingredientService.getIngredientById(id));
+        return "app.add-update-ingredient";
+    }
+
+    @RequestMapping(value = "ingredient/added", method = RequestMethod.POST)
+    public String saveOrUpdateIngredient(@ModelAttribute("ingredient") Ingredient ingredient,
+                                       final RedirectAttributes redirectAttributes) {
+        LOGGER.debug("saveOrUpdateIngredient() is executed!");
+        if (ingredient.isNew()) {
+            ingredientService.addIngredient(ingredient);
+            redirectAttributes.addFlashAttribute("msg", "Складова " + ingredient.getName()
+                    + " додана до бази даних");
+        } else {
+            ingredientService.updateIngredient(ingredient);
+            redirectAttributes.addFlashAttribute("msg", "Складова " + ingredient.getName()
+                    + " оновлена у базі даних");
+
+        }
+        redirectAttributes.addFlashAttribute("css", "success");
+        return "redirect:/";
+    }
+
 
 }

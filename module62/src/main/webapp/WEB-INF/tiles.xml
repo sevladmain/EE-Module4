@@ -51,5 +51,8 @@
     <definition name="app.ingredients" extends="app.default">
         <put-attribute name="content" value="/WEB-INF/servlets/ingredients.jsp"/>
     </definition>
+    <definition name="app.add-update-ingredient" extends="app.default">
+        <put-attribute name="content" value="/WEB-INF/servlets/add-update-ingredient.jsp"/>
+    </definition>
 
 </tiles-definitions>
