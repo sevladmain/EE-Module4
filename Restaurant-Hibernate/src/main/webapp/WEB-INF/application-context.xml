@@ -20,17 +20,18 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="com.goit.homeworks.restaurant.model"/>
         <property name="hibernateProperties">
-            <value>
-                hibernate.dialect=org.hibernate.dialect.PostgreSQL9Dialect
-            </value>
+            <props>
+            <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</prop>
+            <prop key="hibernate.physical_naming_strategy">fms.util.hibernate.ImprovedNamingStrategy</prop>
+            </props>
         </property>
     </bean>
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:jdbc.properties"/>
     </bean>
 
-    <bean class="com.goit.homeworks.restaurant.dao.jdbc.JdbcEmployeeDao" id="employeeDao">
-        <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
+    <bean class="com.goit.homeworks.restaurant.dao.hibernate.HEmployeeDao" id="employeeDao">
+        <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean class="com.goit.homeworks.restaurant.dao.jdbc.JdbcPositionDao" id="positionDao">
