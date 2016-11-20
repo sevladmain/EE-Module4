@@ -50,7 +50,7 @@ public class HEmployeeDao implements EmployeeDao {
     public List<Employee> findEmployeeByName(String name) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("select e from Employee e where e.firstName like :name or e.lastName like :name");
-        query.setParameter("name", name);
+        query.setParameter("name", "%" + name + "%");
         return query.getResultList();
     }
 

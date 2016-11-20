@@ -49,7 +49,7 @@ public class HMenuDao implements MenuDao {
     @Transactional
     public List<Menu> findMenuByName(String name) {
         Query query = sessionFactory.getCurrentSession().createQuery("select m from Menu m where m.name like :name");
-        query.setParameter("name", name);
+        query.setParameter("name", "%" + name + "%");
         return query.list();
     }
 

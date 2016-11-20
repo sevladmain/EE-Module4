@@ -50,7 +50,7 @@ public class HDishDao implements DishDao {
     @Transactional
     public List<Dish> findDishByName(String name) {
         Query query = sessionFactory.getCurrentSession().createQuery("select d from Dish d where d.name like :name");
-        query.setParameter("name", name);
+        query.setParameter("name", "%" + name + "%");
         return query.list();
     }
 
