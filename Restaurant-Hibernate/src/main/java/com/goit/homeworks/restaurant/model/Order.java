@@ -1,9 +1,6 @@
 package com.goit.homeworks.restaurant.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
 /**
@@ -14,6 +11,8 @@ import java.sql.Date;
 public class Order {
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="ordSeqGen")
+    @SequenceGenerator(name = "ordSeqGen", sequenceName = "ord_id")
     private int id;
 
     @Column(name = "ID_EMP")

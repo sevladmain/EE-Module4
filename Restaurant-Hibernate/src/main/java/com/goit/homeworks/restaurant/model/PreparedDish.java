@@ -1,9 +1,6 @@
 package com.goit.homeworks.restaurant.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by SeVlad on 30.10.2016.
@@ -13,6 +10,8 @@ import javax.persistence.Table;
 public class PreparedDish {
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="prepSeqGen")
+    @SequenceGenerator(name = "prepSeqGen", sequenceName = "prep_id")
     private int id;
 
     @Column(name = "ID_DISH")
