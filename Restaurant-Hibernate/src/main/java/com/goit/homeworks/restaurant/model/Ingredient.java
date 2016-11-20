@@ -10,8 +10,7 @@ import javax.persistence.*;
 public class Ingredient {
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="ingSeqGen")
-    @SequenceGenerator(name = "ingSeqGen", sequenceName = "ing_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "NAME")

@@ -40,8 +40,8 @@
     <bean class="com.goit.homeworks.restaurant.dao.hibernate.HPositionDao" id="positionDao">
         <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory"/>
     </bean>
-    <bean id="categoryDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcCategoryDao">
-        <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
+    <bean id="categoryDao" class="com.goit.homeworks.restaurant.dao.hibernate.HCategoryDao">
+        <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory"/>
     </bean>
     <bean id="dishDao" class="com.goit.homeworks.restaurant.dao.hibernate.HDishDao">
         <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory"/>

@@ -10,8 +10,7 @@ import javax.persistence.*;
 public class PreparedDish {
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="prepSeqGen")
-    @SequenceGenerator(name = "prepSeqGen", sequenceName = "prep_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "ID_DISH")

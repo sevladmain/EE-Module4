@@ -11,8 +11,7 @@ import java.sql.Date;
 public class Employee {
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="empSeqGen")
-    @SequenceGenerator(name = "empSeqGen", sequenceName = "emp_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "FIRST_NAME")

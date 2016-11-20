@@ -11,8 +11,7 @@ import java.sql.Date;
 public class Order {
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="ordSeqGen")
-    @SequenceGenerator(name = "ordSeqGen", sequenceName = "ord_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "ID_EMP")

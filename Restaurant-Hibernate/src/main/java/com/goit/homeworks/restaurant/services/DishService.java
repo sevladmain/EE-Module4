@@ -4,6 +4,7 @@ import com.goit.homeworks.restaurant.model.Category;
 import com.goit.homeworks.restaurant.model.Dish;
 import com.goit.homeworks.restaurant.dao.CategoryDao;
 import com.goit.homeworks.restaurant.dao.DishDao;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,7 @@ public class DishService {
         this.categoryDao = categoryDao;
     }
 
+    @Transactional
     public Map<Dish, Category> getAllDishes() {
         Map<Dish, Category> result = new HashMap<>();
         List<Dish> dishes = dishDao.getAll();
@@ -42,6 +44,7 @@ public class DishService {
         return result;
     }
 
+    @Transactional
     public Map<Dish, Category> findDishByName(String name) {
         Map<Dish, Category> result = new HashMap<>();
         List<Dish> dishes = dishDao.findDishByName(name);
@@ -52,22 +55,27 @@ public class DishService {
         return result;
     }
 
+    @Transactional
     public Dish getDishById(int id) {
         return dishDao.findDishById(id);
     }
 
+    @Transactional
     public int deleteDish(Dish dish) {
         return dishDao.remove(dish);
     }
 
+    @Transactional
     public Dish addDish(Dish dish) {
         return dishDao.create(dish);
     }
 
+    @Transactional
     public List<Category> getAllCategories() {
         return categoryDao.getAll();
     }
 
+    @Transactional
     public int updateDish(Dish dish) {
         return dishDao.update(dish);
     }

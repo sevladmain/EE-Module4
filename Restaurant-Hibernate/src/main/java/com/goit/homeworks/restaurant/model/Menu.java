@@ -10,8 +10,7 @@ import javax.persistence.*;
 public class Menu {
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="menSeqGen")
-    @SequenceGenerator(name = "menSeqGen", sequenceName = "men_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "NAME")

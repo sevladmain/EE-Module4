@@ -10,8 +10,7 @@ import javax.persistence.*;
 public class Position {
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="posSeqGen")
-    @SequenceGenerator(name = "posSeqGen", sequenceName = "pos_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "POSITION")
