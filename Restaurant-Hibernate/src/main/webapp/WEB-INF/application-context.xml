@@ -71,8 +71,8 @@
     <bean id="ingredientListDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcIngredientListDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
-    <bean id="preparedDishDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcPreparedDishDao">
-        <constructor-arg type="javax.sql.DataSource" ref="dataSource" />
+    <bean id="preparedDishDao" class="com.goit.homeworks.restaurant.dao.hibernate.HPreparedDishDao">
+        <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory" />
     </bean>
     <bean id="ingredientDao" class="com.goit.homeworks.restaurant.dao.jdbc.JdbcIngredientDao">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
