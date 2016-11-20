@@ -2,6 +2,7 @@ package com.goit.homeworks.restaurant.services;
 
 import com.goit.homeworks.restaurant.model.*;
 import com.goit.homeworks.restaurant.dao.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,7 @@ public class OrderService {
         this.dishDao = dishDao;
     }
 
+    @Transactional
     public Map<Order, Employee> getAllOpenOrders() {
         Map<Order, Employee> result = new HashMap<>();
         List<Order> orders = orderDao.getAllOpenOrders();
@@ -52,6 +54,7 @@ public class OrderService {
         return result;
     }
 
+    @Transactional
     public Map<Order, Employee> getAllClosedOrders() {
         Map<Order, Employee> result = new HashMap<>();
         List<Order> orders = orderDao.getAllClosedOrders();
@@ -62,52 +65,64 @@ public class OrderService {
         return result;
     }
 
+    @Transactional
     public Order getOrderById(int id) {
         return orderDao.findOrderById(id);
     }
 
+    @Transactional
     public int deleteOrder(Order order) {
         return orderDao.remove(order);
     }
 
+    @Transactional
     public Order addOrder(Order order) {
         return orderDao.create(order);
     }
 
+    @Transactional
     public int updateOrder(Order order) {
         return orderDao.update(order);
     }
 
+    @Transactional
     public List<Employee> getAllEmployee() {
         return employeeDao.getAll();
     }
 
+    @Transactional
     public Employee getEmployee(int id) {
         return employeeDao.findEmployeeById(id);
     }
 
+    @Transactional
     public PreparedDish addPreparedDish(PreparedDish dish) {
         return preparedDishDao.create(dish);
     }
 
+    @Transactional
     public int updatePreparedDish(PreparedDish dish) {
         return preparedDishDao.update(dish);
     }
 
+    @Transactional
     public int removePreparedDish(PreparedDish dish) {
         return preparedDishDao.remove(dish);
     }
 
+    @Transactional
     public int setPreparedToDish(PreparedDish dish) {
         dish.setPrepared(true);
         return preparedDishDao.update(dish);
     }
 
+    @Transactional
     public int closeOrder(Order order) {
         order.setOpen(false);
         return orderDao.update(order);
     }
 
+    @Transactional
     public Map<PreparedDish, Dish> getDishesFromOrder(int orderId) {
         Map<PreparedDish, Dish> dishMap = new HashMap<>();
         List<PreparedDish> preparedDishes = preparedDishDao.getAllDishFromOrder(orderId);
@@ -118,22 +133,27 @@ public class OrderService {
         return dishMap;
     }
 
+    @Transactional
     public List<Dish> getAllDishes() {
         return dishDao.getAll();
     }
 
+    @Transactional
     public PreparedDish getPreparedDishById(int id) {
         return preparedDishDao.findPreparedDishById(id);
     }
 
+    @Transactional
     public Dish getDishById(int id) {
         return dishDao.findDishById(id);
     }
 
+    @Transactional
     public int getUsedAmountOfDishIngredient(int ingredientId, int dishId) {
         return ingredientListDao.getUsedAmountOfDishIngredient(ingredientId, dishId);
     }
 
+    @Transactional
     public void reduceIngredientsAmountFromPreparedDish(int preparedDishId) {
         PreparedDish preparedDish = preparedDishDao.findPreparedDishById(preparedDishId);
         List<Integer> ingredients = ingredientListDao.getAllIngredientsIds(preparedDish.getDishId());
