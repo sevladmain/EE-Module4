@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<configuration scan="true" scanPeriod="30 seconds">
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>testFile.log</file>
-        <append>true</append>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/testFile.log</file>
+        <prudent>true</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>jdbc-%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
             <Pattern>
                 %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
             </Pattern>
-
         </encoder>
     </appender>
 
-    <logger name="org.springframework" level="error" additivity="false">
-        <appender-ref ref="FILE" />
-    </logger>
-
-    <logger name="com.goit.homeworks.restaurant" level="debug" additivity="false">
-        <appender-ref ref="FILE" />
-    </logger>
-
-    <root level="debug">
-        <appender-ref ref="FILE" />
+    <root level="DEBUG">
+        <appender-ref ref="file"/>
     </root>
+    <logger name="org.hibernate.SQL" level = "DEBUG"/>
 
 </configuration>
