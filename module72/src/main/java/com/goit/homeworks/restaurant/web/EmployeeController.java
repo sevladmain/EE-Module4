@@ -75,12 +75,7 @@ public class EmployeeController {
 
     private void populatePostitions(Model model) {
         List<Position> positions = employeeService.getAllPositions();
-        Map<Integer, String> positionsList = new HashMap<>();
-        for (Position position :
-                positions) {
-            positionsList.put(position.getId(), position.getPosition());
-        }
-        model.addAttribute("positionsList", positionsList);
+        model.addAttribute("positionsList", positions);
     }
 
     @RequestMapping(value = "/employee/{id}/update", method = RequestMethod.GET)

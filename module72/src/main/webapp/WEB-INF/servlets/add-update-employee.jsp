@@ -57,14 +57,14 @@
             </div>
         </spring:bind>
 
-        <spring:bind path="positionId">
+        <spring:bind path="position">
             <div class="form-group">
                 <label for="salary" class="col-sm-3 control-label">Посада</label>
                 <div class="col-sm-9">
-                    <form:select path="positionId" class="form-control">
+                    <form:select path="position" class="form-control">
                         <option value="0">--- Виберіть ---</option>
                         <c:forEach items="${positionsList}" var="map">
-                            <option value="${map.key}" <c:if test="${employeeForm['positionId']==map.key}">selected</c:if> >${map.value}</option>
+                            <option value="${map}" <c:if test="${employeeForm['position']==map}">selected</c:if> >${map.position}</option>
                         </c:forEach>
                     </form:select>
                 </div>

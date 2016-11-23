@@ -26,15 +26,15 @@
         <tbody>
         <c:forEach items="${employees}" var="employee">
             <tr>
-                <td>${employee.key.firstName}</td>
-                <td>${employee.key.lastName}</td>
-                <td>${employee.key.dateBirth}</td>
-                <td>${employee.value.position}</td>
-                <td>${employee.key.salary}</td>
+                <td>${employee.firstName}</td>
+                <td>${employee.lastName}</td>
+                <td>${employee.dateBirth}</td>
+                <td>${employee.position.position}</td>
+                <td>${employee.salary}</td>
                 <td>
                     <%--<spring:url value="/employee/${employee.key.id}" var="userUrl" />--%>
-                    <spring:url value="/employee/${employee.key.id}/delete" var="deleteUrl" />
-                    <spring:url value="/employee/${employee.key.id}/update" var="updateUrl" />
+                    <spring:url value="/employee/${employee.id}/delete" var="deleteUrl" />
+                    <spring:url value="/employee/${employee.id}/update" var="updateUrl" />
 
                     <%--<button class="btn btn-info" onclick="location.href='${userUrl}'">Переглянути</button>--%>
                     <button class="btn btn-primary" onclick="location.href='${updateUrl}'">Оновити</button>

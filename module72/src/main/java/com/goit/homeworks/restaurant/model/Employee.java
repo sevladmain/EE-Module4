@@ -23,34 +23,35 @@ public class Employee {
     @Column(name = "DATE_BIRTH")
     private Date dateBirth;
 
-    @Column(name = "ID_POSITION")
-    private int positionId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_POSITION")
+    private Position position;
 
     @Column(name = "SALARY")
     private int salary;
 
     public Employee() {
-        this(0,"","", Date.valueOf("1900-01-01"), 0, 0);
+        this(0,"","", Date.valueOf("1900-01-01"), new Position(), 0);
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public Employee(String firstName, String lastName, Date dateBirth, int positionId, int salary) {
+    public Employee(String firstName, String lastName, Date dateBirth, Position position, int salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateBirth = dateBirth;
-        this.positionId = positionId;
+        this.position = position;
         this.salary = salary;
     }
 
-    public Employee(int id, String firstName, String lastName, Date dateBirth, int positionId, int salary) {
+    public Employee(int id, String firstName, String lastName, Date dateBirth, Position position, int salary) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateBirth = dateBirth;
-        this.positionId = positionId;
+        this.position = position;
         this.salary = salary;
     }
 
@@ -84,12 +85,12 @@ public class Employee {
         this.dateBirth = dateBirth;
     }
 
-    public int getPositionId() {
-        return positionId;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setPositionId(int positionId) {
-        this.positionId = positionId;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public int getSalary() {
@@ -108,11 +109,11 @@ public class Employee {
         Employee employee = (Employee) o;
 
         if (id != employee.id) return false;
-        if (positionId != employee.positionId) return false;
         if (salary != employee.salary) return false;
         if (firstName != null ? !firstName.equals(employee.firstName) : employee.firstName != null) return false;
         if (lastName != null ? !lastName.equals(employee.lastName) : employee.lastName != null) return false;
-        return dateBirth != null ? dateBirth.equals(employee.dateBirth) : employee.dateBirth == null;
+        if (dateBirth != null ? !dateBirth.equals(employee.dateBirth) : employee.dateBirth != null) return false;
+        return position != null ? position.equals(employee.position) : employee.position == null;
 
     }
 
@@ -122,7 +123,7 @@ public class Employee {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (dateBirth != null ? dateBirth.hashCode() : 0);
-        result = 31 * result + positionId;
+        result = 31 * result + (position != null ? position.hashCode() : 0);
         result = 31 * result + salary;
         return result;
     }
@@ -134,7 +135,7 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", dateBirth=" + dateBirth +
-                ", positionId=" + positionId +
+                ", position=" + position +
                 ", salary=" + salary +
                 '}';
     }

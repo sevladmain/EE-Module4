@@ -36,25 +36,13 @@ public class EmployeeService {
     }
 
     @Transactional
-    public Map<Employee, Position> getAllEmployees() {
-        Map<Employee, Position> result = new HashMap<>();
-        List<Employee> employees = employeeDao.getAll();
-        for (Employee employee :
-                employees) {
-            result.put(employee, positionDao.findPositionById(employee.getPositionId()));
-        }
-        return result;
+    public List<Employee> getAllEmployees() {
+        return employeeDao.getAll();
     }
 
     @Transactional
-    public Map<Employee, Position> findEmployeeByName(String name) {
-        Map<Employee, Position> result = new HashMap<>();
-        List<Employee> employees = employeeDao.findEmployeeByName(name);
-        for (Employee employee :
-                employees) {
-            result.put(employee, positionDao.findPositionById(employee.getPositionId()));
-        }
-        return result;
+    public List<Employee> findEmployeeByName(String name) {
+        return employeeDao.findEmployeeByName(name);
     }
 
     @Transactional
