@@ -16,8 +16,9 @@ public class Dish {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "ID_CATEGORY")
-    private int categoryId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_CATEGORY")
+    private Category category;
 
     @Column(name = "PRICE")
     private int price;
@@ -26,24 +27,24 @@ public class Dish {
     private int weight;
 
     public Dish() {
-        this(0, "", 0, 0, 0);
+        this(0, "", new Category(), 0, 0);
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public Dish(String name, int categoryId, int price, int weight) {
+    public Dish(String name, Category category, int price, int weight) {
         this.name = name;
-        this.categoryId = categoryId;
+        this.category = category;
         this.price = price;
         this.weight = weight;
     }
 
-    public Dish(int id, String name, int categoryId, int price, int weight) {
+    public Dish(int id, String name, Category category, int price, int weight) {
         this.id = id;
         this.name = name;
-        this.categoryId = categoryId;
+        this.category = category;
         this.price = price;
         this.weight = weight;
     }
@@ -53,12 +54,12 @@ public class Dish {
         return id;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public int getPrice() {
@@ -93,10 +94,10 @@ public class Dish {
         Dish dish = (Dish) o;
 
         if (id != dish.id) return false;
-        if (categoryId != dish.categoryId) return false;
         if (price != dish.price) return false;
         if (weight != dish.weight) return false;
-        return name != null ? name.equals(dish.name) : dish.name == null;
+        if (name != null ? !name.equals(dish.name) : dish.name != null) return false;
+        return category != null ? category.equals(dish.category) : dish.category == null;
 
     }
 
@@ -104,7 +105,7 @@ public class Dish {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + categoryId;
+        result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + price;
         result = 31 * result + weight;
         return result;
@@ -115,7 +116,7 @@ public class Dish {
         return "Dish{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", categoryId=" + categoryId +
+                ", category=" + category +
                 ", price=" + price +
                 ", weight=" + weight +
                 '}';

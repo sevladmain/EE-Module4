@@ -34,12 +34,12 @@ public class DishService {
     }
 
     @Transactional
-    public Map<Dish, Category> getAllDishes() {
+    public List<Dish> getAllDishes() {
         Map<Dish, Category> result = new HashMap<>();
         List<Dish> dishes = dishDao.getAll();
         for (Dish dish :
                 dishes) {
-            result.put(dish, categoryDao.findCategoryById(dish.getCategoryId()));
+            result.put(dish, dish.getCategory());
         }
         return result;
     }
@@ -50,7 +50,7 @@ public class DishService {
         List<Dish> dishes = dishDao.findDishByName(name);
         for (Dish dish :
                 dishes) {
-            result.put(dish, categoryDao.findCategoryById(dish.getCategoryId()));
+            result.put(dish, dish.getCategory());
         }
         return result;
     }

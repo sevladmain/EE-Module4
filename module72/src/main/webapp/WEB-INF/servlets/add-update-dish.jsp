@@ -29,14 +29,14 @@
                 </div>
             </div>
         </spring:bind>
-        <spring:bind path="categoryId">
+        <spring:bind path="category">
             <div class="form-group">
-                <label for="categoryId" class="col-sm-3 control-label">Категорія</label>
+                <label for="category" class="col-sm-3 control-label">Категорія</label>
                 <div class="col-sm-9">
-                    <form:select path="categoryId" class="form-control">
+                    <form:select path="category" class="form-control">
                         <option value="0">--- Виберіть ---</option>
                         <c:forEach items="${categoriesList}" var="map">
-                            <option value="${map.key}" <c:if test="${dishForm['categoryId']==map.key}">selected</c:if> >${map.value}</option>
+                            <option value="${map.key}" <c:if test="${dishForm['category']==map.key}">selected</c:if> >${map.value}</option>
                         </c:forEach>
                     </form:select>
                 </div>

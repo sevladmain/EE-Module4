@@ -51,7 +51,7 @@
             </div>
         </spring:bind>
         <form:hidden path="name"/>
-        <form:hidden path="categoryId"/>
+        <form:hidden path="category"/>
         <form:hidden path="price"/>
         <form:hidden path="weight"/>
         <div class="form-group">
