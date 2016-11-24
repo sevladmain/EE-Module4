@@ -1,6 +1,7 @@
-package com.goit.homeworks.restaurant.model;
+package com.goit.homeworks.restaurant.services;
 
 import com.goit.homeworks.restaurant.dao.PositionDao;
+import com.goit.homeworks.restaurant.model.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

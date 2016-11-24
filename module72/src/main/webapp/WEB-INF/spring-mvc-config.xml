@@ -24,7 +24,8 @@
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
             <set>
-                <bean id="idToPosition" class="com.goit.homeworks.restaurant.model.IdToPositionConverter"/>
+                <bean id="idToPosition" class="com.goit.homeworks.restaurant.services.IdToPositionConverter"/>
+                <bean id="idToDish" class="com.goit.homeworks.restaurant.services.IdToDishConverter"/>
             </set>
         </property>
     </bean>
