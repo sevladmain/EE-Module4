@@ -59,12 +59,12 @@
 
         <spring:bind path="position">
             <div class="form-group">
-                <label for="salary" class="col-sm-3 control-label">Посада</label>
+                <label for="position" class="col-sm-3 control-label">Посада</label>
                 <div class="col-sm-9">
                     <form:select path="position" class="form-control">
                         <option value="0">--- Виберіть ---</option>
                         <c:forEach items="${positionsList}" var="map">
-                            <option value="${map}" <c:if test="${employeeForm['position']==map}">selected</c:if> >${map.position}</option>
+                            <option value="${map.id}" <c:if test="${employeeForm['position'].id==map.id}">selected</c:if> >${map.position}</option>
                         </c:forEach>
                     </form:select>
                 </div>
