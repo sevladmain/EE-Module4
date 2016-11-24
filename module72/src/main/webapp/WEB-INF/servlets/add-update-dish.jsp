@@ -36,7 +36,7 @@
                     <form:select path="category" class="form-control">
                         <option value="0">--- Виберіть ---</option>
                         <c:forEach items="${categoriesList}" var="map">
-                            <option value="${map.key}" <c:if test="${dishForm['category']==map.key}">selected</c:if> >${map.value}</option>
+                            <option value="${map.id}" <c:if test="${dishForm['category'].id==map.id}">selected</c:if> >${map.name}</option>
                         </c:forEach>
                     </form:select>
                 </div>

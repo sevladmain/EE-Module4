@@ -1,5 +1,6 @@
 package com.goit.homeworks.restaurant.web;
 
+import com.goit.homeworks.restaurant.model.Category;
 import com.goit.homeworks.restaurant.model.Dish;
 import com.goit.homeworks.restaurant.model.Menu;
 import com.goit.homeworks.restaurant.services.MenuService;
@@ -110,7 +111,7 @@ public class MenuController {
         model.addAttribute("menu", menuService.getMenuById(id));
         model.addAttribute("dishes", menuService.getDishesFromMenu(id));
         model.addAttribute("newDishes", menuService.getNewDishes(id));
-        model.addAttribute("newDish", new Dish(0, "Temp", 0, 0, 0));
+        model.addAttribute("newDish", new Dish(0, "Temp", new Category(), 0, 0));
         return "app.menu-details";
     }
     @RequestMapping(value = "/menu/{menuid}/dish/{dishid}/delete", method = RequestMethod.POST)

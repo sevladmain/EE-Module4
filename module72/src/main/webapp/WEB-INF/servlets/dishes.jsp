@@ -25,13 +25,13 @@
         <tbody>
         <c:forEach items="${dishes}" var="dish">
             <tr>
-                <td>${dish.key.name}</td>
-                <td>${dish.value.name}</td>
-                <td>${dish.key.weight}</td>
-                <td>${dish.key.price}</td>
+                <td>${dish.name}</td>
+                <td>${dish.category.name}</td>
+                <td>${dish.weight}</td>
+                <td>${dish.price}</td>
                 <td>
-                    <spring:url value="/dish/${dish.key.id}/delete" var="deleteUrl" />
-                    <spring:url value="/dish/${dish.key.id}/update" var="updateUrl" />
+                    <spring:url value="/dish/${dish.id}/delete" var="deleteUrl" />
+                    <spring:url value="/dish/${dish.id}/update" var="updateUrl" />
 
                     <button class="btn btn-primary" onclick="location.href='${updateUrl}'">Оновити</button>
                     <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">Видалити</button></td>

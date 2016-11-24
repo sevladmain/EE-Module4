@@ -93,7 +93,7 @@ public class EmployeeController {
     public String saveOrUpdateEmployee(@ModelAttribute("employeeForm") Employee employee, final RedirectAttributes redirectAttributes) {
         LOGGER.debug("saveOrUpdateEmployee() is executed!");
         if (employee.isNew()) {
-            employeeService.addEmployee(employee).getId();
+            employeeService.addEmployee(employee);
             redirectAttributes.addFlashAttribute("msg", "Працівник " + employee.getFirstName() + " " + employee.getLastName()
                     + " доданий до бази даних");
         } else {

@@ -67,19 +67,14 @@ public class DishController {
 
     private void populateCategories(Model model) {
         List<Category> categories = dishService.getAllCategories();
-        Map<Integer, String> categoriesList = new HashMap<>();
-        for (Category category :
-                categories) {
-            categoriesList.put(category.getId(), category.getName());
-        }
-        model.addAttribute("categoriesList", categoriesList);
+        model.addAttribute("categoriesList", categories);
     }
 
     @RequestMapping(value = "dish/added", method = RequestMethod.POST)
     public String saveOrUpdateDish(@ModelAttribute("dishForm") Dish dish, final RedirectAttributes redirectAttributes) {
         LOGGER.debug("saveOrUpdateDish() is executed!");
         if (dish.isNew()) {
-            dishService.addDish(dish).getId();
+            dishService.addDish(dish);
             redirectAttributes.addFlashAttribute("msg", "Страва " + dish.getName()
                     + " додана до бази даних");
         } else {

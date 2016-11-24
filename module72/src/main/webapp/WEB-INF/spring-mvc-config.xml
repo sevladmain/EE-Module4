@@ -25,7 +25,7 @@
         <property name="converters">
             <set>
                 <bean id="idToPosition" class="com.goit.homeworks.restaurant.services.IdToPositionConverter"/>
-                <bean id="idToDish" class="com.goit.homeworks.restaurant.services.IdToDishConverter"/>
+                <bean id="idToDish" class="com.goit.homeworks.restaurant.services.IdToCategoryConverter"/>
             </set>
         </property>
     </bean>
