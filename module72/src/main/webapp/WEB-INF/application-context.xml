@@ -22,11 +22,8 @@
         <property name="hibernateProperties">
             <props>
             <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</prop>
-            <!--<prop key="hibernate.physical_naming_strategy">fms.util.hibernate.ImprovedNamingStrategy</prop>-->
-            <!--<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.DefaultNamingStrategy</prop>-->
             </props>
         </property>
-        <!--<property name="physicalNamingStrategy" ref="namingStrategy"/>-->
     </bean>
     <bean class="org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl" id="namingStrategy"/>
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -57,13 +54,9 @@
     <bean id="menuDao" class="com.goit.homeworks.restaurant.dao.hibernate.HMenuDao">
         <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory"/>
     </bean>
-    <bean id="menuListDao" class="com.goit.homeworks.restaurant.dao.hibernate.HMenuListDao">
-        <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory"/>
-    </bean>
     <bean id="menuService" class="com.goit.homeworks.restaurant.services.MenuService">
-        <property name="dishDao" ref="dishDao"/>
         <property name="menuDao" ref="menuDao"/>
-        <property name="menuListDao" ref="menuListDao"/>
+        <property name="dishDao" ref="dishDao" />
     </bean>
     <bean id="orderDao" class="com.goit.homeworks.restaurant.dao.hibernate.HOrderDao">
         <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory"/>

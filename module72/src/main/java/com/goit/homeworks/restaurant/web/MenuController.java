@@ -108,8 +108,9 @@ public class MenuController {
     @RequestMapping(value = "menu/{id}/details", method = RequestMethod.GET)
     public String getMenuDetails(@PathVariable("id") int id, Model model){
         LOGGER.debug("getMenuDetails() is executed!");
-        model.addAttribute("menu", menuService.getMenuById(id));
-        model.addAttribute("dishes", menuService.getDishesFromMenu(id));
+        Menu menu = menuService.getMenuById(id);
+        model.addAttribute("menu", menu);
+        model.addAttribute("dishes", menu.getDishes());
         model.addAttribute("newDishes", menuService.getNewDishes(id));
         model.addAttribute("newDish", new Dish(0, "Temp", new Category(), 0, 0));
         return "app.menu-details";

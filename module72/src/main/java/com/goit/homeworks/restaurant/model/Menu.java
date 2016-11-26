@@ -1,6 +1,9 @@
 package com.goit.homeworks.restaurant.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by SeVlad on 22.10.2016.
@@ -15,6 +18,11 @@ public class Menu {
 
     @Column(name = "NAME")
     private String name;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "menulist", joinColumns = @JoinColumn(name = "id_menu"),
+            inverseJoinColumns = @JoinColumn(name = "id_dish"))
+    List<Dish> dishes = new ArrayList<>();
 
     public Menu() {
         this(0, "");
@@ -33,7 +41,9 @@ public class Menu {
         this.name = name;
     }
 
-    public boolean isNew(){ return id == 0; }
+    public boolean isNew() {
+        return id == 0;
+    }
 
     public int getId() {
         return id;
@@ -72,5 +82,13 @@ public class Menu {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
     }
 }
