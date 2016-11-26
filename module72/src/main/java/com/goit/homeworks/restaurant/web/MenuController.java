@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,22 +32,22 @@ public class MenuController {
     }
 
     @RequestMapping(value = "/menu/all", method = RequestMethod.GET)
-    public String getAllMenus(Model model){
+    public String getAllMenus(Model model) {
         LOGGER.debug("getAllMenus() is executed!");
         model.addAttribute("menus", menuService.getAllMenus());
         return "app.menus";
     }
 
     @RequestMapping(value = "/menu/{id}/delete", method = RequestMethod.POST)
-    public String deleteMenus(@PathVariable("id") int id, final RedirectAttributes redirectAttributes){
+    public String deleteMenus(@PathVariable("id") int id, final RedirectAttributes redirectAttributes) {
         LOGGER.debug("deleteMenus() is executed!");
         String css;
         String msg;
         Menu menu = menuService.getMenuById(id);
-        if(menuService.menuHasDishes(id)){
+        if (menu.getDishes().size() > 0) {
             css = "warning";
-            msg = "Меню "+ menu.getName() + " не порожнє. Спочатку видаліть з нього всі страви";
-        } else{
+            msg = "Меню " + menu.getName() + " не порожнє. Спочатку видаліть з нього всі страви";
+        } else {
             menuService.deleteMenu(menu);
             css = "success";
             msg = "Меню " + menu.getName() + " успішно видалено";
@@ -57,7 +58,7 @@ public class MenuController {
     }
 
     @RequestMapping(value = "/menu/add", method = RequestMethod.GET)
-    public String showCreateMenuForm(Model model){
+    public String showCreateMenuForm(Model model) {
         LOGGER.debug("showCreateMenuForm() is executed!");
         Menu menu = new Menu();
         model.addAttribute("menuForm", menu);
@@ -106,38 +107,39 @@ public class MenuController {
     }
 
     @RequestMapping(value = "menu/{id}/details", method = RequestMethod.GET)
-    public String getMenuDetails(@PathVariable("id") int id, Model model){
+    public String getMenuDetails(@PathVariable("id") int id, Model model) {
         LOGGER.debug("getMenuDetails() is executed!");
         Menu menu = menuService.getMenuById(id);
         model.addAttribute("menu", menu);
         model.addAttribute("dishes", menu.getDishes());
-        model.addAttribute("newDishes", menuService.getNewDishes(id));
-        model.addAttribute("newDish", new Dish(0, "Temp", new Category(), 0, 0));
+        List<Dish> newDishes = menuService.getNewDishes(id);
+        model.addAttribute("newDishes", newDishes);
+        model.addAttribute("newDish", newDishes.get(0));
         return "app.menu-details";
     }
+
     @RequestMapping(value = "/menu/{menuid}/dish/{dishid}/delete", method = RequestMethod.POST)
     public String deleteDishFromMenu(@PathVariable("menuid") int menuId, @PathVariable("dishid") int dishId,
-                                     final RedirectAttributes redirectAttributes)
-    {
+                                     final RedirectAttributes redirectAttributes) {
         LOGGER.debug("deleteDishFromMenu() is executed!");
         menuService.removeDishFromMenu(dishId, menuId);
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", "Страву видалено");
 
-        return "redirect:/menu/" + menuId +"/details";
+        return "redirect:/menu/" + menuId + "/details";
     }
 
-     @RequestMapping(value = "/menu/{menuid}/dish/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/menu/{menuid}/dish/add", method = RequestMethod.POST)
     public String addDishToMenu(@PathVariable("menuid") int menuid,
                                 @ModelAttribute("newDish") Dish newDish,
-                                final RedirectAttributes redirectAttributes){
-         LOGGER.debug("addDishToMenu() is executed!");
-         menuService.addDishToMenu(newDish.getId(), menuid);
+                                final RedirectAttributes redirectAttributes) {
+        LOGGER.debug("addDishToMenu() is executed!");
+        menuService.addDishToMenu(newDish.getId(), menuid);
 
-         redirectAttributes.addFlashAttribute("css", "success");
-         redirectAttributes.addFlashAttribute("msg", "Страву додано");
+        redirectAttributes.addFlashAttribute("css", "success");
+        redirectAttributes.addFlashAttribute("msg", "Страву додано");
 
-         return "redirect:/menu/" + menuid +"/details";
-     }
+        return "redirect:/menu/" + menuid + "/details";
+    }
 
 }

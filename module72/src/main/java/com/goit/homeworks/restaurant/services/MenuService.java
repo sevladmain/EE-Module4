@@ -49,17 +49,8 @@ public class MenuService {
     }
 
     @Transactional
-    public boolean menuHasDishes(int id) {
-        return menuDao.findMenuById(id).getDishes().size() > 0;
-    }
-
-    @Transactional
     public int deleteMenu(Menu menu) {
-        if (menuHasDishes(menu.getId())) {
-            return 0;
-        } else {
             return menuDao.remove(menu);
-        }
     }
 
     @Transactional

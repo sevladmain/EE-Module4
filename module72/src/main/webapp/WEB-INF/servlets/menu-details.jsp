@@ -50,10 +50,6 @@
                 </div>
             </div>
         </spring:bind>
-        <form:hidden path="name"/>
-        <form:hidden path="category"/>
-        <form:hidden path="price"/>
-        <form:hidden path="weight"/>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-2">
                 <button class="btn btn-info">Додати</button>
