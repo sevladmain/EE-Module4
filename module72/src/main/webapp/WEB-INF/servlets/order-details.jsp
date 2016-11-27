@@ -79,9 +79,6 @@
                 </div>
             </div>
         </spring:bind>
-        <form:hidden path="employeeId"/>
-        <form:hidden path="prepared"/>
-        <form:hidden path="orderId"/>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-2">
                 <button class="btn btn-info">Додати</button>

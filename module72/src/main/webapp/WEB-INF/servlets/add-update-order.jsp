@@ -19,14 +19,14 @@
                modelAttribute="orderForm" action="${userActionUrl}">
 
         <form:hidden path="id"/>
-        <spring:bind path="employeeId">
+        <spring:bind path="employee">
             <div class="form-group">
-                <label for="employeeId" class="col-sm-3 control-label">Хто прийняв замовлення:</label>
+                <label for="employee" class="col-sm-3 control-label">Хто прийняв замовлення:</label>
                 <div class="col-sm-9">
-                    <form:select path="employeeId" class="form-control">
+                    <form:select path="employee" class="form-control">
                         <option value="0">--- Виберіть ---</option>
                         <c:forEach items="${employees}" var="employee">
-                            <option value="${employee.id}" <c:if test="${orderForm['employeeId']==employee.id}">selected</c:if> >${employee.firstName} ${employee.lastName}</option>
+                            <option value="${employee.id}" <c:if test="${orderForm['employee'].id==employee.id}">selected</c:if> >${employee.firstName} ${employee.lastName}</option>
                         </c:forEach>
                     </form:select>
                 </div>

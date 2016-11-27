@@ -14,8 +14,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "ID_EMP")
-    private int employeeId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_EMP")
+    private Employee employee;
 
     @Column(name = "TABLE_NUM")
     private int tableNum;
@@ -27,25 +28,27 @@ public class Order {
     private boolean open;
 
     public Order() {
-        this(0, 0, 0, Date.valueOf("2010-01-01"), true);
+        this(0, new Employee(), 0, Date.valueOf("2010-01-01"), true);
     }
 
-    public Order(int employeeId, int tableNum, Date date, boolean open) {
-        this.employeeId = employeeId;
+    public Order(Employee employee, int tableNum, Date date, boolean open) {
+        this.employee = employee;
         this.tableNum = tableNum;
         this.date = date;
         this.open = open;
     }
 
-    public Order(int id, int employeeId, int tableNum, Date date, boolean open) {
+    public Order(int id, Employee employee, int tableNum, Date date, boolean open) {
         this.id = id;
-        this.employeeId = employeeId;
+        this.employee = employee;
         this.tableNum = tableNum;
         this.date = date;
         this.open = open;
     }
 
-    public boolean isNew(){ return id == 0; }
+    public boolean isNew() {
+        return id == 0;
+    }
 
     public boolean isOpen() {
         return open;
@@ -63,12 +66,12 @@ public class Order {
         return id;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public int getTableNum() {
@@ -95,9 +98,9 @@ public class Order {
         Order order = (Order) o;
 
         if (id != order.id) return false;
-        if (employeeId != order.employeeId) return false;
         if (tableNum != order.tableNum) return false;
         if (open != order.open) return false;
+        if (employee != null ? !employee.equals(order.employee) : order.employee != null) return false;
         return date != null ? date.equals(order.date) : order.date == null;
 
     }
@@ -105,7 +108,7 @@ public class Order {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + employeeId;
+        result = 31 * result + (employee != null ? employee.hashCode() : 0);
         result = 31 * result + tableNum;
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (open ? 1 : 0);
@@ -116,7 +119,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", employeeId=" + employeeId +
+                ", employee=" + employee +
                 ", tableNum=" + tableNum +
                 ", date=" + date +
                 ", open=" + open +

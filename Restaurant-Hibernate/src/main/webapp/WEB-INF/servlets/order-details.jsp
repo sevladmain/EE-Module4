@@ -79,7 +79,7 @@
                 </div>
             </div>
         </spring:bind>
-        <form:hidden path="employeeId"/>
+        <form:hidden path="employee"/>
         <form:hidden path="prepared"/>
         <form:hidden path="orderId"/>
         <div class="form-group">

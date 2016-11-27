@@ -18,15 +18,15 @@
             <label class="col-sm-3 control-label">Страва:</label>
             <label class="col-sm-9 control-label">${dish.name}</label>
         </div>
-        <spring:bind path="employeeId">
+        <spring:bind path="employee">
             <div class="form-group">
-                <label for="employeeId" class="col-sm-3 control-label">Хто готує:</label>
+                <label for="employee" class="col-sm-3 control-label">Хто готує:</label>
                 <div class="col-sm-9">
-                    <form:select path="employeeId" class="form-control">
+                    <form:select path="employee" class="form-control">
                         <option value="0">--- Виберіть ---</option>
                         <c:forEach items="${employees}" var="employee">
                             <option value="${employee.id}"
-                                    <c:if test="${preparedDish['employeeId']==employee.id}">selected</c:if> >${employee.firstName} ${employee.lastName}</option>
+                                    <c:if test="${preparedDish['employee']==employee.id}">selected</c:if> >${employee.firstName} ${employee.lastName}</option>
                         </c:forEach>
                     </form:select>
                 </div>

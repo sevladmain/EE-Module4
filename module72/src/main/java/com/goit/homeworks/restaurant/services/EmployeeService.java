@@ -7,9 +7,7 @@ import com.goit.homeworks.restaurant.model.Position;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by SeVlad on 06.11.2016.

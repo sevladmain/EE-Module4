@@ -44,25 +44,13 @@ public class OrderService {
     }
 
     @Transactional
-    public Map<Order, Employee> getAllOpenOrders() {
-        Map<Order, Employee> result = new HashMap<>();
-        List<Order> orders = orderDao.getAllOpenOrders();
-        for (Order order :
-                orders) {
-            result.put(order, employeeDao.findEmployeeById(order.getEmployeeId()));
-        }
-        return result;
+    public List<Order> getAllOpenOrders() {
+        return orderDao.getAllOpenOrders();
     }
 
     @Transactional
-    public Map<Order, Employee> getAllClosedOrders() {
-        Map<Order, Employee> result = new HashMap<>();
-        List<Order> orders = orderDao.getAllClosedOrders();
-        for (Order order :
-                orders) {
-            result.put(order, employeeDao.findEmployeeById(order.getEmployeeId()));
-        }
-        return result;
+    public List<Order> getAllClosedOrders() {
+        return orderDao.getAllClosedOrders();
     }
 
     @Transactional

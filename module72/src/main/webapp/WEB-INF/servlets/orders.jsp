@@ -34,14 +34,14 @@
         <tbody>
         <c:forEach items="${orders}" var="order">
             <tr>
-                <td>${order.key.id}</td>
-                <td>${order.value.firstName} ${order.value.lastName}</td>
-                <td>${order.key.tableNum}</td>
-                <td>${order.key.date}</td>
+                <td>${order.id}</td>
+                <td>${order.employee.firstName} ${order.employee.lastName}</td>
+                <td>${order.tableNum}</td>
+                <td>${order.date}</td>
                 <td>
-                    <spring:url value="/order/${order.key.id}/delete" var="deleteUrl"/>
-                    <spring:url value="/order/${order.key.id}/update" var="updateUrl"/>
-                    <spring:url value="/order/${order.key.id}/details" var="detailsUrl"/>
+                    <spring:url value="/order/${order.id}/delete" var="deleteUrl"/>
+                    <spring:url value="/order/${order.id}/update" var="updateUrl"/>
+                    <spring:url value="/order/${order.id}/details" var="detailsUrl"/>
                     <c:if test="${isClosed == 'OPEN'}">
                         <button class="btn btn-primary" onclick="location.href='${updateUrl}'">Редагувати</button>
                         <button class="btn btn-info" onclick="location.href='${detailsUrl}'">Детальна інформація
