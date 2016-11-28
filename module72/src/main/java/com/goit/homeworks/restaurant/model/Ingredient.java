@@ -74,7 +74,9 @@ public class Ingredient {
         return name != null ? name.equals(that.name) : that.name == null;
 
     }
-
+    public void decAmount(int amount){
+        this.amount -= amount;
+    }
     @Override
     public int hashCode() {
         int result = id;

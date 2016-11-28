@@ -16,12 +16,7 @@ public class OrderService {
     EmployeeDao employeeDao;
     PreparedDishDao preparedDishDao;
     DishDao dishDao;
-    IngredientListDao ingredientListDao;
     IngredientDao ingredientDao;
-
-    public void setIngredientListDao(IngredientListDao ingredientListDao) {
-        this.ingredientListDao = ingredientListDao;
-    }
 
     public void setIngredientDao(IngredientDao ingredientDao) {
         this.ingredientDao = ingredientDao;
@@ -138,19 +133,26 @@ public class OrderService {
 
     @Transactional
     public int getUsedAmountOfDishIngredient(int ingredientId, int dishId) {
-        return ingredientListDao.getUsedAmountOfDishIngredient(ingredientId, dishId);
+        Dish dish = dishDao.findDishById(dishId);
+        int amount = 0;
+        for (IngredientList ingredient :
+                dish.getIngredients()) {
+            if (ingredient.getIngredient().getId() == ingredientId) {
+                amount = ingredient.getAmount();
+            }
+        }
+        return amount;
     }
 
     @Transactional
     public void reduceIngredientsAmountFromPreparedDish(int preparedDishId) {
         PreparedDish preparedDish = preparedDishDao.findPreparedDishById(preparedDishId);
-        List<Integer> ingredients = ingredientListDao.getAllIngredientsIds(preparedDish.getDishId());
-        for (Integer ingredientId :
-                ingredients) {
-            int amount = getUsedAmountOfDishIngredient(ingredientId, preparedDish.getDishId());
-            Ingredient ingredient = ingredientDao.findIngredientById(ingredientId);
-            ingredient.setAmount(ingredient.getAmount() - amount);
-            ingredientDao.update(ingredient);
+        Dish dish = dishDao.findDishById(preparedDish.getDishId());
+        for (IngredientList ingredient :
+                dish.getIngredients()) {
+            int amount = ingredient.getAmount();
+            ingredient.getIngredient().decAmount(amount);
         }
+        dishDao.update(dish);
     }
 }
