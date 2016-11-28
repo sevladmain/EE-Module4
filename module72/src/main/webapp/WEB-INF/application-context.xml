@@ -61,9 +61,6 @@
     <bean id="orderDao" class="com.goit.homeworks.restaurant.dao.hibernate.HOrderDao">
         <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory"/>
     </bean>
-    <bean id="ingredientListDao" class="com.goit.homeworks.restaurant.dao.hibernate.HIngredientListDao">
-        <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory"/>
-    </bean>
     <bean id="preparedDishDao" class="com.goit.homeworks.restaurant.dao.hibernate.HPreparedDishDao">
         <constructor-arg type="org.hibernate.SessionFactory" ref="sessionFactory" />
     </bean>
@@ -76,7 +73,6 @@
         <property name="employeeDao" ref="employeeDao"/>
         <property name="preparedDishDao" ref="preparedDishDao"/>
         <property name="ingredientDao" ref="ingredientDao"/>
-        <property name="ingredientListDao" ref="ingredientListDao"/>
     </bean>
     <bean id="ingredientService" class="com.goit.homeworks.restaurant.services.IngredientService">
         <property name="ingredientDao" ref="ingredientDao"/>
