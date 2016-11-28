@@ -1,6 +1,8 @@
 package com.goit.homeworks.restaurant.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SeVlad on 22.10.2016.
@@ -25,6 +27,9 @@ public class Dish {
 
     @Column(name = "WEIGHT")
     private int weight;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.dish", cascade = CascadeType.ALL)
+    private List<IngredientList> ingredients = new ArrayList<>();
 
     public Dish() {
         this(0, "", new Category(), 0, 0);
@@ -84,6 +89,14 @@ public class Dish {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<IngredientList> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<IngredientList> ingredients) {
+        this.ingredients = ingredients;
     }
 
     @Override

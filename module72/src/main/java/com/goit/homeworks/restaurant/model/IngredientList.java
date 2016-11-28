@@ -8,42 +8,23 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "ingredientlist")
-@IdClass(IngredientList.class)
+@AssociationOverrides({
+        @AssociationOverride(name = "pk.dish", joinColumns = @JoinColumn(name = "id_dish")),
+        @AssociationOverride(name = "pk.ingredient", joinColumns = @JoinColumn(name = "id_ingredient"))
+})
 public class IngredientList implements Serializable {
-    @Id
-    @Column(name = "id_ingredient")
-    private int ingredientId;
-
-    @Id
-    @Column(name = "id_dish")
-    private int dishId;
+    @EmbeddedId
+    private IngredientKey pk = new IngredientKey();
 
     @Column(name = "used_amount")
     private int amount;
 
-    public IngredientList() {
+    public IngredientKey getPk() {
+        return pk;
     }
 
-    public IngredientList(int ingredientId, int dishId, int amount) {
-        this.ingredientId = ingredientId;
-        this.dishId = dishId;
-        this.amount = amount;
-    }
-
-    public int getIngredientId() {
-        return ingredientId;
-    }
-
-    public void setIngredientId(int ingredientId) {
-        this.ingredientId = ingredientId;
-    }
-
-    public int getDishId() {
-        return dishId;
-    }
-
-    public void setDishId(int dishId) {
-        this.dishId = dishId;
+    public void setPk(IngredientKey pk) {
+        this.pk = pk;
     }
 
     public int getAmount() {
@@ -53,18 +34,23 @@ public class IngredientList implements Serializable {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-}
 
-class IngredientKey implements Serializable{
-    public int ingredientId;
-    public int dishId;
-
-    public IngredientKey() {
+    @Transient
+    public Dish getDish(){
+        return pk.getDish();
     }
 
-    public IngredientKey(int ingredientId, int dishId) {
-        this.ingredientId = ingredientId;
-        this.dishId = dishId;
+    public void setDish(Dish dish){
+        pk.setDish(dish);
+    }
+
+    @Transient
+    public Ingredient getIngredient(){
+        return pk.getIngredient();
+    }
+
+    public void setIngredient(Ingredient ingredient){
+        pk.setIngredient(ingredient);
     }
 
     @Override
@@ -72,17 +58,18 @@ class IngredientKey implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        IngredientKey that = (IngredientKey) o;
+        IngredientList that = (IngredientList) o;
 
-        if (ingredientId != that.ingredientId) return false;
-        return dishId == that.dishId;
+        if (amount != that.amount) return false;
+        return pk != null ? pk.equals(that.pk) : that.pk == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = ingredientId;
-        result = 31 * result + dishId;
+        int result = pk != null ? pk.hashCode() : 0;
+        result = 31 * result + amount;
         return result;
     }
 }
+
