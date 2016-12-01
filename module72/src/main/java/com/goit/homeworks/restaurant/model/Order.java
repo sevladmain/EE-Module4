@@ -2,6 +2,8 @@ package com.goit.homeworks.restaurant.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SeVlad on 22.10.2016.
@@ -26,6 +28,10 @@ public class Order {
 
     @Column(name = "ISOPEN")
     private boolean open;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @Column(name = "id_order")
+    List<PreparedDish> preparedDishes = new ArrayList<>();
 
     public Order() {
         this(0, new Employee(), 0, Date.valueOf("2010-01-01"), true);
@@ -88,6 +94,14 @@ public class Order {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<PreparedDish> getPreparedDishes() {
+        return preparedDishes;
+    }
+
+    public void setPreparedDishes(List<PreparedDish> preparedDishes) {
+        this.preparedDishes = preparedDishes;
     }
 
     @Override

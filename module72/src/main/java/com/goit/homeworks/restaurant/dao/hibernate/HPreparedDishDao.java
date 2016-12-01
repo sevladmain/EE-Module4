@@ -1,6 +1,7 @@
 package com.goit.homeworks.restaurant.dao.hibernate;
 
 import com.goit.homeworks.restaurant.dao.PreparedDishDao;
+import com.goit.homeworks.restaurant.model.Order;
 import com.goit.homeworks.restaurant.model.PreparedDish;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -63,15 +64,15 @@ public class HPreparedDishDao implements PreparedDishDao {
     @Override
     @Transactional
     public List<PreparedDish> getAllDishFromOrder(int orderId) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select p from PreparedDish p where p.orderId=:orderId");
+        Query query = sessionFactory.getCurrentSession().createQuery("select o from Order o where o.id=:orderId");
         query.setParameter("orderId", orderId);
-        return query.list();
+        return ((Order)query.uniqueResult()).getPreparedDishes();
     }
 
     @Override
     @Transactional
     public List<PreparedDish> getAllPreparedDishFromOrder(int orderId) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select p from PreparedDish p where p.orderId=:orderId and p.prepared=true");
+        Query query = sessionFactory.getCurrentSession().createQuery("select p from PreparedDish p where p.order.id=:orderId and p.prepared=true");
         query.setParameter("orderId", orderId);
         return query.list();
     }

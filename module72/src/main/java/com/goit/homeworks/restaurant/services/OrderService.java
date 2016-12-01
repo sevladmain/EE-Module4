@@ -17,9 +17,14 @@ public class OrderService {
     PreparedDishDao preparedDishDao;
     DishDao dishDao;
     IngredientDao ingredientDao;
+    IngredientListDao ingredientListDao;
 
     public void setIngredientDao(IngredientDao ingredientDao) {
         this.ingredientDao = ingredientDao;
+    }
+
+    public void setIngredientListDao(IngredientListDao ingredientListDao) {
+        this.ingredientListDao = ingredientListDao;
     }
 
     public void setOrderDao(OrderDao orderDao) {
@@ -106,14 +111,9 @@ public class OrderService {
     }
 
     @Transactional
-    public Map<PreparedDish, Dish> getDishesFromOrder(int orderId) {
-        Map<PreparedDish, Dish> dishMap = new HashMap<>();
+    public List<PreparedDish> getDishesFromOrder(int orderId) {
         List<PreparedDish> preparedDishes = preparedDishDao.getAllDishFromOrder(orderId);
-        for (PreparedDish dish :
-                preparedDishes) {
-            dishMap.put(dish, dishDao.findDishById(dish.getDish()));
-        }
-        return dishMap;
+        return preparedDishes;
     }
 
     @Transactional
