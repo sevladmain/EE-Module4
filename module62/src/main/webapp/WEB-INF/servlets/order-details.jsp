@@ -67,11 +67,11 @@
     <form:form modelAttribute="newDish" class="form-horizontal" action="${userActionUrl}"
                method="post">
         <form:hidden path="id"/>
-        <spring:bind path="dishId">
+        <spring:bind path="dish">
             <div class="form-group">
                 <label class="col-sm-3 control-label">Нова страва:</label>
                 <div class="col-sm-9">
-                    <form:select path="dishId" class="form-control">
+                    <form:select path="dish" class="form-control">
                         <c:forEach items="${allDishes}" var="d">
                             <option value="${d.id}">${d.name}</option>
                         </c:forEach>
@@ -81,7 +81,7 @@
         </spring:bind>
         <form:hidden path="employee"/>
         <form:hidden path="prepared"/>
-        <form:hidden path="orderId"/>
+        <form:hidden path="order"/>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-2">
                 <button class="btn btn-info">Додати</button>

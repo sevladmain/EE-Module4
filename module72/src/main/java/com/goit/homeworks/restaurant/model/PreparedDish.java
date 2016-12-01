@@ -13,35 +13,38 @@ public class PreparedDish {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @ManyToOne(fetch = FetchType.EAGER)
     @Column(name = "ID_DISH")
-    private int dishId;
+    private Dish dish;
 
+    @ManyToOne(fetch = FetchType.EAGER)
     @Column(name = "ID_EMPLOYEE")
-    private int employeeId;
+    private Employee employee;
 
+    @ManyToOne(fetch = FetchType.EAGER)
     @Column(name = "ID_ORDER")
-    private int orderId;
+    private Order order;
 
     @Column(name = "IS_PREPARED")
     private boolean prepared;
 
     public PreparedDish() {
-        this(0, 0, 0, false);
+        this(new Dish(), new Employee(), new Order(), false);
     }
 
-    public PreparedDish(int dishId, int employeeId, int orderId, boolean prepared) {
-        this.dishId = dishId;
-        this.employeeId = employeeId;
-        this.orderId = orderId;
+    public PreparedDish(Dish dish, Employee employee, Order order, boolean prepared) {
+        this.dish = dish;
+        this.employee = employee;
+        this.order = order;
         this.prepared = prepared;
     }
 
-    public PreparedDish(int id, int dishId, int employeeId, int orderId, boolean prepared) {
+    public PreparedDish(int id, Dish dish, Employee employee, Order order, boolean prepared) {
 
         this.id = id;
-        this.dishId = dishId;
-        this.employeeId = employeeId;
-        this.orderId = orderId;
+        this.dish = dish;
+        this.employee = employee;
+        this.order = order;
         this.prepared = prepared;
     }
 
@@ -55,20 +58,20 @@ public class PreparedDish {
         this.id = id;
     }
 
-    public int getDishId() {
-        return dishId;
+    public Dish getDish() {
+        return dish;
     }
 
-    public void setDishId(int dishId) {
-        this.dishId = dishId;
+    public void setDish(Dish dish) {
+        this.dish = dish;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public boolean isPrepared() {
@@ -79,12 +82,12 @@ public class PreparedDish {
         this.prepared = prepared;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override
@@ -95,19 +98,19 @@ public class PreparedDish {
         PreparedDish that = (PreparedDish) o;
 
         if (id != that.id) return false;
-        if (dishId != that.dishId) return false;
-        if (employeeId != that.employeeId) return false;
-        if (orderId != that.orderId) return false;
-        return prepared == that.prepared;
+        if (prepared != that.prepared) return false;
+        if (dish != null ? !dish.equals(that.dish) : that.dish != null) return false;
+        if (employee != null ? !employee.equals(that.employee) : that.employee != null) return false;
+        return order != null ? order.equals(that.order) : that.order == null;
 
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + dishId;
-        result = 31 * result + employeeId;
-        result = 31 * result + orderId;
+        result = 31 * result + (dish != null ? dish.hashCode() : 0);
+        result = 31 * result + (employee != null ? employee.hashCode() : 0);
+        result = 31 * result + (order != null ? order.hashCode() : 0);
         result = 31 * result + (prepared ? 1 : 0);
         return result;
     }
@@ -116,9 +119,9 @@ public class PreparedDish {
     public String toString() {
         return "PreparedDish{" +
                 "id=" + id +
-                ", dishId=" + dishId +
-                ", employeeId=" + employeeId +
-                ", orderId=" + orderId +
+                ", dish=" + dish +
+                ", employee=" + employee +
+                ", order=" + order +
                 ", prepared=" + prepared +
                 '}';
     }

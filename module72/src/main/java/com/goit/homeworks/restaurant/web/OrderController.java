@@ -127,7 +127,7 @@ public class OrderController {
                                  @ModelAttribute("newDish") PreparedDish newDish,
                                  final RedirectAttributes redirectAttributes){
         LOGGER.debug("addDishToOrder() is executed!");
-        newDish.setOrderId(orderid);
+        newDish.setOrder(orderid);
         orderService.addPreparedDish(newDish);
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", "Страву додано");
@@ -143,7 +143,7 @@ public class OrderController {
         model.addAttribute("orderid", orderid);
         PreparedDish preparedDish = orderService.getPreparedDishById(dishid);
         model.addAttribute("preparedDish", preparedDish);
-        model.addAttribute("dish", orderService.getDishById(preparedDish.getDishId()));
+        model.addAttribute("dish", orderService.getDishById(preparedDish.getDish()));
         model.addAttribute("employees", orderService.getAllEmployee());
 
         return "app.prepared-dish";
@@ -158,7 +158,7 @@ public class OrderController {
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", "Страву оновлено");
 
-        return "redirect:/order/" + preparedDish.getOrderId() + "/details";
+        return "redirect:/order/" + preparedDish.getOrder() + "/details";
     }
 
     @RequestMapping(value = "/order/{orderid}/dish/{dishid}/prepared", method = RequestMethod.POST)

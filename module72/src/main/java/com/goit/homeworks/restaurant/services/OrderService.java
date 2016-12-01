@@ -111,7 +111,7 @@ public class OrderService {
         List<PreparedDish> preparedDishes = preparedDishDao.getAllDishFromOrder(orderId);
         for (PreparedDish dish :
                 preparedDishes) {
-            dishMap.put(dish, dishDao.findDishById(dish.getDishId()));
+            dishMap.put(dish, dishDao.findDishById(dish.getDish()));
         }
         return dishMap;
     }
@@ -147,7 +147,7 @@ public class OrderService {
     @Transactional
     public void reduceIngredientsAmountFromPreparedDish(int preparedDishId) {
         PreparedDish preparedDish = preparedDishDao.findPreparedDishById(preparedDishId);
-        Dish dish = dishDao.findDishById(preparedDish.getDishId());
+        Dish dish = dishDao.findDishById(preparedDish.getDish());
         for (IngredientList ingredient :
                 dish.getIngredients()) {
             int amount = ingredient.getAmount();
