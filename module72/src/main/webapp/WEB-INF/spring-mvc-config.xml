@@ -29,6 +29,7 @@
                 <bean id="idToEmployee" class="com.goit.homeworks.restaurant.services.IdToEmployeeConverter"/>
                 <bean id="idToDish" class="com.goit.homeworks.restaurant.services.IdToDishConverter"/>
                 <bean id="idToIngredient" class = "com.goit.homeworks.restaurant.services.IdToIngredientConverter"/>
+                <bean id="idToOrder" class="com.goit.homeworks.restaurant.services.IdToOrderConverter"/>
             </set>
         </property>
     </bean>
