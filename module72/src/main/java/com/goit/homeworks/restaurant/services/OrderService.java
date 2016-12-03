@@ -17,14 +17,9 @@ public class OrderService {
     PreparedDishDao preparedDishDao;
     DishDao dishDao;
     IngredientDao ingredientDao;
-    IngredientListDao ingredientListDao;
 
     public void setIngredientDao(IngredientDao ingredientDao) {
         this.ingredientDao = ingredientDao;
-    }
-
-    public void setIngredientListDao(IngredientListDao ingredientListDao) {
-        this.ingredientListDao = ingredientListDao;
     }
 
     public void setOrderDao(OrderDao orderDao) {
@@ -147,7 +142,7 @@ public class OrderService {
     @Transactional
     public void reduceIngredientsAmountFromPreparedDish(int preparedDishId) {
         PreparedDish preparedDish = preparedDishDao.findPreparedDishById(preparedDishId);
-        Dish dish = dishDao.findDishById(preparedDish.getDish());
+        Dish dish = preparedDish.getDish();
         for (IngredientList ingredient :
                 dish.getIngredients()) {
             int amount = ingredient.getAmount();

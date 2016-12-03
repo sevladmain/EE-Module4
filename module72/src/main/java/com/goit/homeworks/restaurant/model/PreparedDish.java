@@ -14,15 +14,15 @@ public class PreparedDish {
     private int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name = "ID_DISH")
+    @JoinColumn(name = "ID_DISH")
     private Dish dish;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name = "ID_EMPLOYEE")
+    @JoinColumn(name = "ID_EMPLOYEE")
     private Employee employee;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name = "ID_ORDER")
+    @JoinColumn(name = "ID_ORDER")
     private Order order;
 
     @Column(name = "IS_PREPARED")

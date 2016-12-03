@@ -127,7 +127,8 @@ public class OrderController {
                                  @ModelAttribute("newDish") PreparedDish newDish,
                                  final RedirectAttributes redirectAttributes){
         LOGGER.debug("addDishToOrder() is executed!");
-        newDish.setOrder(orderid);
+        Order order = orderService.getOrderById(orderid);
+        newDish.setOrder(order);
         orderService.addPreparedDish(newDish);
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("msg", "Страву додано");
@@ -143,7 +144,7 @@ public class OrderController {
         model.addAttribute("orderid", orderid);
         PreparedDish preparedDish = orderService.getPreparedDishById(dishid);
         model.addAttribute("preparedDish", preparedDish);
-        model.addAttribute("dish", orderService.getDishById(preparedDish.getDish()));
+        model.addAttribute("dish", preparedDish.getDish());
         model.addAttribute("employees", orderService.getAllEmployee());
 
         return "app.prepared-dish";
