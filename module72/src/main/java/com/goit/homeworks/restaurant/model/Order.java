@@ -29,8 +29,8 @@ public class Order {
     @Column(name = "ISOPEN")
     private boolean open;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @Column(name = "id_order")
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_order")
     List<PreparedDish> preparedDishes = new ArrayList<>();
 
     public Order() {

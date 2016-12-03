@@ -21,7 +21,7 @@ public class PreparedDish {
     @JoinColumn(name = "ID_EMPLOYEE")
     private Employee employee;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ORDER")
     private Order order;
 

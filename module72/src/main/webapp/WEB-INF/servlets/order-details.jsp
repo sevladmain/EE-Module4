@@ -26,10 +26,10 @@
         <tbody>
         <c:forEach items="${dishes}" var="dish">
             <tr>
-                <td>${dish.value.name}</td>
+                <td>${dish.dish.name}</td>
                 <td>
                     <c:choose>
-                        <c:when test="${dish.key.prepared}">
+                        <c:when test="${dish.prepared}">
                             Готова
                         </c:when>
                         <c:otherwise>
@@ -38,16 +38,16 @@
                     </c:choose>
                 </td>
                 <td>
-                    <spring:url value="/order/${order.id}/dish/${dish.key.id}/update" var="updUrl"/>
-                    <spring:url value="/order/${order.id}/dish/${dish.key.id}/delete" var="deleteUrl"/>
-                    <spring:url value="/order/${order.id}/dish/${dish.key.id}/prepared" var="preparedUrl"/>
+                    <spring:url value="/order/${order.id}/dish/${dish.id}/update" var="updUrl"/>
+                    <spring:url value="/order/${order.id}/dish/${dish.id}/delete" var="deleteUrl"/>
+                    <spring:url value="/order/${order.id}/dish/${dish.id}/prepared" var="preparedUrl"/>
 
                     <button class="btn btn-info" onclick="location.href='${updUrl}'">Деталі</button>
                     <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">Видалити</button>
 
                     <button class="btn btn-warning"
                             <c:choose>
-                                <c:when test="${dish.key.prepared}">
+                                <c:when test="${dish.prepared}">
                                     disabled
                                 </c:when>
                                 <c:otherwise>
