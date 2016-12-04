@@ -12,8 +12,8 @@
             <strong>${msg}</strong>
         </div>
     </c:if>
-    <div class="panel-heading">Страви, що входять в замовлення №${order.id} від ${order.date}
-        (столик ${order.tableNum})
+    <div class="panel-heading">Страви, що входять в замовлення №${orderId.id} від ${orderId.date}
+        (столик ${orderId.tableNum})
     </div>
     <table class="table">
         <thead>
@@ -38,9 +38,9 @@
                     </c:choose>
                 </td>
                 <td>
-                    <spring:url value="/order/${order.id}/dish/${dish.key.id}/update" var="updUrl"/>
-                    <spring:url value="/order/${order.id}/dish/${dish.key.id}/delete" var="deleteUrl"/>
-                    <spring:url value="/order/${order.id}/dish/${dish.key.id}/prepared" var="preparedUrl"/>
+                    <spring:url value="/orderId/${orderId.id}/dish/${dish.key.id}/update" var="updUrl"/>
+                    <spring:url value="/orderId/${orderId.id}/dish/${dish.key.id}/delete" var="deleteUrl"/>
+                    <spring:url value="/orderId/${orderId.id}/dish/${dish.key.id}/prepared" var="preparedUrl"/>
 
                     <button class="btn btn-info" onclick="location.href='${updUrl}'">Деталі</button>
                     <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">Видалити</button>
@@ -62,7 +62,7 @@
         </c:forEach>
         </tbody>
     </table>
-    <spring:url value="/order/${order.id}/dish/add" var="userActionUrl"/>
+    <spring:url value="/orderId/${orderId.id}/dish/add" var="userActionUrl"/>
 
     <form:form modelAttribute="newDish" class="form-horizontal" action="${userActionUrl}"
                method="post">
@@ -81,7 +81,7 @@
         </spring:bind>
         <form:hidden path="employee"/>
         <form:hidden path="prepared"/>
-        <form:hidden path="order"/>
+        <form:hidden path="orderId"/>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-2">
                 <button class="btn btn-info">Додати</button>

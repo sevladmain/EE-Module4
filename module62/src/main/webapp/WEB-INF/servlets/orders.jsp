@@ -32,16 +32,16 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${orders}" var="order">
+        <c:forEach items="${orders}" var="orderId">
             <tr>
-                <td>${order.key.id}</td>
-                <td>${order.value.firstName} ${order.value.lastName}</td>
-                <td>${order.key.tableNum}</td>
-                <td>${order.key.date}</td>
+                <td>${orderId.key.id}</td>
+                <td>${orderId.value.firstName} ${orderId.value.lastName}</td>
+                <td>${orderId.key.tableNum}</td>
+                <td>${orderId.key.date}</td>
                 <td>
-                    <spring:url value="/order/${order.key.id}/delete" var="deleteUrl"/>
-                    <spring:url value="/order/${order.key.id}/update" var="updateUrl"/>
-                    <spring:url value="/order/${order.key.id}/details" var="detailsUrl"/>
+                    <spring:url value="/orderId/${orderId.key.id}/delete" var="deleteUrl"/>
+                    <spring:url value="/orderId/${orderId.key.id}/update" var="updateUrl"/>
+                    <spring:url value="/orderId/${orderId.key.id}/details" var="detailsUrl"/>
                     <c:if test="${isClosed == 'OPEN'}">
                         <button class="btn btn-primary" onclick="location.href='${updateUrl}'">Редагувати</button>
                         <button class="btn btn-info" onclick="location.href='${detailsUrl}'">Детальна інформація

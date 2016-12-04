@@ -67,6 +67,9 @@
     <form:form modelAttribute="newDish" class="form-horizontal" action="${userActionUrl}"
                method="post">
         <form:hidden path="id"/>
+        <spring:bind path="employee">
+            <form:input path="employee" name="employee" type = "hidden" value="0" />
+        </spring:bind>
         <spring:bind path="dish">
             <div class="form-group">
                 <label class="col-sm-3 control-label">Нова страва:</label>

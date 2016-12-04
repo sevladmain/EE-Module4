@@ -12,6 +12,8 @@
                modelAttribute="preparedDish" action="${userActionUrl}">
 
         <form:hidden path="id"/>
+        <form:hidden path="dish" value="${preparedDish.dish.id}"/>
+        <form:hidden path="orderId" value="${orderid}"/>
         <div class="form-group">
             <label class="col-sm-3 control-label">Страва:</label>
             <label class="col-sm-9 control-label">${dish.name}</label>

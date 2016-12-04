@@ -39,11 +39,11 @@
     <definition name="app.orders" extends="app.default">
         <put-attribute name="content" value="/WEB-INF/servlets/orders.jsp"/>
     </definition>
-    <definition name="app.add-update-order" extends="app.default">
-        <put-attribute name="content" value="/WEB-INF/servlets/add-update-order.jsp"/>
+    <definition name="app.add-update-orderId" extends="app.default">
+        <put-attribute name="content" value="/WEB-INF/servlets/add-update-orderId.jsp"/>
     </definition>
-    <definition name="app.order-details" extends="app.default">
-        <put-attribute name="content" value="/WEB-INF/servlets/order-details.jsp"/>
+    <definition name="app.orderId-details" extends="app.default">
+        <put-attribute name="content" value="/WEB-INF/servlets/orderId-details.jsp"/>
     </definition>
     <definition name="app.prepared-dish" extends="app.default">
         <put-attribute name="content" value="/WEB-INF/servlets/prepared-dishes.jsp"/>

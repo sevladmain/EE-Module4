@@ -18,7 +18,11 @@ public class IdToEmployeeConverter implements Converter<Object, Employee> {
 
     @Override
     public Employee convert(Object source) {
-        Integer id = Integer.parseInt((String)source);
-        return employeeDao.findEmployeeById(id);
+        Integer id = Integer.parseInt((String) source);
+        if (id == 0) {
+            return employeeDao.getAll().get(0);
+        } else {
+            return employeeDao.findEmployeeById(id);
+        }
     }
 }

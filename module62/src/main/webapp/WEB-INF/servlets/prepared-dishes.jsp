@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<spring:url value="/order/prepareddish/update" var="userActionUrl"/>
+<spring:url value="/orderId/prepareddish/update" var="userActionUrl"/>
 <div class="container">
-    <h1>Оновити деталі страви (замовлення №${preparedDish.order})</h1>
+    <h1>Оновити деталі страви (замовлення №${preparedDish.orderId})</h1>
     <br/>
 
     <form:form class="form-horizontal" method="post"
@@ -13,7 +13,7 @@
 
         <form:hidden path="id"/>
         <form:hidden path="dish"/>
-        <form:hidden path="order"/>
+        <form:hidden path="orderId"/>
         <div class="form-group">
             <label class="col-sm-3 control-label">Страва:</label>
             <label class="col-sm-9 control-label">${dish.name}</label>

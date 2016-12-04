@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<spring:url value="/order/added" var="userActionUrl"/>
+<spring:url value="/orderId/added" var="userActionUrl"/>
 <div class="container">
     <c:choose>
         <c:when test="${orderForm['new']}">

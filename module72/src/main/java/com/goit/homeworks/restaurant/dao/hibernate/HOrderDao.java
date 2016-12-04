@@ -48,7 +48,7 @@ public class HOrderDao implements OrderDao {
     @Override
     @Transactional
     public List<Order> getAllOpenOrders() {
-        return sessionFactory.getCurrentSession().createQuery("select o from Order o where o.open=true").list();
+        return sessionFactory.getCurrentSession                                                    ().createQuery("select o from Order o where o.open=true").list();
     }
 
     @Override

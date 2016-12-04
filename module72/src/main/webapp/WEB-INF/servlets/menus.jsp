@@ -20,13 +20,13 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${menus}" var="order">
+        <c:forEach items="${menus}" var="orderId">
             <tr>
-                <td>${order.name}</td>
+                <td>${orderId.name}</td>
                 <td>
-                    <spring:url value="/menu/${order.id}/delete" var="deleteUrl" />
-                    <spring:url value="/menu/${order.id}/update" var="updateUrl" />
-                    <spring:url value="/menu/${order.id}/details" var="detailsUrl" />
+                    <spring:url value="/menu/${orderId.id}/delete" var="deleteUrl" />
+                    <spring:url value="/menu/${orderId.id}/update" var="updateUrl" />
+                    <spring:url value="/menu/${orderId.id}/details" var="detailsUrl" />
                     <button class="btn btn-primary" onclick="location.href='${updateUrl}'">Редагувати назву</button>
                     <button class="btn btn-info" onclick="location.href='${detailsUrl}'">Детальна інформація</button>
                     <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">Видалити</button></td>
