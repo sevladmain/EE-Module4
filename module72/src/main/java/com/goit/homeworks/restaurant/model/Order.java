@@ -29,7 +29,7 @@ public class Order {
     @Column(name = "ISOPEN")
     private boolean open;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_order")
     List<PreparedDish> preparedDishes = new ArrayList<>();
 

@@ -19,7 +19,7 @@ public class Menu {
     @Column(name = "NAME")
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "menulist", joinColumns = @JoinColumn(name = "id_menu"),
             inverseJoinColumns = @JoinColumn(name = "id_dish"))
     List<Dish> dishes = new ArrayList<>();
