@@ -8,6 +8,7 @@ import java.sql.Date;
  */
 @Entity
 @Table(name = "EMPLOYEE")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Employee {
     @Id
     @Column(name = "ID")
