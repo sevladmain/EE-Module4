@@ -1,5 +1,6 @@
 package com.goit.homeworks.restaurant.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
@@ -9,10 +10,10 @@ import java.io.Serializable;
  */
 @Embeddable
 class IngredientKey implements Serializable {
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Dish dish;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Ingredient ingredient;
 
     public Dish getDish() {

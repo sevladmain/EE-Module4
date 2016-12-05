@@ -18,7 +18,7 @@ public class Dish {
     @Column(name = "NAME")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "ID_CATEGORY")
     private Category category;
 

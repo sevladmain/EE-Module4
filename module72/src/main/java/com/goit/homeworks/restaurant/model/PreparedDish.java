@@ -17,7 +17,7 @@ public class PreparedDish {
     @JoinColumn(name = "ID_DISH")
     private Dish dish;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "ID_EMPLOYEE")
     private Employee employee;
 
