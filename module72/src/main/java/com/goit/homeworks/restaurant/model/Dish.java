@@ -99,6 +99,16 @@ public class Dish {
         this.ingredients = ingredients;
     }
 
+    public boolean isEnoughtIngredient(){
+        for (IngredientList i :
+                ingredients) {
+            if (i.getAmount() > i.getIngredient().getAmount()){
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

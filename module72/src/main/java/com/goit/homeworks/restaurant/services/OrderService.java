@@ -117,6 +117,13 @@ public class OrderService {
     }
 
     @Transactional
+    public List<Dish> getAllDishesToPrepare(){
+        List<Dish> all = dishDao.getAll();
+        all.removeIf(dish -> !dish.isEnoughtIngredient());
+        return all;
+    }
+
+    @Transactional
     public PreparedDish getPreparedDishById(int id) {
         return preparedDishDao.findPreparedDishById(id);
     }
