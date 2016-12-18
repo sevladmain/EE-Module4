@@ -1,5 +1,7 @@
 package com.goit.homeworks.restaurant.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class Menu {
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "menulist", joinColumns = @JoinColumn(name = "id_menu"),
             inverseJoinColumns = @JoinColumn(name = "id_dish"))
+    @JsonIgnore
     List<Dish> dishes = new ArrayList<>();
 
     public Menu() {
