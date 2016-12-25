@@ -1,30 +1,34 @@
 package com.goit.homeworks.restaurant.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by SeVlad on 22.10.2016.
  */
 @Entity
 @Table(name = "MENU")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Menu {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(View.Details.class)
     private int id;
 
     @Column(name = "NAME")
+    @JsonView(View.Details.class)
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "menulist", joinColumns = @JoinColumn(name = "id_menu"),
             inverseJoinColumns = @JoinColumn(name = "id_dish"))
-    @JsonIgnore
+    @JsonView(View.Details.class)
     List<Dish> dishes = new ArrayList<>();
 
     public Menu() {
@@ -44,6 +48,7 @@ public class Menu {
         this.name = name;
     }
 
+    @JsonIgnore
     public boolean isNew() {
         return id == 0;
     }

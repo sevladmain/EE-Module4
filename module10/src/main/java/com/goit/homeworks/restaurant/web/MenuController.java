@@ -1,7 +1,9 @@
 package com.goit.homeworks.restaurant.web;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.goit.homeworks.restaurant.model.Dish;
 import com.goit.homeworks.restaurant.model.Menu;
+import com.goit.homeworks.restaurant.model.View;
 import com.goit.homeworks.restaurant.services.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by SeVlad on 12.11.2016.
@@ -138,10 +141,23 @@ public class MenuController {
         return "redirect:/menu/" + menuid + "/details";
     }
 
-    @RequestMapping(value="/rest/menu", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/menu/all", method = RequestMethod.GET)
     @ResponseBody
-    public List<Menu> getAllMenu(Model model){
-        return menuService.getAllMenus();
+    public List<String> getAllMenu(Model model) {
+        List<String> menuNames = menuService
+                .getAllMenus()
+                .stream()
+                .map(menu -> menu.getName())
+                .collect(Collectors.toList());
+        return menuNames;
     }
+
+    @RequestMapping(value = "/rest/menu/{menuid}", method = RequestMethod.GET)
+    @ResponseBody
+    @JsonView(View.Details.class)
+    public Menu getMenuById(@PathVariable("menuid") int menuid, Model model){
+        return menuService.getMenuById(menuid);
+    }
+
 
 }

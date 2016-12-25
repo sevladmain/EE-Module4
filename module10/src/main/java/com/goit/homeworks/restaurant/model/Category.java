@@ -1,5 +1,8 @@
 package com.goit.homeworks.restaurant.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 
 /**
@@ -11,9 +14,11 @@ public class Category {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(View.All.class)
     private int id;
 
     @Column(name = "NAME")
+    @JsonView(View.Details.class)
     private String name;
 
     public Category() {
@@ -33,6 +38,7 @@ public class Category {
         this.name = name;
     }
 
+    @JsonIgnore
     public boolean isNew(){ return id == 0; }
 
     public int getId() {

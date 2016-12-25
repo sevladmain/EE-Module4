@@ -1,34 +1,42 @@
 package com.goit.homeworks.restaurant.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by SeVlad on 22.10.2016.
- */
 @Entity
 @Table(name = "DISHES")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Dish {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(View.All.class)
     private int id;
 
     @Column(name = "NAME")
+    @JsonView(View.Details.class)
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "ID_CATEGORY")
+    @JsonView(View.Details.class)
     private Category category;
 
     @Column(name = "PRICE")
+    @JsonView(View.Details.class)
     private int price;
 
     @Column(name = "WEIGHT")
+    @JsonView(View.Details.class)
     private int weight;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.dish", cascade = CascadeType.ALL)
+    @JsonView(View.All.class)
     private List<IngredientList> ingredients = new ArrayList<>();
 
     public Dish() {
@@ -53,6 +61,7 @@ public class Dish {
         this.price = price;
         this.weight = weight;
     }
+    @JsonIgnore
     public boolean isNew(){ return id == 0; }
 
     public int getId() {
@@ -99,6 +108,7 @@ public class Dish {
         this.ingredients = ingredients;
     }
 
+    @JsonIgnore
     public boolean isEnoughtIngredient(){
         for (IngredientList i :
                 ingredients) {

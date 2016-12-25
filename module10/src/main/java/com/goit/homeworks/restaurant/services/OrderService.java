@@ -155,4 +155,8 @@ public class OrderService {
         }
         dishDao.update(dish);
     }
+
+    public List<Order> getAllOrders() {
+        return orderDao.getAll();
+    }
 }
